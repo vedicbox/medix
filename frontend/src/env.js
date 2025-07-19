@@ -3,5 +3,5 @@ export const env_props = {
   BASE_THEME: "indigo",
   APP_EMAIL: "vedicmedix.io@gmail.com",
   APP_LINK: "vedicmedix.io.com",
-  BACKEND_ENDPOINT:"http://localhost:3000"
+  BACKEND_ENDPOINT:"http://localhost:4000"
 };
