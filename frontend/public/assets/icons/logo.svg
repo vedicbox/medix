@@ -1,0 +1,22 @@
+<svg width="300" height="100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0077b6" />
+      <stop offset="100%" stop-color="#00b4d8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Logo Icon - Simple medical cross with leaf -->
+  <g transform="translate(10, 20)">
+    <rect x="0" y="10" width="12" height="30" fill="url(#blueGradient)" rx="2"/>
+    <rect x="-9" y="20" width="30" height="12" fill="url(#blueGradient)" rx="2"/>
+    <!-- Leaf symbol -->
+    <path d="M25 5 Q35 15, 25 25 Q20 20, 25 5" fill="#0077b6"/>
+  </g>
+
+  <!-- Brand Text -->
+  <text x="70" y="55" font-family="Segoe UI, sans-serif" font-size="28" fill="#003366" font-weight="600">
+    Vedic
+    <tspan fill="#00b4d8">Medix</tspan>
+  </text>
+</svg>
