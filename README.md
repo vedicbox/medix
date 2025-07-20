@@ -58,7 +58,7 @@ sudo certbot certonly --standalone -d vedicmedix.in -d www.vedicmedix.in
 
 # 5. Clean MongoDB (optional, wipes all data!)
 docker-compose -f docker-compose.prod.yml down
-docker volume rm medix_mongodb_prod
+docker volume rm mongodb_prod
 docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
