@@ -61,8 +61,8 @@ docker-compose -f docker-compose.prod.yml up --build -d
 # Install certbot
 sudo apt install certbot
 
-# Get SSL certificate
-sudo certbot certonly --standalone -d yourdomain.com -d www.yourdomain.com
+# Get SSL certificate 
+sudo certbot certonly --standalone -d vedicmedix.in -d www.vedicmedix.in
 
 # Update nginx config and restart
 docker-compose -f docker-compose.prod.yml restart nginx
@@ -184,5 +184,4 @@ docker-compose logs mongo
 sudo lsof -i :3000
 sudo kill -9 <PID>
 ```
-
  
