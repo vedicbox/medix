@@ -5,6 +5,7 @@ React + Node.js + MongoDB application with Docker support.
 ## 🚀 Quick Start
 
 ### Local Development (Hot Reloading)
+
 ```bash
 # 1. Clone & setup
 git clone <your-repo-url>
@@ -28,6 +29,7 @@ docker-compose -f docker-compose.dev.yml up --build
 ```
 
 ### Production Deployment (VPS)
+
 ```bash
 # 1. Install Docker & Docker Compose (Ubuntu)
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -46,6 +48,7 @@ nano frontend/.env  # Update REACT_APP_BACKEND_ENDPOINT=https://yourdomain.com/a
 nano backend/.env   # Update CORS_ORIGIN=https://yourdomain.com
 
 # 3. Start production
+docker-compose -f docker-compose.prod.yml down
 docker-compose -f docker-compose.prod.yml up --build -d
 
 # 4. Setup SSL (optional)
@@ -60,6 +63,7 @@ docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
 ## 📁 Project Structure
+
 ```
 medix/
 ├── backend/          # Node.js API
@@ -77,11 +81,13 @@ medix/
 To debug or monitor your production containers, use these commands:
 
 ### Nginx Logs
+
 ```bash
 docker-compose -f docker-compose.prod.yml logs nginx
 ```
 
 ### Backend Logs
+
 ```bash
 docker-compose -f docker-compose.prod.yml logs backend
 ```
@@ -92,4 +98,3 @@ docker-compose -f docker-compose.prod.yml logs backend
   docker-compose -f docker-compose.prod.yml logs -f nginx
   docker-compose -f docker-compose.prod.yml logs -f backend
   ```
- 
