@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import Iconify from "components/icons/Iconify";
 import * as React from "react";
+import { ICON_NAME } from "values/img-links";
 
 // STYLED COMPONENTS
 const NavExpandRoot = styled("div")(({ theme }) => ({
@@ -71,7 +72,7 @@ export default function VerticalExpansionPanel({ navObj, children }) {
         )}
 
         <div className={collapsed ? "collapseIcon" : "expandIcon"}>
-          <Iconify icon="icon-park-outline:right" />
+          <Iconify icon={ICON_NAME.RIGHT} />
         </div>
       </BaseButton>
       <Collapse

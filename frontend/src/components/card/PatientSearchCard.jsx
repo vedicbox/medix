@@ -4,7 +4,7 @@ import Iconify from "components/icons/Iconify";
 import { NavLink } from "react-router-dom";
 import { PARAMS_ROUTE, PATIENT_ROUTE } from "routes/routeurl";
 import { GENDER_PARSER } from "values/enum";
-import { AVATAR_IMG } from "values/img-links";
+import { AVATAR_IMG, ICON_NAME } from "values/img-links";
 
 export default function PatientSearchCard({ itemObj }) {
 
@@ -28,13 +28,13 @@ export default function PatientSearchCard({ itemObj }) {
           className="mt-2"
         >
           <span className="d-flex align-items-center">
-            <Iconify icon="streamline-ultimate-color:gender-hetero" />
+            <Iconify icon={ICON_NAME.GENDER} />
             <Typography className="ml-2 f-w-600" variant="body2">
               {GENDER_PARSER[itemObj.gender]?.value}</Typography>
           </span>
 
           <span className="d-flex align-items-center">
-            <Iconify icon="fluent-color:agents-48" />
+            <Iconify icon={ICON_NAME.AGE} />
             <Typography className="ml-2 f-w-600" variant="body2">{itemObj.age}</Typography>
           </span>
         </Stack>
@@ -54,7 +54,7 @@ export default function PatientSearchCard({ itemObj }) {
             },
           }}
         >
-          <Iconify icon="quill:link-out" />
+          <Iconify icon={ICON_NAME.LINK_OUT} />
         </IconButton>
       </Grid>
     </Grid>

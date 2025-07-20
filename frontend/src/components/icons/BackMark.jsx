@@ -1,6 +1,7 @@
 import { Fab, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Iconify from "./Iconify";
+import { ICON_NAME } from "values/img-links";
 
 export default function BackMark(props) {
   const { navigateVal = -1 } = props;
@@ -24,7 +25,7 @@ export default function BackMark(props) {
           color="primary"
           size="small"
         >
-          <Iconify icon="icon-park-twotone:back" />
+          <Iconify icon={ICON_NAME.BACK} />
         </Fab>
       </Tooltip>
     </>

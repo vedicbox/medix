@@ -9,6 +9,7 @@ import Iconify from "components/icons/Iconify";
 import ScrollBarLayout from "components/layout/ScrollBarLayout";
 import DisplayContent from "components/placeholder/DisplayContent";
 import * as React from "react";
+import { ICON_NAME } from "values/img-links";
 
 const BootstrapDialog = styled(Dialog)(({ theme, ownerState }) => ({
   "& .MuiDialogContent-root": {
@@ -58,7 +59,7 @@ export default function ClassicDialog(props) {
             color: (theme) => theme.palette.grey[500],
           }}
         >
-          <Iconify icon="icon-park-twotone:close-one" />
+          <Iconify icon={ICON_NAME.CLOSE_ONE} />
         </IconButton>
         <DialogContent dividers>
           <ScrollBarLayout>{children} </ScrollBarLayout>

@@ -1,6 +1,6 @@
 import { Grid, Paper } from "@mui/material";
 import MuiAutoComplete from "components/mui/MuiAutoComplete";
-import MuiOutlinedField from "components/mui/MuiOutlinedField";
+import MuiTextField from "components/mui/MuiTextField";
 import DisplayContent from "components/placeholder/DisplayContent";
 import ImgReplacer from "components/placeholder/ImgReplacer";
 import { PAYMENT_OPTIONS } from "list/optionsList";
@@ -40,16 +40,17 @@ export default function ConsultFeeForm(props) {
         </Grid>
         <Grid size={{ xl: 8, xs: 12 }}>
           <div className="mt-2">
-            <MuiOutlinedField
+            <MuiTextField
+              error={errors.fee}
               label="Consultation Fee"
               textProps={{
                 name: "fee",
                 placeholder: "XXXXX",
                 onChange,
                 onBlur,
-                slotProps: { htmlInput: { maxLength: 5 } },
+                slotProps: { htmlInput: { maxLength: 3 } }
               }}
-              error={errors.fee}
+
             />
           </div>
           <div className="mt-3">
@@ -73,7 +74,7 @@ export default function ConsultFeeForm(props) {
         valid1={processObj["payMode"] && processObj["payMode"]?.tag !== "cash"}
       >
         <div className="mt-3">
-          <MuiOutlinedField
+          <MuiTextField
             label="Transaction Id"
             error={errors.transId}
             textProps={{

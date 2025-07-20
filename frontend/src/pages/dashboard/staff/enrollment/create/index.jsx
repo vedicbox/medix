@@ -13,6 +13,7 @@ import { STAFF_FORM_RULES } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
 import { validateWhatsapp } from "utils/security/validation";
 import { HTTP_STATUS_CODES } from "values/enum";
+import { ICON_NAME } from "values/img-links";
 
 export default function AddStaff() {
   const formRef = useRef(null);
@@ -82,7 +83,7 @@ export default function AddStaff() {
               border: "1px solid #ccc",
             }}
           >
-            <Iconify icon="icon-park:doc-add" />
+            <Iconify icon={ICON_NAME.DOC_ADD} />
             <Typography className="f-w-600 text-muted ml-2 f-italic">
               Staff Enroll Form
             </Typography>

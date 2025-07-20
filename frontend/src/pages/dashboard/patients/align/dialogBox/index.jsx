@@ -10,6 +10,7 @@ import { useChangeAlignPtStatusMutation } from "service/patientService";
 import { HTTP_STATUS_CODES, PATENT_JOURNEY } from "values/enum";
 import MovePage from "./MovePage";
 import SearchPage from "./SearchPage";
+import { ICON_NAME } from "values/img-links";
 
 // Memoized dialog container
 const WrapContainer = React.memo(function WrapContainer({
@@ -56,7 +57,7 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
   const searchAction = (
     <Button
       variant="contained"
-      startIcon={<Iconify icon="system-uicons:create" />}
+      startIcon={<Iconify icon={ICON_NAME.CREATE} />}
       onClick={handleNewPatient}
     >
       Add New
@@ -66,7 +67,7 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
   const moveAction = (
     <Button
       variant="contained"
-      startIcon={<Iconify icon="system-uicons:create" />}
+      startIcon={<Iconify icon={ICON_NAME.CREATE} />}
       onClick={handlePtStatus}
     >
       Submit

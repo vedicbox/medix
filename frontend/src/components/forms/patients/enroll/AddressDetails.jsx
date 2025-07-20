@@ -4,6 +4,7 @@ import CountryAutoField from "components/autocomplete/CountryAutoField";
 import StateAutoField from "components/autocomplete/StateAutoField";
 import Iconify from "components/icons/Iconify";
 import MuiTextField from "components/mui/MuiTextField";
+import { ICON_NAME } from "values/img-links";
 
 export default function PatientAddressForm(props) {
   const { errors, processObj, handleProcessObj, onChange, onBlur } = props;
@@ -25,7 +26,7 @@ export default function PatientAddressForm(props) {
           border: "1px solid #ccc",
         }}
       >
-        <Iconify icon="flat-color-icons:address-book" />
+        <Iconify icon={ICON_NAME.ADDRESS_BOOK} />
         <Typography className="f-w-600 text-muted ml-2 f-italic">
           Address Information
         </Typography>

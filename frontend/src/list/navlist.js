@@ -1,5 +1,6 @@
 import { DASHBOARD_ROUTE } from "routes/routeurl";
 import { ID_MAPPING } from "service/config/permissionlist";
+import { ICON_NAME } from "values/img-links";
 
 export const dashboard_navigation = () => {
   return [
@@ -7,7 +8,7 @@ export const dashboard_navigation = () => {
       name: "Dashboard",
       index: true,
       path: DASHBOARD_ROUTE.INDEX,
-      icon: "mdi-light:view-dashboard",
+      icon: ICON_NAME.DASHBOARD,
       uuid: ID_MAPPING.dashboard.uuid,
     },
     {

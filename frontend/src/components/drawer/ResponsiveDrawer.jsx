@@ -1,7 +1,7 @@
 import { Divider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import { env_props } from "env";
+import { env } from "env";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNavDrawer_slice } from "store/root-reducer/global";
@@ -31,7 +31,7 @@ function ResponsiveDrawer(props) {
       <div className=" mt-auto">
         <Divider />
         <p className="py-1 f-s-13 text-center">
-          © Copyrights {env_props.APP_NAME} 2025.
+          © Copyrights {env.APP_NAME} 2025.
         </p>
       </div>
     </>

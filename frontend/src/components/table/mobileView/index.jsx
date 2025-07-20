@@ -1,6 +1,7 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import Iconify from "components/icons/Iconify";
 import ImgReplacer from "components/placeholder/ImgReplacer";
+import { ICON_NAME } from "values/img-links";
 
 export default function ClassicMobileView(props) {
   const { headers, rows, actionContainer, placeholder } = props;
@@ -52,7 +53,7 @@ export default function ClassicMobileView(props) {
                   >
                     <div className="d-flex align-items-center ">
                       <span className="mr-2">
-                        <Iconify icon="pepicons-print:angle-right" />
+                        <Iconify icon={ICON_NAME.ANGLE_RIGHT} />
                       </span>
                       <Typography noWrap className="f-s-15 f-w-600">
                         {headCell.label} :-

@@ -26,7 +26,7 @@ export const ALERT_MSG = {
 
 // Helper Text Messages
 export const HELPER_TXT_MSG = {
-  defaultText: "Lorem Ipsum has been the industry's standard dummy text ever.",
+  defaultText: "",
   roleName: "Role Name must be unique and in Capital Letters"
 };
 

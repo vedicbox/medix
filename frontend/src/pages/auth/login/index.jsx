@@ -68,9 +68,9 @@ export default function LoginPage() {
     <AuthWrapper>
       <Grid
         container
-        sx={{ minHeight: "80vh" }}
         justifyContent="center"
         alignItems="center"
+
       >
         <Grid size={{ xs: 12, sm: 8 }}>
           <div className="d-flex justify-content-between align-items-center">

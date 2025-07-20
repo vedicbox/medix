@@ -1,6 +1,6 @@
-import { env_props } from "env";
+import { env } from "env";
 
-const BASE_URL = env_props.BACKEND_ENDPOINT;
+const BASE_URL = env.BACKEND_ENDPOINT;
 
 const LOC_POINT = {
   ROLES: "roles",

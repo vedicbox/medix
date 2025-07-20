@@ -7,14 +7,22 @@ export default function AuthWrapper({ children }) {
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
       {/* Left side - Form content */}
-      <Grid size={{ xs: 12, md: 6 }} sx={{ bgcolor: "background.paper" }}>
+      <Grid
+        size={{ xs: 12, md: 6 }}
+        alignItems="center"
+        sx={{ bgcolor: "background.paper" }}
+      >
+        <div className="text-center mt-5 mb-3">
+          <BrandWrapper textProps={{ fontSize: "1.5rem" }} />
+        </div>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            height: "100%",
+
             p: 3,
+            pt: 0,
           }}
         >
           {children}
@@ -37,7 +45,6 @@ export default function AuthWrapper({ children }) {
           }}
         >
           <div className="text-center">
-            <BrandWrapper textProps={{ fontSize: 28 }} />
             <Box
               component="img"
               alt="Authentication Illustration"

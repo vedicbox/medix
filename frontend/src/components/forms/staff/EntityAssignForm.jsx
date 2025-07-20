@@ -7,6 +7,7 @@ import Iconify from "components/icons/Iconify";
 import MuiAutoComplete from "components/mui/MuiAutoComplete";
 import { useEffect } from "react";
 import { useFetchRoleNamesQuery } from "service/auth/roleService";
+import { ICON_NAME } from "values/img-links";
 
 export default function EntityAssignForm(props) {
   const { errors, handleProcessObj, role } = props;
@@ -35,7 +36,7 @@ export default function EntityAssignForm(props) {
           border: "1px solid #ccc",
         }}
       >
-        <Iconify icon="flat-color-icons:contacts" />
+        <Iconify icon={ICON_NAME.CONTACTS} />
         <Typography className="f-w-600 text-muted ml-2 f-italic">
           Assign Entity
         </Typography>

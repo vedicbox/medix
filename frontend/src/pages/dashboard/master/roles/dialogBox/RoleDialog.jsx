@@ -14,6 +14,7 @@ import { useFormValidation } from "utils/security/useFormValidation";
 import { HTTP_STATUS_CODES } from "values/enum";
 import CreateRole from "./CreateRole";
 import UpdateRole from "./UpdateRole";
+import { ICON_NAME } from "values/img-links";
 
 // Memoized Dialog Container to prevent unnecessary re-renders
 const DialogContainer = memo(({ title, actionContainer, children, onClose }) => (
@@ -79,7 +80,7 @@ export default function RoleDialogBox({ dialogObj, setDialogObj }) {
   const createBoxAction = (
     <Button
       variant="contained"
-      startIcon={<Iconify icon="system-uicons:create" />}
+      startIcon={<Iconify icon={ICON_NAME.CREATE} />}
       onClick={handleRoleCreate}
     >
       Create

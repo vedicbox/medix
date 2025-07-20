@@ -2,6 +2,7 @@ import { Divider, IconButton } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Iconify from "components/icons/Iconify";
+import { ICON_NAME } from "values/img-links";
 
 export default function ClassicListItem(props) {
   const { title } = props;
@@ -11,7 +12,7 @@ export default function ClassicListItem(props) {
         alignItems="flex-start"
         secondaryAction={
           <IconButton edge="end" aria-label="comments">
-            <Iconify icon="tabler:edit" />
+            <Iconify icon={ICON_NAME.EDIT} />
           </IconButton>
         }
       >

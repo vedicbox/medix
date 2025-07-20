@@ -2,6 +2,7 @@
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import Iconify from "components/icons/Iconify";
+import { ICON_NAME } from "values/img-links";
 
 export default function ShadeCard() {
   return (
@@ -48,7 +49,7 @@ export default function ShadeCard() {
                     mt: 1,
                   }}
                 >
-                  <Iconify icon="solar:wallet-money-linear" />
+                  <Iconify icon={ICON_NAME.MONEY_LINEAR} />
                 </Avatar>
               </Grid>
             </Grid>

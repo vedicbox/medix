@@ -6,7 +6,8 @@ import MuiSelectField from "components/mui/MuiSelectField";
 import MuiTextField from "components/mui/MuiTextField";
 import dayjs from "dayjs";
 import { GENDER_OPTIONS, MARTIAL_OPTIONS } from "list/optionsList";
-import { HELPER_TXT_MSG } from "values/messages";
+import { ICON_NAME } from "values/img-links";
+
 
 function PatientDetailsForm(props) {
   const { errors, processObj, handleProcessObj, onChange, onBlur } = props;
@@ -28,7 +29,7 @@ function PatientDetailsForm(props) {
           border: "1px solid #ccc",
         }}
       >
-        <Iconify icon="fluent-emoji:information" />
+        <Iconify icon={ICON_NAME.INFORMATION} />
         <Typography className="f-w-600 text-muted ml-2 f-italic">
           Personal Details
         </Typography>
@@ -98,7 +99,6 @@ function PatientDetailsForm(props) {
                 error={errors.feet}
                 ftVal={processObj.feet}
                 inchVal={processObj.inch}
-                helperText={HELPER_TXT_MSG.defaultText}
                 handleStateChange={handleStateChange}
               />
             </div>

@@ -4,6 +4,7 @@ import Iconify from "components/icons/Iconify";
 import MuiOutlinedField from "components/mui/MuiOutlinedField";
 import MuiTextField from "components/mui/MuiTextField";
 import { forwardRef, useState } from "react";
+import { ICON_NAME } from "values/img-links";
 
 const LoginForm = forwardRef((props, ref) => {
   // Props
@@ -69,9 +70,9 @@ const LoginForm = forwardRef((props, ref) => {
                   size="large"
                 >
                   {showPassword ? (
-                    <Iconify icon="majesticons:eye-off-line" />
+                    <Iconify icon={ICON_NAME.EYE_OFF_LINE} />
                   ) : (
-                    <Iconify icon="ion:eye-outline" />
+                    <Iconify icon={ICON_NAME.EYE_OUTLINE} />
                   )}
                 </IconButton>
               </InputAdornment>

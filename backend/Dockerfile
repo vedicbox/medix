@@ -11,8 +11,8 @@ RUN npm install
 # Copy rest of the code
 COPY . .
 
-# Expose API port (adjust if not 3000)
-EXPOSE 3000
+# Expose API port
+EXPOSE 4000
 
 # Start backend server
 CMD ["npm", "start"]

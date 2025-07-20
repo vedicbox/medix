@@ -4,6 +4,7 @@ import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import Iconify from "components/icons/Iconify";
 import { useRef } from "react";
+import { ICON_NAME } from "values/img-links";
 
 export default function SearchField(props) {
   const { handleSearch, formRef, isLoading, placeholder } = props;
@@ -19,7 +20,7 @@ export default function SearchField(props) {
   return (
     <form ref={formRef} onSubmit={handleSubmit}>
       <Paper sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}>
-        <Iconify icon="lets-icons:search-duotone" />
+        <Iconify icon={ICON_NAME.SEARCH_DUOTONE} />
         <InputBase
           sx={{ pl: 2, flex: 1 }}
           name="searchValue"

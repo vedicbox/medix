@@ -3,6 +3,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import Iconify from "components/icons/Iconify";
+import { ICON_NAME } from "values/img-links";
 
 export default function ControlledAccordions(props) {
   const { title, subtitle, children } = props;
@@ -10,7 +11,7 @@ export default function ControlledAccordions(props) {
     <div>
       <Accordion variant="outlined">
         <AccordionSummary
-          expandIcon={<Iconify icon="lets-icons:expand-down" />}
+          expandIcon={<Iconify icon={ICON_NAME.EXPAND_DOWN} />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
           className="br-bottom"

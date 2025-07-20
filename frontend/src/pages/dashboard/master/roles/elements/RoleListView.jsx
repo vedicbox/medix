@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Iconify from "components/icons/Iconify";
 import { useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
+import { ICON_NAME } from "values/img-links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -69,7 +70,7 @@ export default function RoleListView(props) {
                 </StyledTableCell>
                 <StyledTableCell padding="checkbox">
                   <IconButton onClick={() => navigateEdit(row)}>
-                    <Iconify icon="tabler:edit" />
+                    <Iconify icon={ICON_NAME.EDIT} />
                   </IconButton>
                 </StyledTableCell>
               </StyledTableRow>

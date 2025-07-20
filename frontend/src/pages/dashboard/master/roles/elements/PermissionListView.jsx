@@ -18,6 +18,7 @@ import {
 import Iconify from "components/icons/Iconify";
 import { memo, useCallback, useState } from "react";
 import { PERMISSION_LIST } from "service/config/permissionlist";
+import { ICON_NAME } from "values/img-links";
 
 // Styled Components
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -50,7 +51,7 @@ const ChildTableRow = styled(TableRow)(({ theme }) => ({
 
 // Helper Components
 const ExpandIcon = ({ open }) => (
-  <Iconify icon={open ? "pepicons-print:angle-down" : "pepicons-print:angle-right"} />
+  <Iconify icon={open ? ICON_NAME.ANGLE_DOWN : ICON_NAME.ANGLE_RIGHT} />
 );
 
 // Memoized SubRow Component
@@ -64,7 +65,7 @@ const SubRow = memo(({ row, togglePermission, hasPermission }) => {
           aria-label="expand row"
           size="small"
         >
-          <Iconify icon="pepicons-print:arrow-right" />
+          <Iconify icon={ICON_NAME.ARROW_RIGHT} />
         </IconButton>
       </StyledTableCell>
       <StyledTableCell align="left" sx={{ paddingLeft: theme.spacing(4) }}>
@@ -110,7 +111,7 @@ const Row = memo(({ row, togglePermission, permissions }) => {
             aria-label="expand row"
             size="small"
           >
-            {subModules.length > 0 ? <ExpandIcon open={open} /> : <Iconify icon="pepicons-print:arrow-right" />}
+            {subModules.length > 0 ? <ExpandIcon open={open} /> : <Iconify icon={ICON_NAME.ARROW_RIGHT} />}
           </IconButton>
 
         </StyledTableCell>
@@ -190,7 +191,7 @@ const PermissionListView = ({ roleObj, setRoleObj }) => {
             <TableRow>
               <StyledTableCell padding="checkbox">
                 <div className="mt-2">
-                  <Iconify icon="tabler:layout-navbar-collapse-filled" />
+                  <Iconify icon={ICON_NAME.COLLAPSE_FILLED} />
                 </div>
               </StyledTableCell>
               <StyledTableCell align="left">Permission</StyledTableCell>

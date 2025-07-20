@@ -6,6 +6,7 @@ import ClassicMenu from "components/menu/ClassicMenu";
 import ClassicTable from "components/table/classic";
 import ClassicMobileView from "components/table/mobileView";
 import { NavLink, useNavigate } from "react-router-dom";
+import { ICON_NAME } from "values/img-links";
 
 export default function DataViewTemplate(props) {
   const {
@@ -32,7 +33,7 @@ export default function DataViewTemplate(props) {
     actionList && (
       <ClassicMenu menulist={actionList(row)}>
         <IconButton size="small">
-          <Iconify icon="iconamoon:menu-kebab-vertical-circle-light" />
+          <Iconify icon={ICON_NAME.VERTICAL_CIRCLE_LIGHT}/>
         </IconButton>
       </ClassicMenu>
     );

@@ -1,6 +1,6 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-import { env_props } from "env";
+import BrandWrapper from "components/company/BrandWrapper";
 
 export default function AppMarkLoader() {
   return (
@@ -8,16 +8,13 @@ export default function AppMarkLoader() {
       <LinearProgress color="primary" />
       <Box
         sx={{
-          position: "absolute",
-          top: "40%",
-          left: "50%",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h3" color="primary" className="f-w-600">
-            {env_props.APP_NAME}
-          </Typography>
-        </Box>
+        <BrandWrapper />
       </Box>
     </>
   );

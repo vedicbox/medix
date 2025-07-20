@@ -7,6 +7,7 @@ import Iconify from "components/icons/Iconify";
 import HeaderProfilePopover from "components/popover/AccountPopover";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNavDrawer_slice } from "store/root-reducer/global";
+import { ICON_NAME } from "values/img-links";
 
 export default function GlobalAppbar() {
   const dispatch = useDispatch();
@@ -32,11 +33,11 @@ export default function GlobalAppbar() {
             onClick={toggleNavBar}
           >
             <Iconify
-              icon={navDrawerStat ? "mdi:hamburger-open" : "charm:menu-hamburger"}
+              icon={navDrawerStat ? ICON_NAME.HUMBURGER_OPEN : ICON_NAME.HUMBURGER_CLOSE}
             />
           </IconButton>
 
-          <BrandWrapper />
+          <BrandWrapper logoHeight={50} />
           <Box sx={{ flexGrow: 1 }} />
 
           <HeaderProfilePopover />
