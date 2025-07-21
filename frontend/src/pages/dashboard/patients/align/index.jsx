@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import { useFetchAlignPatientQuery } from "service/patientService";
-import { PLACEHOLDER_IMG } from "values/img-links";
+import { ICON_NAME, PLACEHOLDER_IMG } from "values/img-links";
 import { PLACEHOLDER_MSG } from "values/messages";
 import DialogBox from "./dialogBox";
 
@@ -35,7 +35,7 @@ export default function ManagePatient() {
   const topBar = [
     {
       label: "Consult",
-      icon: "icon-park-twotone:appointment",
+      icon: ICON_NAME.POP_UP,
       link: {
         pathname: PARAMS_ROUTE.SEARCH,
       },

@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { snackbar_slice } from "store/root-reducer/global";
 import { SEVERITY_ENUM } from "values/enum";
 import { ALERT_MSG } from "values/messages";
+import { ICON_NAME } from "values/img-links";
 
 export default function MasterRolePage() {
   const [roleObj, setRoleObj] = useState({});
@@ -62,7 +63,7 @@ export default function MasterRolePage() {
       <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.ROLES.MANAGE}>
         <Button
           variant="outlined"
-          startIcon={<Iconify icon="" />}
+          startIcon={<Iconify icon={ICON_NAME.POP_UP} />}
           component={NavLink}
           to={PARAMS_ROUTE.CREATE}
           className="elevation1"

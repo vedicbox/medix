@@ -1,12 +1,13 @@
 import { LoadingButton } from "@mui/lab";
 import Iconify from "components/icons/Iconify";
+import { ICON_NAME } from "values/img-links";
 
 export default function MuiSubmitBtn({
   onSubmit,
   isLoading,
-  text="Submit",
+  text = "Submit",
   btnProps,
-  icon = "tabler:hand-click",
+  icon = ICON_NAME.SUBMIT,
 }) {
   return (
     <>

@@ -13,26 +13,26 @@ export const dashboard_navigation = () => {
     },
     {
       name: "Patients",
-      icon: "covid:covid19-virus-patient-2",
+      icon: ICON_NAME.HEART_OUTLINE,
       uuid: ID_MAPPING.patient.uuid,
       children: [
         {
           name: "Align",
           uuid: ID_MAPPING.patient.align.uuid,
-          icon: "streamline-pixel:interface-essential-waiting-hourglass-loading",
+          icon: ICON_NAME.WAITLIST,
           path: DASHBOARD_ROUTE.PATIENT.ALIGN,
         },
       ],
     },
     {
       name: "Staff",
-      icon: "fluent:people-team-20-regular",
+      icon: ICON_NAME.TEAMS,
       uuid: ID_MAPPING.staff.uuid,
       children: [
         {
           uuid: ID_MAPPING.staff.management.uuid,
           name: "Management",
-          icon: "carbon:id-management",
+          icon: ICON_NAME.MANAGEMENT,
           path: DASHBOARD_ROUTE.STAFF.MANAGE,
         },
       ],
@@ -52,11 +52,11 @@ export const dashboard_navigation = () => {
     {
       uuid: ID_MAPPING.master.uuid,
       name: "Master",
-      icon: "hugeicons:master-card",
+      icon: ICON_NAME.MASTER,
       children: [
         {
           name: "Roles",
-          icon: "eos-icons:role-binding-outlined",
+          icon: ICON_NAME.ROLE,
           path: DASHBOARD_ROUTE.MASTER.ROLES,
         },
       ],

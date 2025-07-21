@@ -1,4 +1,4 @@
-
+import { ICON_NAME } from "values/img-links";
 
 export const DASHBOARD_CRUMB = {
     ROLES: {
@@ -12,13 +12,13 @@ export const DASHBOARD_CRUMB = {
     PATIENTS: {
         ALIGN: [
             {
-                icon: "game-icons:sands-of-time",
+                icon: ICON_NAME.WAITLIST,
                 label: "Align Patients",
             },
         ],
         ENROLL: [
             {
-                icon: "streamline-pixel:interface-essential-waiting-hourglass-loading",
+                icon: ICON_NAME.HEART_OUTLINE,
                 label: "Patients",
             },
             {

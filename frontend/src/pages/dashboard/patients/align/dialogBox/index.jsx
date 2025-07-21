@@ -57,7 +57,7 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
   const searchAction = (
     <Button
       variant="contained"
-      startIcon={<Iconify icon={ICON_NAME.CREATE} />}
+      startIcon={<Iconify icon={ICON_NAME.ADD_NEW} />}
       onClick={handleNewPatient}
     >
       Add New
@@ -67,7 +67,7 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
   const moveAction = (
     <Button
       variant="contained"
-      startIcon={<Iconify icon={ICON_NAME.CREATE} />}
+      startIcon={<Iconify icon={ICON_NAME.ADD_NEW} />}
       onClick={handlePtStatus}
     >
       Submit

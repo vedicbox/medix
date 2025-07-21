@@ -80,7 +80,7 @@ export default function RoleDialogBox({ dialogObj, setDialogObj }) {
   const createBoxAction = (
     <Button
       variant="contained"
-      startIcon={<Iconify icon={ICON_NAME.CREATE} />}
+      startIcon={<Iconify icon={ICON_NAME.ADD_NEW} />}
       onClick={handleRoleCreate}
     >
       Create
@@ -90,7 +90,7 @@ export default function RoleDialogBox({ dialogObj, setDialogObj }) {
   const updateBoxAction = (
     <Button
       variant="contained"
-      startIcon={<Iconify icon="system-uicons:create" />}
+      startIcon={<Iconify icon={ICON_NAME.UPDATE} />}
       onClick={handleRoleUpdate}
     >
       Update

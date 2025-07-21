@@ -34,7 +34,7 @@ export default function PatientSearchCard({ itemObj }) {
           </span>
 
           <span className="d-flex align-items-center">
-            <Iconify icon={ICON_NAME.AGE} />
+            <Iconify icon={ICON_NAME.AGENTS} />
             <Typography className="ml-2 f-w-600" variant="body2">{itemObj.age}</Typography>
           </span>
         </Stack>
