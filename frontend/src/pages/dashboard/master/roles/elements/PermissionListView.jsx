@@ -19,18 +19,8 @@ import Iconify from "components/icons/Iconify";
 import { memo, useCallback, useState } from "react";
 import { PERMISSION_LIST } from "service/config/permissionlist";
 import { ICON_NAME } from "values/img-links";
+import { StyledTableCell } from "components/table/tableEl";
 
-// Styled Components
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "inherit",
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-  border: "1px solid #ccc",
-}));
 
 const ParentTableRow = styled(TableRow)(({ theme }) => ({
   backgroundColor: theme.palette.grey[100],

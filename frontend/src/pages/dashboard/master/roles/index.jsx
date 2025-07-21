@@ -63,7 +63,7 @@ export default function MasterRolePage() {
       <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.ROLES.MANAGE}>
         <Button
           variant="outlined"
-          startIcon={<Iconify icon={ICON_NAME.POP_UP} />}
+          startIcon={<Iconify icon={ICON_NAME.ADD_NEW} />}
           component={NavLink}
           to={PARAMS_ROUTE.CREATE}
           className="elevation1"

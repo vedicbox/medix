@@ -1,7 +1,7 @@
-import { Fab, Tooltip } from "@mui/material";
+import { Box, Fab, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Iconify from "./Iconify";
 import { ICON_NAME } from "values/img-links";
+import Iconify from "./Iconify";
 
 export default function BackMark(props) {
   const { navigateVal = -1 } = props;
@@ -13,6 +13,7 @@ export default function BackMark(props) {
 
   return (
     <>
+      <Box sx={{ height: 65 }} />
       <Tooltip title="Back">
         <Fab
           onClick={handleBack}
@@ -25,7 +26,7 @@ export default function BackMark(props) {
           color="primary"
           size="small"
         >
-          <Iconify icon={ICON_NAME.BACK} />
+          <Iconify icon={ICON_NAME.BACK_MARK} />
         </Fab>
       </Tooltip>
     </>

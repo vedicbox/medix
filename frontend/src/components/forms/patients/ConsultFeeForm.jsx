@@ -48,7 +48,7 @@ export default function ConsultFeeForm(props) {
                 placeholder: "XXXXX",
                 onChange,
                 onBlur,
-                slotProps: { htmlInput: { maxLength: 3 } }
+                slotProps: { htmlInput: { maxLength: 5 } }
               }}
 
             />

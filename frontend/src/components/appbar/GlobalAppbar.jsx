@@ -8,8 +8,10 @@ import HeaderProfilePopover from "components/popover/AccountPopover";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNavDrawer_slice } from "store/root-reducer/global";
 import { ICON_NAME } from "values/img-links";
+import DisplayContent from "components/placeholder/DisplayContent";
 
-export default function GlobalAppbar() {
+export default function GlobalAppbar(props) {
+  const { drawerStat = true } = props;
   const dispatch = useDispatch();
   const navDrawerStat = useSelector((state) => state.global.navDrawerStat);
 
@@ -26,16 +28,22 @@ export default function GlobalAppbar() {
         className="br-bottom"
       >
         <Toolbar>
-          <IconButton
-            sx={{
-              display: { xs: "block", md: "none" },
-            }}
-            onClick={toggleNavBar}
-          >
-            <Iconify
-              icon={navDrawerStat ? ICON_NAME.HUMBURGER_OPEN : ICON_NAME.HUMBURGER_CLOSE}
-            />
-          </IconButton>
+          <DisplayContent valid1={drawerStat}>
+            <IconButton
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+              onClick={toggleNavBar}
+            >
+              <Iconify
+                icon={
+                  navDrawerStat
+                    ? ICON_NAME.HUMBURGER_OPEN
+                    : ICON_NAME.HUMBURGER_CLOSE
+                }
+              />
+            </IconButton>
+          </DisplayContent>
 
           <BrandWrapper logoHeight={50} />
           <Box sx={{ flexGrow: 1 }} />

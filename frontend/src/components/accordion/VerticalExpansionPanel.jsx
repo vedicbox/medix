@@ -72,7 +72,7 @@ export default function VerticalExpansionPanel({ navObj, children }) {
         )}
 
         <div className={collapsed ? "collapseIcon" : "expandIcon"}>
-          <Iconify icon={ICON_NAME.RIGHT} />
+          <Iconify icon={ICON_NAME.ANGLE_RIGHT} />
         </div>
       </BaseButton>
       <Collapse

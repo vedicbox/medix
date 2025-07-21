@@ -1,4 +1,5 @@
 import { PARAMS_ROUTE } from "routes/routeurl";
+import { ICON_NAME } from "values/img-links";
 
 export const profile_mnlst = (listenerBox) => {
   return [
@@ -7,12 +8,12 @@ export const profile_mnlst = (listenerBox) => {
       link: {
         pathname: PARAMS_ROUTE.INDEX,
       },
-      icon: "eva:home-fill",
+      icon: ICON_NAME.HOME,
     },
     { divider: true },
     {
       label: "Logout",
-      icon: "ri:logout-circle-r-line",
+      icon: ICON_NAME.LOGOUT,
       handler: listenerBox["logout"],
     },
   ];
@@ -22,7 +23,7 @@ export const staff_mnlst = (listenerBox) => {
   return [
     {
       label: "Edit Form",
-      icon: "cuida:edit-outline",
+      icon:ICON_NAME.EDIT,
       handler: listenerBox["edit"],
     },
   ];
@@ -32,7 +33,7 @@ export const alignPt_mnlst = (listenerBox) => {
   return [
     {
       label: "Move",
-      icon: "icon-park-twotone:move",
+      icon: ICON_NAME.MOVE,
       handler: listenerBox["move"],
     },
   ];
@@ -42,13 +43,13 @@ export const crud_mnlst = (listenerBox) => {
   return [
     {
       label: "Edit",
-      icon: "cuida:edit-outline",
+      icon: ICON_NAME.EDIT,
       handler: listenerBox["edit"],
       hide: !listenerBox["edit"],
     },
     {
       label: "Delete",
-      icon: "cuida:edit-outline",
+      icon: ICON_NAME.DELETE,
       handler: listenerBox["delete"],
       hide: !listenerBox["delete"],
     },

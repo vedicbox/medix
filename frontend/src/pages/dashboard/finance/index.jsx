@@ -6,7 +6,7 @@ export default function FinancePage() {
     <>
       <div className="p-relative">
         <Grid container>
-          <Grid item size={6}>
+          <Grid size={6}>
             <ShadeCard />
           </Grid>
         </Grid>

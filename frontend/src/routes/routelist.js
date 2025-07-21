@@ -38,7 +38,7 @@ export const routelist = [
       PARAMS_ROUTE.HOLDER +
       "/" +
       PARAMS_ROUTE.WILD_CARD,
-    element: <Middleware baseProps={{ element: PatientDashboardPage, navigateVal: -2 }} />,
+    element: <Middleware baseProps={{ element: PatientDashboardPage, navigateVal: -2, drawerStat: false }} />,
   },
   {
     path: PARAMS_ROUTE.WILD_CARD,

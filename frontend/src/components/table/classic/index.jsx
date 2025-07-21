@@ -1,37 +1,14 @@
-import { Chip, styled } from "@mui/material";
+import { Chip } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import LinearIndeterminate from "components/loader/LinearIndeterminate";
 import ImgReplacer from "components/placeholder/ImgReplacer";
-
-const StyledTableCell = styled(TableCell, {
-  shouldForwardProp: (prop) => prop !== "enableBorder",
-})(({ theme, enableBorder, width }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.primary[400],
-    color: "#fff",
-    border: enableBorder ? "1px solid #ccc" : undefined,
-    width,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
+import { StyledTableCell, StyledTableRow } from "../tableEl";
 
 function EnhancedTableHead({ headers, enableBorder }) {
   return (
@@ -122,9 +99,9 @@ export default function ClassicTable(props) {
                       key={headObj.label}
                       style={{
                         width: headObj.width || "auto",
-                        border: enableBorder ? "1px solid #ccc" : undefined,
                       }}
                       align={headObj.align}
+                      enableBorder={enableBorder}
                     >
                       {cellReturnContent(headObj, row)}
                     </StyledTableCell>

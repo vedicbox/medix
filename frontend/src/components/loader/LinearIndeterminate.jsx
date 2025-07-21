@@ -14,7 +14,6 @@ export default function LinearIndeterminate() {
       }}
     >
       <LinearProgress color="primary" />
-      <div className="overlay" />
     </Box>
   );
 }

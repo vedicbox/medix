@@ -31,29 +31,23 @@ export const ICON_NAME = {
   GENDER: "streamline-ultimate-color:gender-hetero",
   AGENTS: "fluent-color:agents-48",
   LINK_OUT: "quill:link-out",
-  POP_UP: "tabler:stack-pop",
   EDIT: "tabler:edit",
   SUBMIT: "tabler:hand-click",
-
-  EXPAND_DOWN: "lets-icons:expand-down",
-  BACK: "icon-park-twotone:back",
-
-
-  RIGHT: "icon-park-outline:right",
-  HUMBURGER_OPEN: "mdi:hamburger-open",
-  HUMBURGER_CLOSE: "charm:menu-hamburger",
-
-
-  MONEY_LINEAR: "solar:wallet-money-linear",
-  CLOSE_ONE: "icon-park-twotone:close-one",
-  CONTACTS: "flat-color-icons:contacts",
+  CONSULT: "streamline-sharp:add-pdf-solid",
   ANGLE_RIGHT: "pepicons-print:angle-right",
   ANGLE_DOWN: "pepicons-print:angle-down",
   ARROW_RIGHT: "pepicons-print:arrow-right",
-  VERTICAL_CIRCLE_LIGHT: "iconamoon:menu-kebab-vertical-circle-light",
+  BACK_MARK: "icon-park-twotone:back",
+  VERTICAL_MENU: "iconamoon:menu-kebab-vertical-circle-light",
+  HUMBURGER_OPEN: "mdi:hamburger-open",
+  HUMBURGER_CLOSE: "charm:menu-hamburger",
+  CLOSE_ONE: "icon-park-twotone:close-one",
   EYE_OFF_LINE: "majesticons:eye-off-line",
   EYE_OUTLINE: "ion:eye-outline",
-  COLLAPSE_FILLED: "tabler:layout-navbar-collapse-filled",
   DOC_ADD: "icon-park:doc-add",
-  UPDATE_ROTATION: "icon-park:update-rotation",
+  HOME: "eva:home-fill",
+  LOGOUT: "ri:logout-circle-r-line",
+  MOVE: "icon-park-twotone:move",
+  DELETE: "icon-park-twotone:delete"
+
 }

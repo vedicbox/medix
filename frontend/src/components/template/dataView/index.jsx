@@ -33,7 +33,7 @@ export default function DataViewTemplate(props) {
     actionList && (
       <ClassicMenu menulist={actionList(row)}>
         <IconButton size="small">
-          <Iconify icon={ICON_NAME.VERTICAL_CIRCLE_LIGHT}/>
+          <Iconify icon={ICON_NAME.VERTICAL_MENU}/>
         </IconButton>
       </ClassicMenu>
     );

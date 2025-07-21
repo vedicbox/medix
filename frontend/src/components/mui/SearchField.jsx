@@ -1,4 +1,4 @@
-import { LoadingButton } from "@mui/lab";
+import { Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
@@ -32,16 +32,15 @@ export default function SearchField(props) {
         />
 
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <LoadingButton
+        <Button
           size="small"
           variant="outlined"
-         
           className="ml-2"
           type="submit"
           loading={isLoading}
         >
           Search
-        </LoadingButton>
+        </Button>
       </Paper>
     </form>
   );

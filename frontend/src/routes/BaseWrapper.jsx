@@ -11,7 +11,8 @@ export default function BaseWrapper(props) {
     element: WrappedComponent,
     barMode,
     backDirect = true,
-    navigateVal
+    navigateVal,
+    drawerStat,
   } = props.baseProps;
 
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export default function BaseWrapper(props) {
       <DisplayContent valid1={serviceloading}>
         <LinearIndeterminate />
       </DisplayContent>
-      {switchAppBar(barMode)}
+      {switchAppBar(barMode, drawerStat)}
 
       <DisplayContent valid1={snackbar.severity}>
         <Snackbar
@@ -49,7 +50,7 @@ export default function BaseWrapper(props) {
 
       <WrappedComponent />
       <DisplayContent valid1={backDirect}>
-        <BackMark navigateVal={navigateVal}  />
+        <BackMark navigateVal={navigateVal} />
       </DisplayContent>
     </>
   );

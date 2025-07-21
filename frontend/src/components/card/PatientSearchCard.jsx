@@ -40,7 +40,7 @@ export default function PatientSearchCard({ itemObj }) {
         </Stack>
 
       </Grid>
-      <Grid item size={{ xs: 1 }} >
+      <Grid size={{ xs: 1 }} >
         <IconButton
           component={NavLink}
           to={`/${PARAMS_ROUTE.PATIENT}/${itemObj.caseId}/${PATIENT_ROUTE.CONSULT}`}

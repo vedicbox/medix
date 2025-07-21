@@ -35,7 +35,7 @@ export default function ManagePatient() {
   const topBar = [
     {
       label: "Consult",
-      icon: ICON_NAME.POP_UP,
+      icon: ICON_NAME.CONSULT,
       link: {
         pathname: PARAMS_ROUTE.SEARCH,
       },

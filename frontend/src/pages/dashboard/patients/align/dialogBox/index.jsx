@@ -67,7 +67,7 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
   const moveAction = (
     <Button
       variant="contained"
-      startIcon={<Iconify icon={ICON_NAME.ADD_NEW} />}
+      startIcon={<Iconify icon={ICON_NAME.SUBMIT} />}
       onClick={handlePtStatus}
     >
       Submit

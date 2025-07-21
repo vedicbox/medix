@@ -1,15 +1,47 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  Typography,
+} from "@mui/material";
 import Iconify from "components/icons/Iconify";
 import ImgReplacer from "components/placeholder/ImgReplacer";
 import { ICON_NAME } from "values/img-links";
+import { StyledTableCell, StyledTableRow } from "../tableEl";
 
 export default function ClassicMobileView(props) {
-  const { headers, rows, actionContainer, placeholder } = props;
+  const {
+    headers,
+    rows,
+    actionContainer,
+    placeholder,
+    size = "small",
+    enableBorder = true,
+  } = props;
 
   const cellReturnContent = (headObj, selectRow) => {
     // Remove the brackets and split the string into parts
     const path = headObj.picker?.split(".");
     const content = path?.reduce((obj, key) => obj && obj[key], selectRow);
+
+    if (headObj.chip) {
+      return (
+        <Chip
+          size="small"
+          variant="outlined"
+          sx={{
+            borderRadius: 2,
+            bgcolor: headObj.chip?.[content],
+            minWidth: 100,
+          }}
+          label={content}
+        />
+      );
+    }
 
     return content;
   };
@@ -35,6 +67,45 @@ export default function ClassicMobileView(props) {
         <ImgReplacer {...imgDetails} />
       </Box>
     );
+
+  return (
+    <>
+      {rows.map((row) => (
+        <div key={row._id}>
+          <Paper>
+            <TableContainer component={Paper}>
+              <Table stickyHeader size={size}>
+                <TableBody>
+                  {headers.map(
+                    (headCell, index) =>
+                      !headCell.action && (
+                        <StyledTableRow key={headCell.label}>
+                          <StyledTableCell
+                            enableBorder={enableBorder}
+                            sx={{
+                              bgcolor: (theme) => theme.palette.primary.main,
+                              color: "background.paper",
+                            }}
+                          >
+                            {headCell.label}
+                          </StyledTableCell>
+                          <StyledTableCell enableBorder={enableBorder}>
+                            {cellReturnContent(headCell, row)}
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      )
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          <Paper className="mt-1 full-br">
+            {actionContainer(row)}
+          </Paper>
+        </div>
+      ))}
+    </>
+  );
 
   return (
     <Grid container spacing={2}>

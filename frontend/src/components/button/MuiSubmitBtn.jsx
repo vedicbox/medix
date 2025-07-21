@@ -1,4 +1,4 @@
-import { LoadingButton } from "@mui/lab";
+import { Button } from "@mui/material";
 import Iconify from "components/icons/Iconify";
 import { ICON_NAME } from "values/img-links";
 
@@ -11,7 +11,7 @@ export default function MuiSubmitBtn({
 }) {
   return (
     <>
-      <LoadingButton
+      <Button
         onClick={onSubmit}
         variant="contained"
         startIcon={<Iconify icon={icon} />}
@@ -19,7 +19,7 @@ export default function MuiSubmitBtn({
         {...btnProps}
       >
         {text}
-      </LoadingButton>
+      </Button>
     </>
   );
 }
