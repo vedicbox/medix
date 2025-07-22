@@ -45,7 +45,7 @@ export const ICON_NAME = {
   EYE_OFF_LINE: "majesticons:eye-off-line",
   EYE_OUTLINE: "ion:eye-outline",
   DOC_ADD: "icon-park:doc-add",
-  HOME: "eva:home-fill",
+  HOME: "mdi:home-outline",
   LOGOUT: "ri:logout-circle-r-line",
   MOVE: "icon-park-twotone:move",
   DELETE: "icon-park-twotone:delete"
