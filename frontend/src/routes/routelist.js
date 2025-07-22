@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { APP_BAR_ENUM, ROUTE_MODE_ENUM } from "values/enum";
 import Loadable from "./Loadable";
-import Middleware from "./middleware";
+import ParentRouteMiddleware from "./middleware/ParentRouteMid";
 import { AUTH_ROUTE, PARAMS_ROUTE } from "./routeurl";
 
 const SignInPage = Loadable(lazy(() => import("pages/auth/login")));
@@ -17,7 +17,7 @@ export const routelist = [
   {
     path: AUTH_ROUTE.LOGIN,
     element: (
-      <Middleware
+      <ParentRouteMiddleware
         authMode={ROUTE_MODE_ENUM.AUTH}
         baseProps={{
           element: SignInPage,
@@ -29,7 +29,7 @@ export const routelist = [
   },
   {
     path: PARAMS_ROUTE.INDEX + PARAMS_ROUTE.WILD_CARD,
-    element: <Middleware baseProps={{ element: DashboardPage }} />,
+    element: <ParentRouteMiddleware baseProps={{ element: DashboardPage }} />,
   },
   {
     path:
@@ -38,7 +38,7 @@ export const routelist = [
       PARAMS_ROUTE.HOLDER +
       "/" +
       PARAMS_ROUTE.WILD_CARD,
-    element: <Middleware baseProps={{ element: PatientDashboardPage, navigateVal: -2, drawerStat: false }} />,
+    element: <ParentRouteMiddleware baseProps={{ element: PatientDashboardPage, navigateVal: -2, drawerStat: false }} />,
   },
   {
     path: PARAMS_ROUTE.WILD_CARD,

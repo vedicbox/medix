@@ -8,9 +8,9 @@ import { DASHBOARD_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
 import { ID_MAPPING } from "service/config/permissionlist";
 import { useChangeAlignPtStatusMutation } from "service/patientService";
 import { HTTP_STATUS_CODES, PATENT_JOURNEY } from "values/enum";
+import { ICON_NAME } from "values/img-links";
 import MovePage from "./MovePage";
 import SearchPage from "./SearchPage";
-import { ICON_NAME } from "values/img-links";
 
 // Memoized dialog container
 const WrapContainer = React.memo(function WrapContainer({
@@ -25,7 +25,6 @@ const WrapContainer = React.memo(function WrapContainer({
       title={title}
       handleToggle={onClose}
       actionContainer={actionContainer}
-
     >
       {children}
     </ClassicDialog>
@@ -79,28 +78,34 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
       {
         path: PARAMS_ROUTE.SEARCH,
         uuid: ID_MAPPING.patient.uuid,
-        element: (
-          <WrapContainer
-            actionContainer={searchAction}
-            title="Search"
-            onClose={handleClose}
-          >
-            <SearchPage />
-          </WrapContainer>
-        ),
+        baseProps: {
+          element: (
+            <WrapContainer
+              actionContainer={searchAction}
+              title="Search"
+              onClose={handleClose}
+            >
+              <SearchPage />
+            </WrapContainer>
+          ),
+          title: "Search",
+        },
       },
       {
         path: PARAMS_ROUTE.MOVE,
         uuid: ID_MAPPING.patient.uuid,
-        element: (
-          <WrapContainer
-            actionContainer={moveAction}
-            title="What's Next"
-            onClose={handleClose}
-          >
-            <MovePage />
-          </WrapContainer>
-        ),
+        baseProps: {
+          element: (
+            <WrapContainer
+              actionContainer={moveAction}
+              title="What's Next"
+              onClose={handleClose}
+            >
+              <MovePage />
+            </WrapContainer>
+          ),
+          title: "What's Next",
+        },
       },
     ],
     [searchAction, moveAction, handleClose]

@@ -4,7 +4,7 @@ import BaseWrapper from "routes/BaseWrapper";
 import { AUTH_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
 import { ROUTE_MODE_ENUM } from "values/enum";
 
-function MiddlewareRoute(props) {
+function ParentRouteMiddleware(props) {
   const { baseProps, authMode } = props;
 
   const isAuthenticate = useSelector((state) => state.auth.isAuthenticate);
@@ -30,4 +30,4 @@ function MiddlewareRoute(props) {
   return <BaseWrapper baseProps={baseProps} />;
 }
 
-export default MiddlewareRoute;
+export default ParentRouteMiddleware;

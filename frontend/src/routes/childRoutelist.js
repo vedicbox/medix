@@ -1,6 +1,6 @@
 import { lazy } from "react";
-import Loadable from "./Loadable";
 import { ID_MAPPING } from "service/config/permissionlist";
+import Loadable from "./Loadable";
 import { DASHBOARD_ROUTE, PARAMS_ROUTE, PATIENT_ROUTE } from "./routeurl";
 
 const FinancePage = Loadable(lazy(() => import("pages/dashboard/finance")));
@@ -19,51 +19,81 @@ export const dashboard_crl = [
   {
     uuid: ID_MAPPING.dashboard.uuid,
     path: DASHBOARD_ROUTE.INDEX,
-    element: <OverViewPage />,
+    baseProps: {
+      element: <OverViewPage />,
+      title: "Dashboard"
+    },
   },
   {
     uuid: ID_MAPPING.staff.uuid,
     path: DASHBOARD_ROUTE.STAFF.MANAGE,
-    element: <StaffManagePage />,
+    baseProps: {
+      element: <StaffManagePage />,
+      title: "Staff Management"
+    },
   },
   {
     uuid: ID_MAPPING.staff.uuid,
     path: DASHBOARD_ROUTE.STAFF.MANAGE + "/" + PARAMS_ROUTE.ENROLL,
-    element: <AddStaff />,
+    baseProps: {
+      element: <AddStaff />,
+      title: "Add Staff"
+    },
   },
   {
     uuid: ID_MAPPING.staff.uuid,
     path: DASHBOARD_ROUTE.STAFF.MANAGE + "/" + PARAMS_ROUTE.EDIT,
-    element: <EditStaff />,
+    baseProps: {
+      element: <EditStaff />,
+      title: "Edit Staff"
+    },
   },
   {
     uuid: ID_MAPPING.patient.uuid,
     path: DASHBOARD_ROUTE.PATIENT.ALIGN + "/" + PARAMS_ROUTE.WILD_CARD,
-    element: <AlignPatient />,
+    baseProps: {
+      element: <AlignPatient />,
+      title: "Align Patient"
+    },
   },
   {
     uuid: ID_MAPPING.patient.uuid,
     path: DASHBOARD_ROUTE.PATIENT.ENROLL,
-    element: <PatientsEnrollment />,
+    baseProps: {
+      element: <PatientsEnrollment />,
+      title: "Patients Enrollment"
+    },
   },
   {
     path: DASHBOARD_ROUTE.FINANCE.BOARD,
-    element: <FinancePage />,
+    baseProps: {
+      element: <FinancePage />,
+      title: "Finance"
+    },
   },
   {
     uuid: ID_MAPPING.master.uuid,
     path: DASHBOARD_ROUTE.MASTER.ROLES + "/" + PARAMS_ROUTE.WILD_CARD,
-    element: <MasterRolePage />,
+    baseProps: {
+      element: <MasterRolePage />,
+      title: "Master Role"
+    },
   },
   {
     path: PARAMS_ROUTE.WILD_CARD,
-    element: <PageNotFoundPage />,
+    baseProps: {
+      element: <PageNotFoundPage />,
+      title: "Page Not Found"
+    },
   },
 ];
 
 export const patientboard_crl = [
   {
     path: PATIENT_ROUTE.CONSULT,
-    element: <ConsultInitPage />,
+    baseProps: {
+      element: <ConsultInitPage />,
+      title: "Consult"
+    },
   },
 ];

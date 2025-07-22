@@ -26,6 +26,12 @@ docker-compose -f docker-compose.dev.yml down
 
 # 5. Restart development
 docker-compose -f docker-compose.dev.yml up --build
+
+# 6. If package install
+docker-compose -f docker-compose.dev.yml down
+docker volume prune
+docker-compose -f docker-compose.dev.yml up --build
+
 ```
 
 ### Production Deployment (VPS)

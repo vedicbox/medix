@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { MASTER_PERMISSION } from "service/config/permissionlist";
+import ChildRouteMiddleware from "./middleware/ChildRouteMid";
 
 // Memoized selector outside the component
 const selectPermissions = (state) => state.auth.user?.roleRef?.permission ?? [];
@@ -32,7 +33,7 @@ const ChildRoutes = ({ routelist }) => {
         <Route
           key={`route-${childObj.uuid || childObj.path}`}
           path={childObj.path}
-          element={childObj.element}
+          element={<ChildRouteMiddleware baseProps={childObj.baseProps} />}
         />
       ))}
     </Routes>
