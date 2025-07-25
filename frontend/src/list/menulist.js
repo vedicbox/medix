@@ -36,6 +36,11 @@ export const alignPt_mnlst = (listenerBox) => {
       icon: ICON_NAME.MOVE,
       handler: listenerBox["move"],
     },
+    {
+      label: "Publish",
+      icon: ICON_NAME.PUBLISH,
+      handler: listenerBox["publish"],
+    },
   ];
 };
 

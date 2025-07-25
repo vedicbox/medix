@@ -48,6 +48,8 @@ export const ICON_NAME = {
   HOME: "mdi:home-outline",
   LOGOUT: "ri:logout-circle-r-line",
   MOVE: "icon-park-twotone:move",
-  DELETE: "icon-park-twotone:delete"
+  DELETE: "icon-park-twotone:delete",
+  PUBLISH: "ic:twotone-publish",
+  UPDATE: "mdi:update",
 
 }

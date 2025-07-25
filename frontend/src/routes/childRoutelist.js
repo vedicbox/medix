@@ -13,7 +13,7 @@ const EditStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollment/u
 const StaffManagePage = Loadable(lazy(() => import("pages/dashboard/staff/manage")));
 const PageNotFoundPage = Loadable(lazy(() => import("pages/other/PageNotFound")));
 const ConsultInitPage = Loadable(lazy(() => import("pages/patientBoard/consult")));
-
+const PatientProfileUpdate = Loadable(lazy(() => import("pages/patientBoard/profileUpdate")));
 
 export const dashboard_crl = [
   {
@@ -94,6 +94,13 @@ export const patientboard_crl = [
     baseProps: {
       element: <ConsultInitPage />,
       title: "Consult"
+    },
+  },
+  {
+    path: PARAMS_ROUTE.UPDATE,
+    baseProps: {
+      element: <PatientProfileUpdate />,
+      title: "Update Patient"
     },
   },
 ];

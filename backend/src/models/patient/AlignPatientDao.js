@@ -16,8 +16,8 @@ const AlignPatientSchema = new mongoose.Schema(
         fee: {
             type: Number,
             required: [true, "Fee is required"],
-             min: [0, "Fee must be a positive number"],
-             trim:true
+            min: [0, "Fee must be a positive number"],
+            trim: true
         },
         payTag: {
             type: String,
@@ -31,6 +31,10 @@ const AlignPatientSchema = new mongoose.Schema(
         status: {
             type: Number,
             default: 0,
+        },
+        publishReceipt: {
+            type: Boolean,
+            default: false,
         },
     },
     {

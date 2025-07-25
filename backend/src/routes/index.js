@@ -2,6 +2,7 @@ import authRoute from "./auth/authRoute.js";
 import roleRoute from "./auth/roleRoute.js";
 import staffRoute from "./staffRoute.js";
 import patientRoute from "./patientRoute.js";
+import publishFilesRoute from "./PublishFilesRoute.js";
 
 // API routes
 const routelist = [
@@ -9,6 +10,7 @@ const routelist = [
   { path: "/roles", route: roleRoute },
   { path: "/staff", route: staffRoute },
   { path: "/patient", route: patientRoute },
+  { path: "/publish", route: publishFilesRoute },
 ];
 
 export default routelist;

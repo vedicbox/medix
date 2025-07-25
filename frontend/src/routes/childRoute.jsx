@@ -45,7 +45,7 @@ ChildRoutes.propTypes = {
     PropTypes.shape({
       uuid: PropTypes.string,
       path: PropTypes.string.isRequired,
-      element: PropTypes.node.isRequired,
+      baseProps: PropTypes.object.isRequired,
     })
   ).isRequired,
 };

@@ -7,7 +7,8 @@ export const PARAMS_ROUTE = {
   SEARCH: "search",
   PATIENT: "patient",
   MOVE: "move",
-  ENROLL: "enroll"
+  ENROLL: "enroll",
+  UPDATE: "update"
 };
 
 export const AUTH_ROUTE = {

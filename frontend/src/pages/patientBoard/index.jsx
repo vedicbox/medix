@@ -1,3 +1,5 @@
+import ResponsiveDrawer from "components/drawer/ResponsiveDrawer";
+import { patientboard_navigation } from "list/navlist";
 import PageNotFound from "pages/other/PageNotFound";
 import { useParams } from "react-router-dom";
 import ChildRoutes from "routes/childRoute";
@@ -8,11 +10,15 @@ export default function PatientDashboard() {
   const { holder: caseId } = useParams();
 
   // Call the auth check query
-  const { data, isLoading } = useValidatePatientQuery({ caseId });
+  const { data: patientData, isLoading } = useValidatePatientQuery({ caseId });
 
-  if (!isLoading && data?.payload?.caseId != caseId) {
+  if (!isLoading && patientData?.payload?.caseId != caseId) {
     return <PageNotFound />;
   }
 
-  return <ChildRoutes routelist={patientboard_crl} />;
+  return (
+    <ResponsiveDrawer navlist={patientboard_navigation()}>
+      <ChildRoutes routelist={patientboard_crl} />
+    </ResponsiveDrawer>
+  );
 }

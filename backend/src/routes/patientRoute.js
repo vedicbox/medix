@@ -9,10 +9,12 @@ router.use(isAuthenticated);
 
 router.get("/search", PatientController.searchPatient);
 router.post("/create", PatientController.createPatient);
+router.post("/update", PatientController.updatePatient);
 router.get("/validate", PatientController.validatePatient);
-router.post("/align", PatientController.alignPatient);
+router.post("/initiate-consult", PatientController.initiateConsult);
 router.get("/align-list", PatientController.alignPatientList);
 router.post("/change-status", PatientController.changeStatus);
+
 
 export default router;
 

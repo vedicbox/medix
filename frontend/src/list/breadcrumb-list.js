@@ -25,6 +25,12 @@ export const DASHBOARD_CRUMB = {
                 label: "Patient Enrollment",
             },
         ],
+        UPDATE: [
+            {
+                icon: ICON_NAME.UPDATE,
+                label: "Update Patient",
+            },
+        ],
     },
     STAFF: {
         MANAGE: [

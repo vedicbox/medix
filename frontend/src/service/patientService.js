@@ -61,9 +61,21 @@ export const patientService = createApi({
                 await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
             },
         }),
-        alignPatient: builder.mutation({
+        updatePatient: builder.mutation({
             query: (packet) => ({
-                url: PATIENT_ENDPOINT.ALIGN_PATIENT,
+                url: PATIENT_ENDPOINT.UPDATE_PT,
+                method: "POST",
+                body: packet,
+            }),
+            transformResponse: (result, { dispatch }) =>
+                onHttpSuccess(result, dispatch),
+            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+                await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+            },
+        }),
+        initiateConsult: builder.mutation({
+            query: (packet) => ({
+                url: PATIENT_ENDPOINT.INITIATE_CONSULT,
                 method: "POST",
                 body: packet,
             }),
@@ -72,7 +84,7 @@ export const patientService = createApi({
             async onQueryStarted(args, { dispatch, queryFulfilled }) {
                 httpMiddlewareBoundary(dispatch, queryFulfilled, args);
             },
-            invalidatesTags: ["alignPatient"],
+            invalidatesTags: ["initiateConsult"],
         }),
         changeAlignPtStatus: builder.mutation({
             query: (packet) => ({
@@ -85,7 +97,7 @@ export const patientService = createApi({
             async onQueryStarted(args, { dispatch, queryFulfilled }) {
                 httpMiddlewareBoundary(dispatch, queryFulfilled, args);
             },
-            invalidatesTags: ["alignPatient"],
+            invalidatesTags: ["initiateConsult"],
         }),
         fetchAlignPatient: builder.query({
             query: (searchParams) => {
@@ -100,7 +112,7 @@ export const patientService = createApi({
             async onQueryStarted(args, { dispatch, queryFulfilled }) {
                 await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
             },
-            providesTags: ["alignPatient"],
+            providesTags: ["initiateConsult"],
         }),
     }),
 });
@@ -109,7 +121,8 @@ export const {
     useEnrollPatientMutation,
     useLazySearchPatientQuery,
     useValidatePatientQuery,
-    useAlignPatientMutation,
+    useInitiateConsultMutation,
     useFetchAlignPatientQuery,
-    useChangeAlignPtStatusMutation
+    useChangeAlignPtStatusMutation,
+    useUpdatePatientMutation
 } = patientService;
