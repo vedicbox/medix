@@ -30,7 +30,8 @@ export const DASHBOARD_ROUTE = {
     BOARD: "finance/board"
   },
   MASTER: {
-    ROLES: "master/roles"
+    ROLES: "master/roles",
+    CLINIC: "master/clinic"
   }
 };
 

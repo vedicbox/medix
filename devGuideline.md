@@ -21,3 +21,14 @@ endpoint: /update
 
 
 ## Clinic Master
+
+
+1. Update
+
+2. Create
+
+3. Edit
+
+4. Fetch Table data
+
+// All clinic service created for frontend

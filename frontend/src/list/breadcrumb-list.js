@@ -57,5 +57,13 @@ export const DASHBOARD_CRUMB = {
                 label: "Update Staff",
             },
         ]
+    },
+    MASTER: {
+        CLINIC: [
+            {
+                icon: ICON_NAME.CLINIC,
+                label: "Clinic",
+            },
+        ],
     }
 }

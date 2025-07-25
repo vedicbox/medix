@@ -7,6 +7,7 @@ export const PLACEHOLDER_IMG = {
   NO_STAFF: `${BASE_URL}/images/placeholder/no_staff.png`,
   NO_ROLES: `${BASE_URL}/images/placeholder/no_rolls.png`,
   AUTH_WIDGETS: `${BASE_URL}/images/auth-widgets.png`,
+  NO_CLINIC: `${BASE_URL}/images/placeholder/no_clinic.png`,
 };
 
 export const AVATAR_IMG = {
@@ -23,6 +24,7 @@ export const ICON_NAME = {
   MANAGEMENT: "carbon:id-management",
   MASTER: "hugeicons:master-card",
   ROLE: "eos-icons:role-binding-outlined",
+  CLINIC: "material-symbols:help-clinic-outline-rounded",
   SEARCH_DUOTONE: "lets-icons:search-duotone",
   ADD_NEW: "basil:add-solid",
   INFORMATION: "fluent-emoji:information",

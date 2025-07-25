@@ -14,6 +14,9 @@ const StaffManagePage = Loadable(lazy(() => import("pages/dashboard/staff/manage
 const PageNotFoundPage = Loadable(lazy(() => import("pages/other/PageNotFound")));
 const ConsultInitPage = Loadable(lazy(() => import("pages/patientBoard/consult")));
 const PatientProfileUpdate = Loadable(lazy(() => import("pages/patientBoard/profileUpdate")));
+const ClinicMasterPage = Loadable(lazy(() => import("pages/dashboard/master/clinic")));
+const ClinicAddPage = Loadable(lazy(() => import("pages/dashboard/master/clinic/add")));
+const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clinic/update")));
 
 export const dashboard_crl = [
   {
@@ -34,7 +37,7 @@ export const dashboard_crl = [
   },
   {
     uuid: ID_MAPPING.staff.uuid,
-    path: DASHBOARD_ROUTE.STAFF.MANAGE + "/" + PARAMS_ROUTE.ENROLL,
+    path: DASHBOARD_ROUTE.STAFF.MANAGE + "/" + PARAMS_ROUTE.CREATE,
     baseProps: {
       element: <AddStaff />,
       title: "Add Staff"
@@ -76,7 +79,31 @@ export const dashboard_crl = [
     path: DASHBOARD_ROUTE.MASTER.ROLES + "/" + PARAMS_ROUTE.WILD_CARD,
     baseProps: {
       element: <MasterRolePage />,
-      title: "Master Role"
+      title: "Role Master"
+    },
+  },
+  {
+    uuid: ID_MAPPING.master.uuid,
+    path: DASHBOARD_ROUTE.MASTER.CLINIC,
+    baseProps: {
+      element: <ClinicMasterPage />,
+      title: "Clinic Master"
+    },
+  },
+  {
+    uuid: ID_MAPPING.master.uuid,
+    path: DASHBOARD_ROUTE.MASTER.CLINIC + "/" + PARAMS_ROUTE.ADD,
+    baseProps: {
+      element: <ClinicAddPage />,
+      title: "Add Clinic"
+    },
+  },
+  {
+    uuid: ID_MAPPING.master.uuid,
+    path: DASHBOARD_ROUTE.MASTER.CLINIC + "/" + PARAMS_ROUTE.UPDATE,
+    baseProps: {
+      element: <ClinicUpdatePage />,
+      title: "Update Clinic"
     },
   },
   {

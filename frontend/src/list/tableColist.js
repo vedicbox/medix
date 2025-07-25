@@ -1,4 +1,4 @@
-import { orange, yellow } from "@mui/material/colors";
+import { yellow } from "@mui/material/colors";
 
 export const DASHBOARD_HEADER = {
   STAFF: {
@@ -57,8 +57,8 @@ export const DASHBOARD_HEADER = {
       {
         label: "Status",
         picker: "status",
-        align:"center",
-        width:100,
+        align: "center",
+        width: 100,
         chip: {
           "Pending": yellow[100]
         }
@@ -81,6 +81,39 @@ export const DASHBOARD_HEADER = {
     ]
   },
   MASTER: {
+    CLINIC: [
+      {
+        label: "ClinicName",
+        picker: "name",
+      },
+      {
+        label: "Email",
+        picker: "email",
+      },
+      {
+        label: "Phone No",
+        picker: "phone1",
+      },
+      {
+        label: "GST No",
+        picker: "gstNo",
+      },
+      {
+        label: "Created Dt",
+        picker: "createdAt",
+      },
+      {
+        label: "Status",
+        picker: "status",
+      },
+      {
+        label: "Action",
+        action: true,
+        cellProps: {
+          align: "right",
+        },
+      },
+    ],
     ROLES: [
       {
         label: "Role Id",

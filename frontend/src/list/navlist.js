@@ -60,6 +60,11 @@ export const dashboard_navigation = () => {
           icon: ICON_NAME.ROLE,
           path: DASHBOARD_ROUTE.MASTER.ROLES,
         },
+        {
+          name: "Clinic",
+          icon: ICON_NAME.CLINIC,
+          path: DASHBOARD_ROUTE.MASTER.CLINIC,
+        },
       ],
     },
   ];

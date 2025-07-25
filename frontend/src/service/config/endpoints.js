@@ -49,3 +49,10 @@ export const PATIENT_ENDPOINT = {
 export const FILE_PUBLISH_ENDPOINT = {
   GENERATE_CONSULT_RECEPT: `${BASE_URL}/${LOC_POINT.PUBLISH}/generate-recept`,
 };
+
+export const CLINIC_ENDPOINT = {
+  CREATE: `${BASE_URL}/${LOC_POINT.CLINIC}/create`,
+  UPDATE: `${BASE_URL}/${LOC_POINT.CLINIC}/update`,
+  EDIT: `${BASE_URL}/${LOC_POINT.CLINIC}/edit`,
+  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.CLINIC}/fetch-tablist`,
+};
