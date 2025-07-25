@@ -37,7 +37,7 @@ export const dashboard_crl = [
   },
   {
     uuid: ID_MAPPING.staff.uuid,
-    path: DASHBOARD_ROUTE.STAFF.MANAGE + "/" + PARAMS_ROUTE.CREATE,
+    path: DASHBOARD_ROUTE.STAFF.MANAGE + "/" + PARAMS_ROUTE.ENROLL,
     baseProps: {
       element: <AddStaff />,
       title: "Add Staff"
@@ -92,7 +92,7 @@ export const dashboard_crl = [
   },
   {
     uuid: ID_MAPPING.master.uuid,
-    path: DASHBOARD_ROUTE.MASTER.CLINIC + "/" + PARAMS_ROUTE.ADD,
+    path: DASHBOARD_ROUTE.MASTER.CLINIC + "/" + PARAMS_ROUTE.CREATE,
     baseProps: {
       element: <ClinicAddPage />,
       title: "Add Clinic"

@@ -37,5 +37,5 @@ export default function ClinicAddPage() {
     setProcessObj((prev) => ({ ...prev, ...obj }));
   };
 
-  return <></>;
+  return <>Create Clinic</>;
 }
