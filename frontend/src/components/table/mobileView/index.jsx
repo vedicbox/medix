@@ -1,16 +1,12 @@
 import {
   Box,
   Chip,
-  Grid,
   Paper,
   Table,
   TableBody,
   TableContainer,
-  Typography,
 } from "@mui/material";
-import Iconify from "components/icons/Iconify";
 import ImgReplacer from "components/placeholder/ImgReplacer";
-import { ICON_NAME } from "values/img-links";
 import { StyledTableCell, StyledTableRow } from "../tableEl";
 
 export default function ClassicMobileView(props) {
@@ -71,13 +67,13 @@ export default function ClassicMobileView(props) {
   return (
     <>
       {rows.map((row) => (
-        <div key={row._id}>
+        <div key={row._id} className="mb-4">
           <Paper>
             <TableContainer component={Paper}>
               <Table stickyHeader size={size}>
                 <TableBody>
                   {headers.map(
-                    (headCell, index) =>
+                    (headCell) =>
                       !headCell.action && (
                         <StyledTableRow key={headCell.label}>
                           <StyledTableCell
@@ -99,49 +95,11 @@ export default function ClassicMobileView(props) {
               </Table>
             </TableContainer>
           </Paper>
-          <Paper className="mt-1 full-br">
+          <Paper className=" full-br elevation1">
             {actionContainer(row)}
           </Paper>
         </div>
       ))}
     </>
-  );
-
-  return (
-    <Grid container spacing={2}>
-      {rows.map((row) => (
-        <Grid key={row._id} size={{ xs: 12, lg: 6 }} className="mt-2">
-          <Paper className="p-2 py-4 full-br" elevation={4}>
-            {headers.map(
-              (headCell, index) =>
-                !headCell.action && (
-                  <Paper
-                    key={headCell.label}
-                    size={{ xs: 12, ...headCell.dimension }}
-                    className="p-2 mb-1"
-                    // elevation={3}
-                    variant="outlined"
-                  >
-                    <div className="d-flex align-items-center ">
-                      <span className="mr-2">
-                        <Iconify icon={ICON_NAME.ANGLE_RIGHT} />
-                      </span>
-                      <Typography noWrap className="f-s-15 f-w-600">
-                        {headCell.label} :-
-                      </Typography>
-                      <Typography noWrap className="ml-3 f-s-14">
-                        {cellReturnContent(headCell, row)}
-                      </Typography>
-                    </div>
-                  </Paper>
-                )
-            )}
-          </Paper>
-          <Paper className="p-2 full-br" elevation={4}>
-            {actionContainer(row)}
-          </Paper>
-        </Grid>
-      ))}
-    </Grid>
   );
 }
