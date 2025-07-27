@@ -15,6 +15,7 @@ class AuthMapper {
       lastName: lastName ?? '',
       password: email,
       roleRef,
+      clinicRef,
       orgCode,
     };
   }

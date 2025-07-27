@@ -31,6 +31,12 @@ export const STAFF_FORM_RULES = {
             msgVariable: { label: "Role" },
         }
     },
+    clinicRef: {
+        required: true,
+        props: {
+            msgVariable: { label: "Clinic" },
+        }
+    },
     firstName: {
         required: true,
         alpha: true,

@@ -36,6 +36,7 @@ export default function AddStaff() {
     const formData = Object.fromEntries(new FormData(formRef.current));
 
     formData["roleRef"] = processObj["roleRef"]?._id;
+    formData["clinicRef"] = processObj["clinicRef"]?._id;
     formData["dob"] = parsePicker(processObj.dob, "date");
     formData.firstName = capitalizeFirstLetter(formData.firstName);
     formData.lastName = capitalizeFirstLetter(formData.lastName);

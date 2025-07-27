@@ -37,7 +37,7 @@ export const clinicService = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
-        invalidatesTags: ['clinic_modified'],
+      invalidatesTags: ['clinic_modified'],
     }),
     updateClinic: builder.mutation({
       query: (packet) => ({
@@ -64,7 +64,18 @@ export const clinicService = createApi({
       },
       providesTags: ['clinic_modified'],
     }),
-    
+    fetchClinicNames: builder.query({
+      query: () => ({
+        url: CLINIC_ENDPOINT.FETCH_CLINIC_LIST,
+        method: "GET",
+      }),
+      transformResponse: (result, { dispatch }) =>
+        onHttpSuccess(result, dispatch),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+      },
+      providesTags: ['clinic_modified'],
+    }),
   }),
 });
 
@@ -73,4 +84,5 @@ export const {
   useEditClinicQuery,
   useUpdateClinicMutation,
   useFetchTbClinicQuery,
+  useFetchClinicNamesQuery
 } = clinicService;

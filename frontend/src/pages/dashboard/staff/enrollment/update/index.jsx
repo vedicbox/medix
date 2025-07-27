@@ -108,6 +108,7 @@ export default function EditStaff() {
     const formData = Object.fromEntries(new FormData(formRef.current));
     formData["staffId"] = profDefaultData._id;
     formData["roleRef"] = processObj["roleRef"]?._id;
+    formData["clinicRef"] = processObj["clinicRef"]?._id;
     formData["dob"] = parsePicker(processObj.dob, "date");
     formData["userRef"] = profDefaultData.userRef?._id;
     formData.firstName = capitalizeFirstLetter(formData.firstName);
