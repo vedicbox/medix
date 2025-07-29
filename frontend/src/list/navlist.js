@@ -1,4 +1,4 @@
-import { DASHBOARD_ROUTE } from "routes/routeurl";
+import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE } from "routes/routeurl";
 import { ID_MAPPING } from "service/config/permissionlist";
 import { ICON_NAME } from "values/img-links";
 
@@ -64,3 +64,13 @@ export const dashboard_navigation = () => {
   ];
 };
 
+
+export const administrator_nav = () => {
+  return [
+    {
+      name: "Module",
+      icon: ICON_NAME.MASTER,
+      path: ADMINISTRATOR_ROUTE.MODULES,
+    }
+  ]
+}

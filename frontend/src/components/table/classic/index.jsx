@@ -4,31 +4,10 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import LinearIndeterminate from "components/loader/LinearIndeterminate";
 import ImgReplacer from "components/placeholder/ImgReplacer";
-import { StyledTableCell, StyledTableRow } from "../tableEl";
-
-function EnhancedTableHead({ headers, enableBorder }) {
-  return (
-    <TableHead>
-      <TableRow>
-        {headers.map((headCell) => (
-          <StyledTableCell
-            key={headCell.label}
-            align={headCell.align ? headCell.align : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            enableBorder={enableBorder}
-            width={headCell.width || "auto"}
-          >
-            {headCell.label}
-          </StyledTableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
+import { EnhancedTableHead, StyledTableCell, StyledTableRow } from "../tableEl";
 
 export default function ClassicTable(props) {
   const {

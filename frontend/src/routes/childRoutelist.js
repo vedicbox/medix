@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { ID_MAPPING } from "service/config/permissionlist";
 import Loadable from "./Loadable";
-import { DASHBOARD_ROUTE, PARAMS_ROUTE, PATIENT_ROUTE } from "./routeurl";
+import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE, PATIENT_ROUTE } from "./routeurl";
 
 const FinancePage = Loadable(lazy(() => import("pages/dashboard/finance")));
 const MasterRolePage = Loadable(lazy(() => import("pages/dashboard/master/roles")));
@@ -13,7 +13,7 @@ const EditStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollment/u
 const StaffManagePage = Loadable(lazy(() => import("pages/dashboard/staff/manage")));
 const PageNotFoundPage = Loadable(lazy(() => import("pages/other/PageNotFound")));
 const ConsultInitPage = Loadable(lazy(() => import("pages/patientBoard/consult")));
-
+const ModulePage = Loadable(lazy(() => import("pages/administrator/modules")));
 
 export const dashboard_crl = [
   {
@@ -94,6 +94,32 @@ export const patientboard_crl = [
     baseProps: {
       element: <ConsultInitPage />,
       title: "Consult"
+    },
+  },
+];
+
+
+/**
+ * Administrator Role Route List
+ * 
+ * Local:
+ *   - Use `administrator_crl` for administrator-specific routes in development.
+ * Production:
+ *   - Use `administrator_crl` for administrator dashboard and management routes.
+ */
+export const administrator_crl = [
+  {
+    path: ADMINISTRATOR_ROUTE.MODULES + "/" + PARAMS_ROUTE.WILD_CARD,
+    baseProps: {
+      element: <ModulePage />,
+      title: "Module"
+    },
+  },
+  {
+    path: PARAMS_ROUTE.WILD_CARD,
+    baseProps: {
+      element: <PageNotFoundPage />,
+      title: "Page Not Found"
     },
   },
 ];

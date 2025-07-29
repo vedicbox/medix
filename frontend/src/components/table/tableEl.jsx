@@ -1,5 +1,13 @@
-import { TableCell, tableCellClasses, TableRow } from "@mui/material";
+import {
+  IconButton,
+  TableCell,
+  tableCellClasses,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
+import Iconify from "components/icons/Iconify";
+import { NavLink } from "react-router-dom";
 
 export const StyledTableCell = styled(TableCell, {
   shouldForwardProp: (prop) => prop !== "enableBorder",
@@ -25,3 +33,31 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+
+export const EnhancedTableHead = ({ headers, enableBorder }) => {
+  return (
+    <TableHead>
+      <TableRow>
+        {headers.map((headCell) =>
+          headCell.icon ? (
+            <StyledTableCell  padding="checkbox" >
+              <IconButton component={NavLink} to={headCell.link} >
+                <Iconify icon={headCell.icon} color="background.paper" />
+              </IconButton>
+            </StyledTableCell>
+          ) : (
+            <StyledTableCell
+              key={headCell.label}
+              align={headCell.align ? headCell.align : "left"}
+              padding={headCell.disablePadding ? "none" : "normal"}
+              enableBorder={enableBorder}
+              width={headCell.width || "auto"}
+            >
+              {headCell.label}
+            </StyledTableCell>
+          )
+        )}
+      </TableRow>
+    </TableHead>
+  );
+};

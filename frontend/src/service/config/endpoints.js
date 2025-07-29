@@ -9,6 +9,7 @@ const LOC_POINT = {
   CLINIC: "clinic",
   PAYMENT: "api/payment",
   APPOINT: "appoint",
+  MODULE: "module"
 };
 
 /**
@@ -44,3 +45,8 @@ export const PATIENT_ENDPOINT = {
   ALIGN_PATIENT_LIST: `${BASE_URL}/${LOC_POINT.PATIENT}/align-list`,
   CHANGE_ALIGN_STATUS: `${BASE_URL}/${LOC_POINT.PATIENT}/change-status`,
 };
+
+export const MODULE_ENDPOINT = {
+  CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/create`,
+  FIND_ALL:`${BASE_URL}/${LOC_POINT.MODULE}/find-all`,
+}

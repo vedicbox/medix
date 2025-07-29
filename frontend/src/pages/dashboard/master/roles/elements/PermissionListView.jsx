@@ -6,21 +6,18 @@ import {
   Paper,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Typography,
   styled,
-  tableCellClasses,
   useTheme,
 } from "@mui/material";
 import Iconify from "components/icons/Iconify";
+import { StyledTableCell } from "components/table/tableEl";
 import { memo, useCallback, useState } from "react";
 import { PERMISSION_LIST } from "service/config/permissionlist";
 import { ICON_NAME } from "values/img-links";
-import { StyledTableCell } from "components/table/tableEl";
-
 
 const ParentTableRow = styled(TableRow)(({ theme }) => ({
   backgroundColor: theme.palette.grey[100],
@@ -51,10 +48,7 @@ const SubRow = memo(({ row, togglePermission, hasPermission }) => {
   return (
     <ChildTableRow>
       <StyledTableCell>
-        <IconButton
-          aria-label="expand row"
-          size="small"
-        >
+        <IconButton aria-label="expand row" size="small">
           <Iconify icon={ICON_NAME.ARROW_RIGHT} />
         </IconButton>
       </StyledTableCell>
@@ -95,15 +89,17 @@ const Row = memo(({ row, togglePermission, permissions }) => {
     <>
       <ParentTableRow>
         <StyledTableCell>
-
           <IconButton
             onClick={subModules.length > 0 ? handleToggle : undefined}
             aria-label="expand row"
             size="small"
           >
-            {subModules.length > 0 ? <ExpandIcon open={open} /> : <Iconify icon={ICON_NAME.ARROW_RIGHT} />}
+            {subModules.length > 0 ? (
+              <ExpandIcon open={open} />
+            ) : (
+              <Iconify icon={ICON_NAME.ARROW_RIGHT} />
+            )}
           </IconButton>
-
         </StyledTableCell>
         <StyledTableCell align="left">
           <Typography>{row.module}</Typography>
