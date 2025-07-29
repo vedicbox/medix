@@ -3,6 +3,7 @@ import PatientRepo from "../repo/PatientRepo.js";
 import MESSAGES from "../utils/message.js";
 import { ServiceResponse } from "../utils/responseHandler.js";
 import STATUS_CODES from "../utils/statusCodes.js";
+import { generateRecept } from "../generator/recept/index.js";
 
 /**
  * Service for patient management operations.
@@ -28,6 +29,21 @@ export default class PatientService {
     return new ServiceResponse(STATUS_CODES.OK, MESSAGES.PATIENT_REGISTERED, response);
 
 
+  }
+
+  /**
+   * Update a patient.
+   * @param {Object} request - Patient data
+   * @param {Object} authentication - Auth context containing userId
+   * @returns {Promise<ServiceResponse>}
+   */
+  static async updatePatientService(request, authentication) {
+    const { userId, orgCode } = authentication;
+    const patientDetails = PatientMapper.patientDetailsMapper(request, userId, orgCode);
+    const patientContact = PatientMapper.patientContactMapper(request, userId);
+    const patientAddress = PatientMapper.patientAddressMapper(request, userId);
+    const response = await PatientRepo.updatePatient(patientDetails, patientContact, patientAddress);
+    return new ServiceResponse(STATUS_CODES.OK, MESSAGES.PATIENT_UPDATED, response);
   }
 
   /**
@@ -72,16 +88,22 @@ export default class PatientService {
    * @param {Object} authentication - Auth context containing userId
    * @returns {Promise<ServiceResponse>}
    */
-  static async alignToDocService(alignPatientDTO, authentication) {
+  static async initiateConsultService(alignPatientDTO, authentication) {
     try {
       const { userId } = authentication;
       // Map DTO to DAO
-      const assignPatientDao = PatientMapper.alignPatientMapper(
+      const assignPatientDao = PatientMapper.initiateConsultMapper(
         alignPatientDTO,
         userId
       );
+    
       // Save the assignment in the database
-      await PatientRepo.alignPatient(assignPatientDao);
+      const savedResponse = await PatientRepo.initiateConsult(assignPatientDao);
+
+      if (savedResponse && savedResponse.publishReceipt) {
+        const recept = generateRecept(savedResponse);
+      }
+
       return new ServiceResponse(STATUS_CODES.OK, MESSAGES.PATIENT_ASSIGNED, null);
     } catch (error) {
       console.error("Error assigning patient:", error);

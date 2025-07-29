@@ -7,14 +7,18 @@ import Iconify from "components/icons/Iconify";
 import MuiAutoComplete from "components/mui/MuiAutoComplete";
 import { useEffect } from "react";
 import { useFetchRoleNamesQuery } from "service/auth/roleService";
+import { useFetchClinicNamesQuery } from "service/clinicService";
 import { ICON_NAME } from "values/img-links";
+
 
 export default function EntityAssignForm(props) {
   const { errors, handleProcessObj, role } = props;
 
   const { data: roleData } = useFetchRoleNamesQuery();
+  const { data: clinicData } = useFetchClinicNamesQuery();
 
   let roles = roleData?.payload || [];
+  let clinics = clinicData?.payload || [];
 
   useEffect(() => {
     if (typeof role == "string") {
@@ -42,10 +46,10 @@ export default function EntityAssignForm(props) {
         </Typography>
       </Stack>
       <Paper sx={{ p: { md: 5, xs: 3 }, pt: 3 }}>
-        <>
+        <div className="mb-4">
           <MuiAutoComplete
             name="roleRef"
-            label=" Assign Role"
+            label="Assign Role"
             error={errors.roleRef}
             options={roles}
             handleProcessObj={handleProcessObj}
@@ -55,7 +59,21 @@ export default function EntityAssignForm(props) {
               getOptionLabel: (option) => option.name || "",
             }}
           />
-        </>
+        </div>
+        <div className="mb-4">
+          <MuiAutoComplete
+            name="roleRef"
+            label="Assign Clinic"
+            error={errors.clinicRef}
+            options={clinics}
+            handleProcessObj={handleProcessObj}
+            value={role || ""}
+            placeholder="Select Clinic"
+            autoProps={{
+              getOptionLabel: (option) => option.name || "",
+            }}
+          />
+        </div>
       </Paper>
     </>
   );

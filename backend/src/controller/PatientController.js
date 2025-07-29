@@ -29,6 +29,22 @@ export default class PatientController {
     }
 
     /**
+     * Update a patient.
+     * @param {import('express').Request} req - Express request object
+     * @param {import('express').Response} res - Express response object
+     * @returns {Promise<void>}
+     */
+    static async updatePatient(req, res) {
+        try {
+            const patientRequestDTO = req.body;
+            const authentication = req.auth;
+            const response = await patientService.updatePatientService(patientRequestDTO, authentication);
+            return HttpHandler.send(res, response);
+        } catch (error) {
+            return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
+        }
+    }
+    /**
      * Search patients by value (caseId or phone).
      * @param {import('express').Request} req - Express request object
      * @param {import('express').Response} res - Express response object
@@ -76,11 +92,11 @@ export default class PatientController {
      * @param {import('express').Response} res - Express response object
      * @returns {Promise<void>}
      */
-    static async alignPatient(req, res) {
+    static async initiateConsult(req, res) {
         try {
             const alignPatientDTO = req.body;
             const authentication = req.auth;
-            const response = await patientService.alignToDocService(
+            const response = await patientService.initiateConsultService(
                 alignPatientDTO,
                 authentication
             );

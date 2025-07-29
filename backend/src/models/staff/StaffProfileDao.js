@@ -11,6 +11,11 @@ const StaffProfileSchema = new mongoose.Schema(
       ref: "users", // Reference to the User model
       required: true,
     },
+    clinicRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "clinic_masters", // Reference to the Clinic model
+      required: true,
+    },
     phone1: {
       type: String,
       required: [true, "Phone number is required"],

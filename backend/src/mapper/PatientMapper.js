@@ -68,9 +68,9 @@ class PatientMapper {
      * @param {string} userId - Creating user ID
      * @returns {Object} - Mapped alignment object
      */
-    static alignPatientMapper(alignPatientDto, userId) {
-        const { caseId, assignDoc: docId, fee, payMode: payTag, transId } = alignPatientDto;
-        return { caseId, docId, fee, payTag, transId, createId: userId };
+    static initiateConsultMapper(initiateConsultDto, userId) {
+        const { caseId, assignDoc: docId, fee, payMode: payTag, transId, publishReceipt } = initiateConsultDto;
+        return { caseId, docId, fee, payTag, transId, publishReceipt, createId: userId };
     }
 
     /**

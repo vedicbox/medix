@@ -40,12 +40,25 @@ export const ROLE_ENDPOINT = {
 export const PATIENT_ENDPOINT = {
   SEARCH: `${BASE_URL}/${LOC_POINT.PATIENT}/search`,
   ENROLL_PT: `${BASE_URL}/${LOC_POINT.PATIENT}/create`,
+  UPDATE_PT: `${BASE_URL}/${LOC_POINT.PATIENT}/update`,
   VALIDATE: `${BASE_URL}/${LOC_POINT.PATIENT}/validate`,
-  ALIGN_PATIENT: `${BASE_URL}/${LOC_POINT.PATIENT}/align`,
+  INITIATE_CONSULT: `${BASE_URL}/${LOC_POINT.PATIENT}/initiate-consult`,
   ALIGN_PATIENT_LIST: `${BASE_URL}/${LOC_POINT.PATIENT}/align-list`,
   CHANGE_ALIGN_STATUS: `${BASE_URL}/${LOC_POINT.PATIENT}/change-status`,
 };
 
+
+export const FILE_PUBLISH_ENDPOINT = {
+  GENERATE_CONSULT_RECEPT: `${BASE_URL}/${LOC_POINT.PUBLISH}/generate-recept`,
+};
+
+export const CLINIC_ENDPOINT = {
+  CREATE: `${BASE_URL}/${LOC_POINT.CLINIC}/create`,
+  UPDATE: `${BASE_URL}/${LOC_POINT.CLINIC}/update`,
+  EDIT: `${BASE_URL}/${LOC_POINT.CLINIC}/edit`,
+  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.CLINIC}/fetch-tablist`,
+  FETCH_CLINIC_LIST: `${BASE_URL}/${LOC_POINT.CLINIC}/list`,
+};
 export const MODULE_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/create`,
   FIND_ALL:`${BASE_URL}/${LOC_POINT.MODULE}/find-all`,

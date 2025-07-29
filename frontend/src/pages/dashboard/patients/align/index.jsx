@@ -5,6 +5,7 @@ import { DASHBOARD_HEADER } from "list/tableColist";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
+import { useGenerateConsultReceptMutation } from "service/filePublishService";
 import { useFetchAlignPatientQuery } from "service/patientService";
 import { ICON_NAME, PLACEHOLDER_IMG } from "values/img-links";
 import { PLACEHOLDER_MSG } from "values/messages";
@@ -20,15 +21,25 @@ export default function ManagePatient() {
   const [dialogObj, setDialogObj] = useState({});
 
   const { data: alignPtlist } = useFetchAlignPatientQuery();
+  const [generateConsultRecept] = useGenerateConsultReceptMutation();
 
   const handleDialogStatus = (row) => {
     setDialogObj(row);
     navigate(PARAMS_ROUTE.MOVE);
   };
 
+  const handlePublish = async (row) => {
+    const { _id } = row;
+    const packet = {
+      alignPatientId: _id,
+    };
+    await generateConsultRecept(packet).unwrap();
+  };
+
   const listenerBox = (row) => {
     return {
       move: () => handleDialogStatus(row),
+      publish: () => handlePublish(row),
     };
   };
 

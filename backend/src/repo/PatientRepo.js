@@ -23,6 +23,12 @@ export default class PatientRepo {
 
     }
 
+    static async updatePatient(patientDetails,patientContact,patientAddress) {
+       
+
+        return patientDetailDao;
+    }   
+
     static async findByPhone(phoneNumber) {
         return PatientContactDao.aggregate([
             {
@@ -119,7 +125,7 @@ export default class PatientRepo {
         return PatientDetailDao.findOneAndUpdate(
             { _id: caseId },
             { $set: updateFields },
-            { new: true,runValidators: true } // Return the updated document
+            { new: true, runValidators: true } // Return the updated document
         ).lean();
     }
 
@@ -128,9 +134,15 @@ export default class PatientRepo {
      * @param {Object} alignPatientDao - DAO object for patient assignment
      * @returns {Promise<void>}
      */
-    static async alignPatient(assignPatientDao) {
+    static async initiateConsult(assignPatientDao) {
+        // Check if a record with the given caseId exists and status != 0
+        const existing = await AlignPatientDao.findOne({ caseId: assignPatientDao.caseId, status: { $ne: 0 } });
+        if (existing) {
+            // Not allowed to save, return null or throw error
+            return null;
+        }
         const assignPatient = new AlignPatientDao(assignPatientDao);
-        await assignPatient.save();
+        return await assignPatient.save();
     }
 
     /**

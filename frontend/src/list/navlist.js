@@ -1,6 +1,7 @@
 import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE } from "routes/routeurl";
 import { ID_MAPPING } from "service/config/permissionlist";
 import { ICON_NAME } from "values/img-links";
+import { PARAMS_ROUTE } from "routes/routeurl";
 
 export const dashboard_navigation = () => {
   return [
@@ -59,11 +60,26 @@ export const dashboard_navigation = () => {
           icon: ICON_NAME.ROLE,
           path: DASHBOARD_ROUTE.MASTER.ROLES,
         },
+        {
+          name: "Clinic",
+          icon: ICON_NAME.CLINIC,
+          path: DASHBOARD_ROUTE.MASTER.CLINIC,
+        },
       ],
     },
   ];
 };
 
+export const patientboard_navigation = () => {
+  return [
+    {
+      name: "Update Patient",
+      icon: ICON_NAME.UPDATE,
+      uuid: ID_MAPPING.patient.uuid,
+      path: PARAMS_ROUTE.UPDATE,
+    },
+  ];
+};
 
 export const administrator_nav = () => {
   return [

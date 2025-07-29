@@ -83,6 +83,39 @@ export const DASHBOARD_HEADER = {
     ]
   },
   MASTER: {
+    CLINIC: [
+      {
+        label: "ClinicName",
+        picker: "name",
+      },
+      {
+        label: "Email",
+        picker: "email",
+      },
+      {
+        label: "Phone No",
+        picker: "phone1",
+      },
+      {
+        label: "GST No",
+        picker: "gstNo",
+      },
+      {
+        label: "Created Dt",
+        picker: "createdAt",
+      },
+      {
+        label: "Status",
+        picker: "status",
+      },
+      {
+        label: "Action",
+        action: true,
+        cellProps: {
+          align: "right",
+        },
+      },
+    ],
     ROLES: [
       {
         label: "Role Id",

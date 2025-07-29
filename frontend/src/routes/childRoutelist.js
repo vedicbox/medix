@@ -6,7 +6,7 @@ import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE, PATIENT_ROUTE } fro
 const FinancePage = Loadable(lazy(() => import("pages/dashboard/finance")));
 const MasterRolePage = Loadable(lazy(() => import("pages/dashboard/master/roles")));
 const OverViewPage = Loadable(lazy(() => import("pages/dashboard/overview")));
-const AlignPatient = Loadable(lazy(() => import("pages/dashboard/patients/align")));
+const InitiatePatientConsultation = Loadable(lazy(() => import("pages/dashboard/patients/align")));
 const PatientsEnrollment = Loadable(lazy(() => import("pages/dashboard/patients/enroll")));
 const AddStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollment/create")));
 const EditStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollment/update")));
@@ -14,6 +14,10 @@ const StaffManagePage = Loadable(lazy(() => import("pages/dashboard/staff/manage
 const PageNotFoundPage = Loadable(lazy(() => import("pages/other/PageNotFound")));
 const ConsultInitPage = Loadable(lazy(() => import("pages/patientBoard/consult")));
 const ModulePage = Loadable(lazy(() => import("pages/administrator/modules")));
+const PatientProfileUpdate = Loadable(lazy(() => import("pages/patientBoard/profileUpdate")));
+const ClinicMasterPage = Loadable(lazy(() => import("pages/dashboard/master/clinic")));
+const ClinicAddPage = Loadable(lazy(() => import("pages/dashboard/master/clinic/add")));
+const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clinic/update")));
 
 export const dashboard_crl = [
   {
@@ -52,7 +56,7 @@ export const dashboard_crl = [
     uuid: ID_MAPPING.patient.uuid,
     path: DASHBOARD_ROUTE.PATIENT.ALIGN + "/" + PARAMS_ROUTE.WILD_CARD,
     baseProps: {
-      element: <AlignPatient />,
+      element: <InitiatePatientConsultation />,
       title: "Align Patient"
     },
   },
@@ -76,7 +80,31 @@ export const dashboard_crl = [
     path: DASHBOARD_ROUTE.MASTER.ROLES + "/" + PARAMS_ROUTE.WILD_CARD,
     baseProps: {
       element: <MasterRolePage />,
-      title: "Master Role"
+      title: "Role Master"
+    },
+  },
+  {
+    uuid: ID_MAPPING.master.uuid,
+    path: DASHBOARD_ROUTE.MASTER.CLINIC,
+    baseProps: {
+      element: <ClinicMasterPage />,
+      title: "Clinic Master"
+    },
+  },
+  {
+    uuid: ID_MAPPING.master.uuid,
+    path: DASHBOARD_ROUTE.MASTER.CLINIC + "/" + PARAMS_ROUTE.CREATE,
+    baseProps: {
+      element: <ClinicAddPage />,
+      title: "Add Clinic"
+    },
+  },
+  {
+    uuid: ID_MAPPING.master.uuid,
+    path: DASHBOARD_ROUTE.MASTER.CLINIC + "/" + PARAMS_ROUTE.UPDATE,
+    baseProps: {
+      element: <ClinicUpdatePage />,
+      title: "Update Clinic"
     },
   },
   {
@@ -94,6 +122,13 @@ export const patientboard_crl = [
     baseProps: {
       element: <ConsultInitPage />,
       title: "Consult"
+    },
+  },
+  {
+    path: PARAMS_ROUTE.UPDATE,
+    baseProps: {
+      element: <PatientProfileUpdate />,
+      title: "Update Patient"
     },
   },
 ];
@@ -123,3 +158,4 @@ export const administrator_crl = [
     },
   },
 ];
+

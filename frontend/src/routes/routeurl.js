@@ -7,7 +7,8 @@ export const PARAMS_ROUTE = {
   SEARCH: "search",
   PATIENT: "patient",
   MOVE: "move",
-  ENROLL: "enroll"
+  ENROLL: "enroll",
+  UPDATE: "update"
 };
 
 export const AUTH_ROUTE = {
@@ -29,8 +30,9 @@ export const DASHBOARD_ROUTE = {
     BOARD: "finance/board"
   },
   MASTER: {
-    ROLES: "master/roles"
-  },
+    ROLES: "master/roles",
+    CLINIC: "master/clinic"
+  }
 };
 
 export const ADMINISTRATOR_ROUTE = {

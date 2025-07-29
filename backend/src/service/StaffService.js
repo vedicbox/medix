@@ -25,6 +25,11 @@ export default class StaffService {
       return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.ROLE_NOT_FOUND);
     }
 
+    const clinic = await ClinicRepo.findClinicById(profileData.clinicRef);
+    if (!clinic) {
+      return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.CLINIC_NOT_FOUND);
+    }
+
     const userEntity = AuthMapper.toUserEntity(profileData, orgCode);
     const newUser = await AuthRepo.createUser(userEntity);
 

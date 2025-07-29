@@ -11,7 +11,6 @@ export default function BaseWrapper(props) {
     element: WrappedComponent,
     barMode,
     backDirect = true,
-    navigateVal,
     drawerStat,
   } = props.baseProps;
 
@@ -50,7 +49,7 @@ export default function BaseWrapper(props) {
 
       <WrappedComponent />
       <DisplayContent valid1={backDirect}>
-        <BackMark navigateVal={navigateVal} />
+        <BackMark />
       </DisplayContent>
     </>
   );
