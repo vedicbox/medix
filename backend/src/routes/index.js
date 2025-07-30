@@ -5,7 +5,6 @@ import staffRoute from "./staffRoute.js";
 import moduleRoute from "./moduleRoute.js";
 import patientRoute from "./patientRoute.js";
 import publishFilesRoute from "./PublishFilesRoute.js";
-import staffRoute from "./staffRoute.js";
 
 // API routes
 const routelist = [
