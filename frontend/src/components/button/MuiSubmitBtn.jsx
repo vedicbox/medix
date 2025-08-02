@@ -8,9 +8,10 @@ export default function MuiSubmitBtn({
   text = "Submit",
   btnProps,
   icon = ICON_NAME.SUBMIT,
+  className
 }) {
   return (
-    <>
+    <div className={className}>
       <Button
         onClick={onSubmit}
         variant="contained"
@@ -20,6 +21,6 @@ export default function MuiSubmitBtn({
       >
         {text}
       </Button>
-    </>
+    </div>
   );
 }

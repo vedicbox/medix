@@ -20,15 +20,17 @@ export default function ClinicAddPage() {
   } = useFormValidation(STAFF_FORM_RULES);
 
   const handleSubmit = async () => {
-    // const isValid = await validateAll(formData);
-    // if (isValid) {
-    //   let { data, error } = await createStaffMutation(formData);
-    //   if (data?.status == HTTP_STATUS_CODES.OK) {
-    //     navigate(-1);
-    //   } else if (error?.status === HTTP_STATUS_CODES.BAD_REQUEST) {
-    //     setErrors(error?.data?.payload?.details || {});
-    //   }
-    // }
+    const formData = Object.entries(new FormData(formRef.current));
+
+    const isValid = await validateAll(formData);
+    if (isValid) {
+      // let { data, error } = await createStaffMutation(formData);
+      // if (data?.status == HTTP_STATUS_CODES.OK) {
+      //   navigate(-1);
+      // } else if (error?.status === HTTP_STATUS_CODES.BAD_REQUEST) {
+      //   setErrors(error?.data?.payload?.details || {});
+      // }
+    }
   };
 
   const handleProcessObj = (obj) => {
@@ -46,9 +48,10 @@ export default function ClinicAddPage() {
         processObj={processObj}
         setProcessObj={setProcessObj}
         formRef={formRef}
+        handleProcessObj={handleProcessObj}
       />
 
-        <MuiSubmitBtn onSubmit={handleSubmit} />
+      <MuiSubmitBtn onSubmit={handleSubmit} className="text-center" />
     </>
   );
 }

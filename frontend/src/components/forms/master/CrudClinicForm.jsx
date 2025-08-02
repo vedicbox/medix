@@ -1,32 +1,17 @@
-import { Grid, Paper, Stack, Typography } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import CityAutoField from "components/autocomplete/CityAutoField";
 import CountryAutoField from "components/autocomplete/CountryAutoField";
 import StateAutoField from "components/autocomplete/StateAutoField";
-import Iconify from "components/icons/Iconify";
 import MuiTextField from "components/mui/MuiTextField";
-import MuiTimePicker from "components/mui/MuiTimeField";
-import SelectedWeekField from "components/mui/SelectedWeek";
+import MuiTimePicker from "components/mui/MuiTimePicker";
+import SelectedWeekField from "components/mui/SelectedWeekField";
 import { useEffect } from "react";
 import { GetCity, GetCountries, GetState } from "react-country-state-city";
 import { WEEKS_ENUM } from "values/enum";
+import FormHeading from "../element/FormHeading";
 
 export default function CrudClinicForm(props) {
-  const { formRef, errors, processObj, setProcessObj, defaultData } = props;
-
-  const handleProcessObj = (keyObj) => {
-    setProcessObj({
-      ...processObj,
-      ...keyObj,
-    });
-  };
-
-  const handleMultipleUpdate = (obj, name, newValue) => {
-    handleProcessObj(obj);
-  };
-
-  const handleWeekOff = (e, newVal) => {
-    handleProcessObj({ weekOff: newVal });
-  };
+  const { formRef, errors, processObj, handleProcessObj, defaultData } = props;
 
   const initDefaultData = async () => {
     // Iterate over the entries of the flat default data
@@ -66,7 +51,7 @@ export default function CrudClinicForm(props) {
       const defaultWeeks = defaultData.weekOff || "";
 
       // Set the final processed object
-      setProcessObj({
+      handleProcessObj({
         ...locationObj,
         status: defaultData.status,
         shiftFrom: defaultData.shiftFrom,
@@ -84,22 +69,8 @@ export default function CrudClinicForm(props) {
 
   return (
     <form ref={formRef}>
-      <Stack
-        direction="row"
-        sx={{
-          bgcolor: (theme) => theme.palette.primary[50],
-          p: "10px",
-          borderBottomLeftRadius: 10,
-          borderTopRightRadius: 10,
-          mb: "5px",
-          border: "1px solid #ccc",
-        }}
-      >
-        <Iconify icon="fluent-emoji:information" />
-        <Typography className="f-w-600 text-muted ml-2 f-italic">
-          Personal Details
-        </Typography>
-      </Stack>
+      <FormHeading title="Personal Details" icon="fluent-emoji:information" />
+
       <Paper className="p-4 mb-3">
         <Grid container spacing={3}>
           <Grid size={6}>
@@ -138,22 +109,11 @@ export default function CrudClinicForm(props) {
         </Grid>
       </Paper>
 
-      <Stack
-        direction="row"
-        sx={{
-          bgcolor: (theme) => theme.palette.primary[50],
-          p: "10px",
-          borderBottomLeftRadius: 10,
-          borderTopRightRadius: 10,
-          mb: "5px",
-          border: "1px solid #ccc",
-        }}
-      >
-        <Iconify icon="flat-color-icons:business-contact" />
-        <Typography className="f-w-600 text-muted ml-2 f-italic">
-          Contact Details
-        </Typography>
-      </Stack>
+      <FormHeading
+        title=" Contact Details"
+        icon="flat-color-icons:business-contact"
+      />
+
       <Paper className="p-4 mb-3">
         <Grid container spacing={3}>
           <Grid size={12}>
@@ -191,7 +151,7 @@ export default function CrudClinicForm(props) {
               name="country"
               error={errors["country"]}
               selectedVal={processObj["country"]}
-              onChange={handleMultipleUpdate}
+              onChange={handleProcessObj}
             />
           </Grid>
           <Grid size={6}>
@@ -200,7 +160,7 @@ export default function CrudClinicForm(props) {
               error={errors["state"]}
               country={processObj["country"]}
               selectedVal={processObj["state"]}
-              onChange={handleMultipleUpdate}
+              onChange={handleProcessObj}
             />
           </Grid>
           <Grid size={6}>
@@ -210,7 +170,7 @@ export default function CrudClinicForm(props) {
               state={processObj["state"]}
               country={processObj["country"]}
               selectedVal={processObj["city"]}
-              onChange={handleMultipleUpdate}
+              onChange={handleProcessObj}
             />
           </Grid>
           <Grid size={6}>
@@ -240,22 +200,8 @@ export default function CrudClinicForm(props) {
         </Grid>
       </Paper>
 
-      <Stack
-        direction="row"
-        sx={{
-          bgcolor: (theme) => theme.palette.primary[50],
-          p: "10px",
-          borderBottomLeftRadius: 10,
-          borderTopRightRadius: 10,
-          mb: "5px",
-          border: "1px solid #ccc",
-        }}
-      >
-        <Iconify icon="openmoji:timer" />
-        <Typography className="f-w-600 text-muted ml-2 f-italic">
-          Timing Details
-        </Typography>
-      </Stack>
+      <FormHeading title="Timing Details" icon="openmoji:timer" />
+
       <Paper className="p-4 mb-3">
         <Grid container spacing={2}>
           <Grid size={6}>
@@ -283,7 +229,7 @@ export default function CrudClinicForm(props) {
             <div>
               <SelectedWeekField
                 weeks={processObj["weekOff"]}
-                handleWeekChange={handleWeekOff}
+                handleProcessObj={handleProcessObj}
               />
             </div>
           </Grid>

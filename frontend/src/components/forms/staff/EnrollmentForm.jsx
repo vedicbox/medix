@@ -115,8 +115,8 @@ export default function StaffEnrollmentForm(props) {
             pickerProps={{
               disableFuture: true,
               shouldDisableDate: (day) => {
-                return day.isSame(dayjs(), 'day');
-              }
+                return day.isSame(dayjs(), "day");
+              },
             }}
           />
         </Grid>
