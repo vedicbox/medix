@@ -103,7 +103,7 @@ export default function AddStaff() {
             <div className="mt-3">
               <EntityAssignForm
                 errors={errors}
-                role={processObj.roleRef}
+                processObj={processObj}
                 handleProcessObj={handleProcessObj}
               />
             </div>

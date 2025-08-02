@@ -8,10 +8,8 @@ const router = express.Router();
 // Apply authentication middleware to all routes
 router.use(isAuthenticated);
 
-// GET /clinic/org/:orgCode - Get clinics by organization code
 router.get("/list", ClinicController.getClinicList);
 
-// GET /clinic - Get all clinics
 router.get("/all", ClinicController.getAllClinics);
 
 // GET /clinic/:clinicId - Get clinic by ID

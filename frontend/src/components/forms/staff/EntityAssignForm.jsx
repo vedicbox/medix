@@ -1,8 +1,4 @@
-import {
-  Paper,
-  Stack,
-  Typography
-} from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import Iconify from "components/icons/Iconify";
 import MuiAutoComplete from "components/mui/MuiAutoComplete";
 import { useEffect } from "react";
@@ -10,19 +6,19 @@ import { useFetchRoleNamesQuery } from "service/auth/roleService";
 import { useFetchClinicNamesQuery } from "service/clinicService";
 import { ICON_NAME } from "values/img-links";
 
-
 export default function EntityAssignForm(props) {
-  const { errors, handleProcessObj, role } = props;
+  const { errors, handleProcessObj, processObj } = props;
+  const { roleRef, clinicRef } = processObj;
 
   const { data: roleData } = useFetchRoleNamesQuery();
   const { data: clinicData } = useFetchClinicNamesQuery();
 
-  let roles = roleData?.payload || [];
-  let clinics = clinicData?.payload || [];
+  let roleslist = roleData?.payload || [];
+  let cliniclist = clinicData?.payload || [];
 
   useEffect(() => {
-    if (typeof role == "string") {
-      let roleObj = roles.find((el) => el._id == role);
+    if (typeof roleRef == "string") {
+      let roleObj = roleslist.find((el) => el._id == roleRef);
       if (roleObj) handleProcessObj({ roleRef: roleObj });
     }
   }, [roleData]);
@@ -51,9 +47,9 @@ export default function EntityAssignForm(props) {
             name="roleRef"
             label="Assign Role"
             error={errors.roleRef}
-            options={roles}
+            options={roleslist}
             handleProcessObj={handleProcessObj}
-            value={role || ""}
+            value={roleRef || ""}
             placeholder="Select Role"
             autoProps={{
               getOptionLabel: (option) => option.name || "",
@@ -62,12 +58,12 @@ export default function EntityAssignForm(props) {
         </div>
         <div className="mb-4">
           <MuiAutoComplete
-            name="roleRef"
+            name="clinicRef"
             label="Assign Clinic"
             error={errors.clinicRef}
-            options={clinics}
+            options={cliniclist}
             handleProcessObj={handleProcessObj}
-            value={role || ""}
+            value={clinicRef || ""}
             placeholder="Select Clinic"
             autoProps={{
               getOptionLabel: (option) => option.name || "",

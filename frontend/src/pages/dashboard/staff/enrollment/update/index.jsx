@@ -103,7 +103,6 @@ export default function EditStaff() {
     }
   };
 
-
   const handleSubmit = async () => {
     const formData = Object.fromEntries(new FormData(formRef.current));
     formData["staffId"] = profDefaultData._id;
@@ -178,7 +177,7 @@ export default function EditStaff() {
             <div className="mt-3">
               <EntityAssignForm
                 errors={errors}
-                role={processObj.roleRef}
+                processObj={processObj}
                 handleProcessObj={handleProcessObj}
               />
             </div>

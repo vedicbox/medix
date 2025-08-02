@@ -19,19 +19,19 @@ export const AUTH_ROUTE = {
 export const DASHBOARD_ROUTE = {
   INDEX: "/",
   STAFF: {
-    ENROLL: "staff/enrollment",
-    MANAGE: "staff/manage",
+    ENROLL: "/staff/enrollment",
+    MANAGE: "/staff/manage",
   },
   PATIENT: {
-    ALIGN: "patients/align",
-    ENROLL: "patients/enrollment",
+    ALIGN: "/patients/align",
+    ENROLL: "/patients/enrollment",
   },
   FINANCE: {
-    BOARD: "finance/board"
+    BOARD: "/finance/board"
   },
   MASTER: {
-    ROLES: "master/roles",
-    CLINIC: "master/clinic"
+    ROLES: "/master/roles",
+    CLINIC: "/master/clinic"
   }
 };
 
