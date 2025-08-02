@@ -26,6 +26,19 @@ export const moduleService = createApi({
             },
             invalidatesTags: ["module_modified"],
         }),
+        updateModule: builder.mutation({
+            query: (packet) => ({
+                url: MODULE_ENDPOINT.UPDATE,
+                method: "POST",
+                body: packet,
+            }),
+            transformResponse: (result, { dispatch }) =>
+                onHttpSuccess(result, dispatch),
+            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+                httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+            },
+            invalidatesTags: ["module_modified"],
+        }),
         findAllModule: builder.query({
             query: () => {
                 return {

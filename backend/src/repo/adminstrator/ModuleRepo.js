@@ -1,4 +1,4 @@
-import ModuleDao from "../../models/adminstrator/ModuleDao.js";
+import ModuleDao from "@models/adminstrator/ModuleDao.js";
 
 export default class ModuleRepo {
   static async createModule(moduleEntity) {
@@ -8,5 +8,9 @@ export default class ModuleRepo {
 
   static async findAllModules() {
     return await ModuleDao.find({}).lean();
+  }
+
+  static async updateModule(moduleId, moduleEntity) {
+    return await ModuleDao.findByIdAndUpdate(moduleId, moduleEntity, { new: true, runValidators: true }).lean();
   }
 }

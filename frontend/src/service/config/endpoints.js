@@ -61,5 +61,6 @@ export const CLINIC_ENDPOINT = {
 };
 export const MODULE_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/create`,
+   CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/update`,
   FIND_ALL:`${BASE_URL}/${LOC_POINT.MODULE}/find-all`,
 }

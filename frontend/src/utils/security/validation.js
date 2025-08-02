@@ -246,3 +246,12 @@ export const validateWhatsapp = (formData) => {
   }
   return null;
 };
+
+export const isValueExistInArray = (value, arr) => {
+  return arr.some((item) => {
+    if (item && typeof item === 'object' && !Array.isArray(item)) {
+      return Object.values(item).some(val => val === value);
+    }
+    return item === value;
+  });
+};

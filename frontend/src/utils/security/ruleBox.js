@@ -314,7 +314,7 @@ export const MODULE_FORM_RULES = {
         required: true,
         alpha: true,
         props: {
-            msgVariable: { label: "Module Name" },
+            msgVariable: { label: "Name" },
         }
     },
     desc: {
@@ -325,3 +325,4 @@ export const MODULE_FORM_RULES = {
         }
     },
 };
+

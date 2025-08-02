@@ -8,7 +8,6 @@ const Modulechema = new mongoose.Schema(
         name: {
             type: String,
             required: [true, "Role name is required"],
-            uppercase: true,
             unique: true,
             trim: true,
             validate: {
@@ -24,6 +23,10 @@ const Modulechema = new mongoose.Schema(
             required: [true, "Description is required"],
             trim: true,
         },
+        subModules: {
+            type: Array,
+            default: []
+        }
     },
     {
         timestamps: true,

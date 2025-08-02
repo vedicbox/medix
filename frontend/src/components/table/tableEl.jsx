@@ -40,8 +40,8 @@ export const EnhancedTableHead = ({ headers, enableBorder }) => {
       <TableRow>
         {headers.map((headCell) =>
           headCell.icon ? (
-            <StyledTableCell  padding="checkbox" >
-              <IconButton component={NavLink} to={headCell.link} >
+            <StyledTableCell key={headCell.icon} padding="checkbox">
+              <IconButton component={NavLink} to={headCell.link}>
                 <Iconify icon={headCell.icon} color="background.paper" />
               </IconButton>
             </StyledTableCell>

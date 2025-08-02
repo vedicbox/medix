@@ -1,3 +1,5 @@
+import { defaultDateFormatter } from "@utils/parse.js";
+
 class ModuleMapper {
   /**
    * Maps request data to module entity for DB
@@ -8,6 +10,7 @@ class ModuleMapper {
     return {
       name: request.name,
       desc: request.desc,
+      subModules: request.subModules,
     };
   }
 
@@ -18,11 +21,11 @@ class ModuleMapper {
    */
   static toModuleResponse(data) {
     const format = (item) => ({
-      id: item._id,
+      _id: item._id,
       name: item.name,
       desc: item.desc,
-      createdAt: item.createdAt,
-      updatedAt: item.updatedAt,
+      createdAt: defaultDateFormatter(item.createdAt),
+      subModules: item.subModules,
     });
     return Array.isArray(data) ? data.map(format) : format(data);
   }

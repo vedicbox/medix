@@ -1,132 +1,161 @@
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
+import { Chip, styled, useTheme } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
+import Iconify from "components/icons/Iconify";
 import LinearIndeterminate from "components/loader/LinearIndeterminate";
+import ClassicMenu from "components/menu/ClassicMenu";
 import ImgReplacer from "components/placeholder/ImgReplacer";
-import PropTypes from "prop-types";
 import * as React from "react";
-import { EnhancedTableHead } from "../tableEl";
+import { useCallback } from "react";
+import { isDataArray } from "utils/parse";
+import { ICON_NAME } from "values/img-links";
+import { EnhancedTableHead, StyledTableCell } from "../tableEl";
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: "2020-01-05",
-        customerId: "11091700",
-        amount: 3,
-      },
-      {
-        date: "2020-01-02",
-        customerId: "Anonymous",
-        amount: 1,
-      },
-    ],
-  };
-}
+const ParentTableRow = styled(TableRow)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[100],
+  "&:hover": {
+    backgroundColor: theme.palette.grey[200],
+  },
+}));
+
+const ChildTableRow = styled(TableRow)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  "&:hover": {
+    backgroundColor: theme.palette.grey[100],
+  },
+}));
+
+// Helper Components
+const ExpandIcon = ({ open }) => (
+  <Iconify icon={open ? ICON_NAME.ANGLE_DOWN : ICON_NAME.ANGLE_RIGHT} />
+);
+
+// Memoized SubRow Component
+const SubRow = React.memo(({ row }) => {
+  const theme = useTheme();
+
+  return (
+    <ChildTableRow>
+      <StyledTableCell>
+        <IconButton aria-label="expand row" size="small">
+          <Iconify icon={ICON_NAME.ARROW_RIGHT} />
+        </IconButton>
+      </StyledTableCell>
+      <StyledTableCell align="left" sx={{ paddingLeft: theme.spacing(4) }}>
+        {row.name}
+      </StyledTableCell>
+      <StyledTableCell align="center" padding="checkbox"></StyledTableCell>
+    </ChildTableRow>
+  );
+});
+
+const SubContainer = ({ headers, rows }) => {
+  return Object.values(headers).map((header) => {
+    console.log(header);
+  });
+};
 
 function Row(props) {
-  const { row } = props;
+  const { row, headers, cellReturnContent } = props;
   const [open, setOpen] = React.useState(false);
+
+  const handleToggle = useCallback(() => setOpen((prev) => !prev), []);
 
   return (
     <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          ></IconButton>
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
+      <ParentTableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+        {headers.MAIN.map((headObj) =>
+          headObj.icon ? (
+            <StyledTableCell key={headObj.icon} enableBorder={true}>
+              <IconButton
+                aria-label="expand row"
+                size="small"
+                onClick={
+                  isDataArray(row.subModules).length > 0
+                    ? handleToggle
+                    : undefined
+                }
+              >
+                {isDataArray(row.subModules).length > 0 ? (
+                  <ExpandIcon open={open} />
+                ) : (
+                  <Iconify icon={ICON_NAME.ARROW_RIGHT} />
+                )}
+              </IconButton>
+            </StyledTableCell>
+          ) : (
+            <StyledTableCell
+              key={headObj.label}
+              style={{
+                width: headObj.width || "auto",
+              }}
+              align={headObj.align}
+              enableBorder={true}
+            >
+              {cellReturnContent(headObj, row)}
+            </StyledTableCell>
+          )
+        )}
+      </ParentTableRow>
+
+      {/* <SubContainer headers={headers.SUB} rows={row} /> */}
     </React.Fragment>
   );
 }
-
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
 export default function ClassicInnerTable(props) {
   const {
     headers,
     rows,
-    actionContainer,
+    actionList,
     size = "small",
     enableBorder = true,
     isFetching,
     placeholder,
+    keyPicker = "id",
   } = props;
+
+  const renderActionBox = (row) =>
+    actionList && (
+      <ClassicMenu menulist={actionList(row)}>
+        <IconButton size="small">
+          <Iconify icon={ICON_NAME.VERTICAL_MENU} />
+        </IconButton>
+      </ClassicMenu>
+    );
+
+  const cellReturnContent = (headObj, selectRow) => {
+    // Remove the brackets and split the string into parts
+    const path = headObj.picker?.split(".");
+    const content = path?.reduce((obj, key) => obj && obj[key], selectRow);
+
+    if (headObj.chip) {
+      return (
+        <Chip
+          size="medium"
+          variant="outlined"
+          sx={{
+            borderRadius: 2,
+            bgcolor: headObj.chip?.[content],
+            minWidth: 100,
+          }}
+          label={content}
+        />
+      );
+    } else if (headObj.action) {
+      return renderActionBox(selectRow);
+    } else {
+      return content;
+    }
+  };
 
   // Placeholder configuration for no data
   const imgDetails = {
@@ -139,7 +168,7 @@ export default function ClassicInnerTable(props) {
   return (
     <TableContainer component={Paper}>
       <Table stickyHeader size={size}>
-        <EnhancedTableHead headers={headers} enableBorder={enableBorder} />
+        <EnhancedTableHead headers={headers.MAIN} enableBorder={enableBorder} />
         <TableBody>
           {isFetching ? (
             <TableRow>
@@ -148,11 +177,18 @@ export default function ClassicInnerTable(props) {
               </TableCell>
             </TableRow>
           ) : rows.length > 0 ? (
-            rows.map((row) => <Row key={row.name} row={row} />)
+            rows.map((row) => (
+              <Row
+                key={row[keyPicker]}
+                row={row}
+                headers={headers}
+                cellReturnContent={cellReturnContent}
+              />
+            ))
           ) : (
             <TableRow>
               <TableCell
-                colSpan={headers.length}
+                colSpan={headers.MAIN.length}
                 align="center"
                 className="pt-5"
               >

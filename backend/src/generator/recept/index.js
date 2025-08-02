@@ -3,4 +3,4 @@ function generateRecept() {
    
 }
 
-module.exports = { generateRecept };
+export { generateRecept };

@@ -147,29 +147,51 @@ export const DASHBOARD_HEADER = {
 
 
 export const ADMINSTRATOR_HEADER = {
-  MODULE: [
-    {
-     icon: ICON_NAME.ADD_NEW,
-     link: PARAMS_ROUTE.CREATE
-    },
-    {
-      label: "Module Id",
-      picker: "_id",
-    },
-    {
-      label: "Module Name",
-      picker: "name",
-    },
-    {
-      label: "Created Date",
-      picker: "createdAt",
-    },
-    {
-      label: "Action",
-      action: true,
-      cellProps: {
-        align: "right",
+  MODULE: {
+    MAIN: [
+      {
+        icon: ICON_NAME.ADD_NEW,
+        link: PARAMS_ROUTE.CREATE
       },
-    },
-  ]
+      {
+        label: "Module Id",
+        picker: "_id",
+      },
+      {
+        label: "Module Name",
+        picker: "name",
+      },
+      {
+        label: "Created Date",
+        picker: "createdAt",
+      },
+      {
+        label: "Action",
+        action: true,
+        cellProps: {
+          align: "right",
+        },
+      },
+    ],
+    SUB: {
+      title: "Sub Modules"
+    }
+  },
+  CREATE_MODULE: {
+    MAIN: [
+      {
+        label: "Name",
+        picker: "name",
+      },
+      {
+        label: "Action",
+        action: true,
+        width: 50,
+        cellProps: {
+          align: "right",
+        },
+      },
+    ]
+  }
+
 }

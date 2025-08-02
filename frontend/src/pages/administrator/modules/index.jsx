@@ -1,15 +1,34 @@
 import { Grid } from "@mui/material";
 import ClassicInnerTable from "components/table/innerTable";
+import { crud_mnlst } from "list/menulist";
 import { ADMINSTRATOR_HEADER } from "list/tableColist";
-import { useState } from "react";
-import ModuleDialogBox from "./dialogBox";
+import { useNavigate } from "react-router-dom";
+import { PARAMS_ROUTE } from "routes/routeurl";
 import { useFindAllModuleQuery } from "service/adminstrator/moduleService";
+import { PLACEHOLDER_IMG } from "values/img-links";
+import { PLACEHOLDER_MSG } from "values/messages";
+
+const placeholderDetails = {
+  img: PLACEHOLDER_IMG.NO_PATIENTS_ALIGN,
+  heading: PLACEHOLDER_MSG.NO_PATIENTS_ALIGN,
+};
 
 export default function ModulePage() {
-  const [dialogObj, setDialogObj] = useState({});
-  
-   const { data: moduleData } = useFindAllModuleQuery();
-    let modulePayload = moduleData?.payload?.modulelist || [];
+  const navigate = useNavigate();
+  const { data: moduleData } = useFindAllModuleQuery();
+  let modulePayload = moduleData?.payload || [];
+
+  const handleEdit = (row) => {
+    navigate(PARAMS_ROUTE.EDIT, {
+      state: { row },
+    });
+  };
+
+  const listenerBox = (row) => {
+    return {
+      edit: () => handleEdit(row),
+    };
+  };
 
   return (
     <>
@@ -18,12 +37,11 @@ export default function ModulePage() {
           <ClassicInnerTable
             headers={ADMINSTRATOR_HEADER.MODULE}
             rows={modulePayload}
-            placeholder={{}}
+            placeholder={placeholderDetails}
+            actionList={(row) => crud_mnlst(listenerBox(row))}
           />
         </Grid>
       </Grid>
-
-      <ModuleDialogBox setDialogObj={setDialogObj} dialogObj={dialogObj} />
     </>
   );
 }
