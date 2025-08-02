@@ -12,6 +12,7 @@ export default class StaffController {
   static async createStaffProfile(req, res) {
     try {
       const authentication = req.auth;
+      console.log(req.body);
       const response = await StaffService.createStaffProfile(req.body,authentication);
       return HttpHandler.send(res, response);
     } catch (error) {

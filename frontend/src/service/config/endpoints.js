@@ -56,7 +56,7 @@ export const CLINIC_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.CLINIC}/create`,
   UPDATE: `${BASE_URL}/${LOC_POINT.CLINIC}/update`,
   EDIT: `${BASE_URL}/${LOC_POINT.CLINIC}/edit`,
-  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.CLINIC}/fetch-tablist`,
+  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.CLINIC}/fetchAll`,
   FETCH_CLINIC_LIST: `${BASE_URL}/${LOC_POINT.CLINIC}/list`,
 };
 export const MODULE_ENDPOINT = {

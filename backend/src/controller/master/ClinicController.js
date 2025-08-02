@@ -31,7 +31,7 @@ export default class ClinicController {
      * @param {Object} req - Express request object
      * @param {Object} res - Express response object
      */
-    static async getAllClinics(req, res) {
+    static async fetchAll(req, res) {
         try {
             const authentication = req.auth;
             const response = await ClinicService.getAllClinics(authentication);
@@ -47,7 +47,7 @@ export default class ClinicController {
      * @param {Object} req - Express request object
      * @param {Object} res - Express response object
      */
-    static async getClinicById(req, res) {
+    static async fetchById(req, res) {
         try {
             const authentication = req.auth;
             const { clinicId } = req.params;
@@ -64,7 +64,7 @@ export default class ClinicController {
      * @param {Object} req - Express request object
      * @param {Object} res - Express response object
      */
-    static async createClinic(req, res) {
+    static async create(req, res) {
         try {
             const clinicData = req.body;
             const authentication = req.auth;
@@ -81,7 +81,7 @@ export default class ClinicController {
      * @param {Object} req - Express request object
      * @param {Object} res - Express response object
      */
-    static async updateClinic(req, res) {
+    static async update(req, res) {
         try {
             const updateData = req.body;
             const authentication = req.auth;

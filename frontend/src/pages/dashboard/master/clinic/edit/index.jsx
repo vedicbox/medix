@@ -1,13 +1,17 @@
+import { Grid } from "@mui/material";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation } from "react-router-dom";
 import { STAFF_FORM_RULES } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
-
+import MuiUpdateBtn from "components/button/MuiUpdateBtn";
+import { useEditClinicQuery } from "service/clinicService";
+import CrudClinicForm from "components/forms/master/CrudClinicForm";
 export default function ClinicUpdatePage() {
   const formRef = useRef(null);
-
+   const { state: clinicId } = useLocation();
   const [processObj, setProcessObj] = useState({});
   const navigate = useNavigate();
+  const { data } = useEditClinicQuery({ id: clinicId });
   const {
     errors,
     setErrors,
@@ -37,5 +41,20 @@ export default function ClinicUpdatePage() {
     setProcessObj((prev) => ({ ...prev, ...obj }));
   };
 
-  return <></>;
+  return (
+    <>
+      <Grid container justifyContent="center">
+        <Grid size={10}>
+          <CrudClinicForm
+            errors={errors}
+            processObj={processObj}
+            setProcessObj={setProcessObj}
+            formRef={formRef}
+            defaultData={data?.payload || {}}
+          />
+          <MuiUpdateBtn onSubmit={handleSubmit} />
+        </Grid>
+      </Grid>
+    </>
+  );
 }

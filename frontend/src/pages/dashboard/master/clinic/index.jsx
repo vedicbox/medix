@@ -17,11 +17,11 @@ export default function ClinicMasterPage() {
   const navigate = useNavigate();
 
   const { data: tbData } = useFetchTbClinicQuery();
-  let clinicTbData = tbData?.payload?.cliniclist || [];
+  let clinicTbData = tbData?.payload?.clinics || [];
 
   const handleEdit = (row) => {
     navigate(PARAMS_ROUTE.EDIT, {
-      state: { userId: row.userRef._id, staffId: row._id },
+      state: {state: row._id },
     });
   };
 
