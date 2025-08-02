@@ -64,6 +64,17 @@ const SubModuleForm = forwardRef((props, ref) => {
       </div>
 
       <div className="mt-4">
+        <MuiSelectField
+          label="Status"
+          name="status"
+          value={status}
+          options={STATUS_OPTIONS}
+          handleProcessObj={(e) => setStatus(e.target.checked)}
+          error={errors["status"]}
+        />
+      </div>
+
+      <div className="mt-4">
         <MuiTextField
           label="Description"
           error={errors["desc"]}
@@ -74,16 +85,6 @@ const SubModuleForm = forwardRef((props, ref) => {
             onChange: handleChange,
             onBlur: handleBlur,
           }}
-        />
-      </div>
-      <div className="mt-4">
-        <MuiSelectField
-          label="Status"
-          name="status"
-          value={status}
-          options={STATUS_OPTIONS}
-          handleProcessObj={(e) => setStatus(e.target.checked)}
-          error={errors["status"]}
         />
       </div>
     </form>

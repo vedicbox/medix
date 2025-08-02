@@ -84,9 +84,14 @@ export const patientboard_navigation = () => {
 export const administrator_nav = () => {
   return [
     {
+      name: "Workspace",
+      icon: ICON_NAME.MASTER,
+      path: ADMINISTRATOR_ROUTE.WORKSPACE.PATH,
+    },
+    {
       name: "Module",
       icon: ICON_NAME.MASTER,
-      path: ADMINISTRATOR_ROUTE.MODULES,
+      path: ADMINISTRATOR_ROUTE.MODULES.PATH,
     }
   ]
 }

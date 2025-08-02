@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Iconify from "components/icons/Iconify";
-import { NavLink } from "react-router-dom";
 
 export const StyledTableCell = styled(TableCell, {
   shouldForwardProp: (prop) => prop !== "enableBorder",
@@ -41,7 +40,7 @@ export const EnhancedTableHead = ({ headers, enableBorder }) => {
         {headers.map((headCell) =>
           headCell.icon ? (
             <StyledTableCell key={headCell.icon} padding="checkbox">
-              <IconButton component={NavLink} to={headCell.link}>
+              <IconButton>
                 <Iconify icon={headCell.icon} color="background.paper" />
               </IconButton>
             </StyledTableCell>

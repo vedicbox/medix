@@ -1,10 +1,8 @@
 import { Button, Grid } from "@mui/material";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import Iconify from "components/icons/Iconify";
-import ClassicInnerTable from "components/table/innerTable";
+import DemoTable from "components/table/DemoTable";
 import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
-import { crud_mnlst } from "list/menulist";
-import { ADMINSTRATOR_HEADER } from "list/tableColist";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import { useFindAllModuleQuery } from "service/adminstrator/moduleService";
@@ -16,7 +14,7 @@ const placeholderDetails = {
   heading: PLACEHOLDER_MSG.NO_PATIENTS_ALIGN,
 };
 
-export default function ModulePage() {
+export default function WorkspacePage() {
   const navigate = useNavigate();
   const { data: moduleData } = useFindAllModuleQuery();
   let modulePayload = moduleData?.payload || [];
@@ -33,9 +31,58 @@ export default function ModulePage() {
     };
   };
 
+  //nested data is ok, see accessorKeys in ColumnDef below
+  const data = [
+    {
+      name: {
+        firstName: "John",
+        lastName: "Doe",
+      },
+      address: "261 Erdman Ford",
+      city: "East Daphne",
+      state: "Kentucky",
+    },
+    {
+      name: {
+        firstName: "Jane",
+        lastName: "Doe",
+      },
+      address: "769 Dominic Grove",
+      city: "Columbus",
+      state: "Ohio",
+    },
+    {
+      name: {
+        firstName: "Joe",
+        lastName: "Doe",
+      },
+      address: "566 Brakus Inlet",
+      city: "South Linda",
+      state: "West Virginia",
+    },
+    {
+      name: {
+        firstName: "Kevin",
+        lastName: "Vandy",
+      },
+      address: "722 Emie Stream",
+      city: "Lincoln",
+      state: "Nebraska",
+    },
+    {
+      name: {
+        firstName: "Joshua",
+        lastName: "Rolluffs",
+      },
+      address: "32188 Larkin Turnpike",
+      city: "Charleston",
+      state: "South Carolina",
+    },
+  ];
+
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={ADMINSTRATOR_CRUMB.MODULE.INDEX}>
+      <CollapsedBreadcrumbs breadlist={ADMINSTRATOR_CRUMB.WORKSPACE.INDEX}>
         <Button
           variant="outlined"
           startIcon={<Iconify icon={ICON_NAME.ADD_NEW} />}
@@ -49,12 +96,7 @@ export default function ModulePage() {
 
       <Grid container spacing={2} justifyContent="center">
         <Grid size={{ xs: 12 }}>
-          <ClassicInnerTable
-            headers={ADMINSTRATOR_HEADER.MODULE}
-            rows={modulePayload}
-            placeholder={placeholderDetails}
-            actionList={(row) => crud_mnlst(listenerBox(row))}
-          />
+          <DemoTable data={data} />
         </Grid>
       </Grid>
     </>

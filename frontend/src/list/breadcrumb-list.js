@@ -67,3 +67,40 @@ export const DASHBOARD_CRUMB = {
         ],
     }
 }
+
+export const ADMINSTRATOR_CRUMB = {
+    MODULE: {
+        INDEX: [
+            {
+                icon: "fluent:people-team-20-regular",
+                label: "Manage Module",
+            },
+        ],
+        CREATE: [
+            {
+                icon: "fluent:people-team-20-regular",
+                label: "Manage Module",
+            },
+            {
+                label: "Create",
+            },
+        ],
+        UPDATE: [
+            {
+                icon: "fluent:people-team-20-regular",
+                label: "Manage Module",
+            },
+            {
+                label: "Update",
+            },
+        ]
+    },
+    WORKSPACE: {
+        INDEX: [
+            {
+                icon: "fluent:people-team-20-regular",
+                label: "Workspace",
+            },
+        ]
+    }
+}

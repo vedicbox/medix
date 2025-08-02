@@ -37,7 +37,14 @@ export const DASHBOARD_ROUTE = {
 
 export const ADMINISTRATOR_ROUTE = {
   INDEX: "/administrator",
-  MODULES:"modules"
+  MODULES: {
+    PATH: "/administrator/modules",
+    PARAM: "modules"
+  },
+  WORKSPACE: {
+    PATH: "/administrator/workspace",
+    PARAM: "workspace"
+  }
 }
 
 

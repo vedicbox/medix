@@ -20,7 +20,7 @@ const ClinicAddPage = Loadable(lazy(() => import("pages/dashboard/master/clinic/
 const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clinic/update")));
 const ModuleCreatePage = Loadable(lazy(() => import("pages/administrator/modules/create")));
 const ModuleUpdatePage = Loadable(lazy(() => import("pages/administrator/modules/update")));
-
+const WorkspacePage = Loadable(lazy(() => import("pages/administrator/workspace")));
 
 export const dashboard_crl = [
   {
@@ -147,23 +147,30 @@ export const patientboard_crl = [
  */
 export const administrator_crl = [
   {
-    path: ADMINISTRATOR_ROUTE.MODULES,
+    path: ADMINISTRATOR_ROUTE.MODULES.PARAM,
     baseProps: {
       element: <ModulePage />,
       title: "Module"
     },
   },
   {
-    path: ADMINISTRATOR_ROUTE.MODULES + "/" + PARAMS_ROUTE.CREATE,
+    path: ADMINISTRATOR_ROUTE.MODULES.PARAM + "/" + PARAMS_ROUTE.CREATE,
     baseProps: {
       element: <ModuleCreatePage />,
       title: "Module"
     },
   },
-    {
-    path: ADMINISTRATOR_ROUTE.MODULES + "/" + PARAMS_ROUTE.EDIT,
+  {
+    path: ADMINISTRATOR_ROUTE.MODULES.PARAM + "/" + PARAMS_ROUTE.EDIT,
     baseProps: {
       element: <ModuleUpdatePage />,
+      title: "Module"
+    },
+  },
+  {
+    path: ADMINISTRATOR_ROUTE.WORKSPACE.PARAM,
+    baseProps: {
+      element: <WorkspacePage />,
       title: "Module"
     },
   },

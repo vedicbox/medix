@@ -1,8 +1,10 @@
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import ClassicDialog from "components/dialog/ClassicDialog";
 import FormHeading from "components/forms/element/FormHeading";
+import MuiSelectField from "components/mui/MuiSelectField";
 import MuiTextField from "components/mui/MuiTextField";
 import ClassicInnerTable from "components/table/innerTable";
+import { STATUS_OPTIONS } from "list/optionsList";
 import { ADMINSTRATOR_HEADER } from "list/tableColist";
 import { useEffect, useRef, useState } from "react";
 import { isDataArray } from "utils/parse";
@@ -26,7 +28,7 @@ export default function CrudModuleForm(props) {
     setProcessObj,
   } = props;
   const [dialogObj, setDialogObj] = useState({});
-  const [status, setStatue] = useState("0");
+  const [status, setStatus] = useState("0");
 
   const subFormRef = useRef(null);
 
@@ -90,7 +92,18 @@ export default function CrudModuleForm(props) {
           />
         </div>
 
-        <div className="mt-2">
+        <div className="mt-2 ">
+          <MuiSelectField
+            label="Status"
+            name="status"
+            value={status}
+            options={STATUS_OPTIONS}
+            handleProcessObj={(e) => setStatus(e.target.checked)}
+            error={errors["status"]}
+          />
+        </div>
+
+        <div className="mt-2 mb-4">
           <MuiTextField
             label="Description"
             error={errors["desc"]}
@@ -114,12 +127,14 @@ export default function CrudModuleForm(props) {
         }}
       />
 
-      <ClassicInnerTable
-        headers={ADMINSTRATOR_HEADER.CREATE_MODULE}
-        rows={isDataArray(processObj?.subModule)}
-        placeholder={placeholderDetails}
-        keyPicker="name"
-      />
+      <div className="mt-3">
+        <ClassicInnerTable
+          headers={ADMINSTRATOR_HEADER.CREATE_MODULE}
+          rows={isDataArray(processObj?.subModule)}
+          placeholder={placeholderDetails}
+          keyPicker="name"
+        />
+      </div>
 
       <ClassicDialog
         open={!!dialogObj.status}

@@ -1,5 +1,4 @@
 import { yellow } from "@mui/material/colors";
-import { PARAMS_ROUTE } from "routes/routeurl";
 import { ICON_NAME } from "values/img-links";
 
 export const DASHBOARD_HEADER = {
@@ -151,7 +150,6 @@ export const ADMINSTRATOR_HEADER = {
     MAIN: [
       {
         icon: ICON_NAME.ADD_NEW,
-        link: PARAMS_ROUTE.CREATE
       },
       {
         label: "Module Id",
