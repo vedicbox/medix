@@ -1,3 +1,5 @@
+import MuiSubmitBtn from "components/button/MuiSubmitBtn";
+import CrudClinicForm from "components/forms/master/CrudClinicForm";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { STAFF_FORM_RULES } from "utils/security/ruleBox";
@@ -37,5 +39,16 @@ export default function ClinicAddPage() {
     setProcessObj((prev) => ({ ...prev, ...obj }));
   };
 
-  return <>Create Clinic</>;
+  return (
+    <>
+      <CrudClinicForm
+        errors={errors}
+        processObj={processObj}
+        setProcessObj={setProcessObj}
+        formRef={formRef}
+      />
+
+        <MuiSubmitBtn onSubmit={handleSubmit} />
+    </>
+  );
 }

@@ -10,7 +10,7 @@ router.use(isAuthenticated);
 
 router.get("/list", ClinicController.getClinicList);
 
-router.get("/all", ClinicController.getAllClinics);
+router.get("/fetch-tablist", ClinicController.getAllClinics);
 
 // GET /clinic/:clinicId - Get clinic by ID
 router.get("/:clinicId", ClinicController.getClinicById);
