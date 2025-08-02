@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { ID_MAPPING } from "service/config/permissionlist";
 import Loadable from "./Loadable";
-import { DASHBOARD_ROUTE, PARAMS_ROUTE, PATIENT_ROUTE } from "./routeurl";
+import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE, PATIENT_ROUTE } from "./routeurl";
 
 const FinancePage = Loadable(lazy(() => import("pages/dashboard/finance")));
 const MasterRolePage = Loadable(lazy(() => import("pages/dashboard/master/roles")));
@@ -13,10 +13,14 @@ const EditStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollment/u
 const StaffManagePage = Loadable(lazy(() => import("pages/dashboard/staff/manage")));
 const PageNotFoundPage = Loadable(lazy(() => import("pages/other/PageNotFound")));
 const ConsultInitPage = Loadable(lazy(() => import("pages/patientBoard/consult")));
+const ModulePage = Loadable(lazy(() => import("pages/administrator/modules")));
 const PatientProfileUpdate = Loadable(lazy(() => import("pages/patientBoard/profileUpdate")));
 const ClinicMasterPage = Loadable(lazy(() => import("pages/dashboard/master/clinic")));
 const ClinicAddPage = Loadable(lazy(() => import("pages/dashboard/master/clinic/add")));
 const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clinic/update")));
+const ModuleCreatePage = Loadable(lazy(() => import("pages/administrator/modules/create")));
+const ModuleUpdatePage = Loadable(lazy(() => import("pages/administrator/modules/update")));
+
 
 export const dashboard_crl = [
   {
@@ -131,3 +135,44 @@ export const patientboard_crl = [
     },
   },
 ];
+
+
+/**
+ * Administrator Role Route List
+ * 
+ * Local:
+ *   - Use `administrator_crl` for administrator-specific routes in development.
+ * Production:
+ *   - Use `administrator_crl` for administrator dashboard and management routes.
+ */
+export const administrator_crl = [
+  {
+    path: ADMINISTRATOR_ROUTE.MODULES,
+    baseProps: {
+      element: <ModulePage />,
+      title: "Module"
+    },
+  },
+  {
+    path: ADMINISTRATOR_ROUTE.MODULES + "/" + PARAMS_ROUTE.CREATE,
+    baseProps: {
+      element: <ModuleCreatePage />,
+      title: "Module"
+    },
+  },
+    {
+    path: ADMINISTRATOR_ROUTE.MODULES + "/" + PARAMS_ROUTE.EDIT,
+    baseProps: {
+      element: <ModuleUpdatePage />,
+      title: "Module"
+    },
+  },
+  {
+    path: PARAMS_ROUTE.WILD_CARD,
+    baseProps: {
+      element: <PageNotFoundPage />,
+      title: "Page Not Found"
+    },
+  },
+];
+

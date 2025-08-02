@@ -1,12 +1,20 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-import { Typography } from "@mui/material";
+import {
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { alpha } from "@mui/material/styles";
 import ClassicMenu from "components/menu/ClassicMenu";
 import { profile_mnlst } from "list/menulist";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { ADMINISTRATOR_ROUTE } from "routes/routeurl";
+import { ROLE_ENUM } from "values/enum";
 
 export default function HeaderProfilePopover() {
   const [open, setOpen] = useState(null);
@@ -26,15 +34,32 @@ export default function HeaderProfilePopover() {
     logout: () => handleLogout(),
   };
 
+  const isAdminstrator = authUser?.roleRef?.name === ROLE_ENUM.ADMINISTRATOR;
+  
   const topContent = (
-    <div className="px-3 py-2 br-bottom">
-      <Typography variant="subtitle2" noWrap>
-        {authUser.firstName + " " + authUser.lastName}
-      </Typography>
-      {/* <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-        @ {authUser.username}
-      </Typography> */}
-    </div>
+    <ListItem
+      component={isAdminstrator ? NavLink : undefined}
+      to={ADMINISTRATOR_ROUTE.INDEX}
+      className="br-bottom"
+    >
+      <ListItemAvatar>
+        <Avatar src={authUser.avatar} alt={authUser.firstName} />
+      </ListItemAvatar>
+      <ListItemText
+        primary={authUser.firstName + " " + authUser.lastName}
+        secondary={
+          <React.Fragment>
+            <Typography
+              component="span"
+              variant="body2"
+              sx={{ color: "text.primary", display: "inline" }}
+            >
+              {authUser?.roleRef?.name}
+            </Typography>
+          </React.Fragment>
+        }
+      />
+    </ListItem>
   );
 
   return (

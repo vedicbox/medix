@@ -96,6 +96,7 @@ docker-compose -f docker-compose.prod.yml logs nginx
 
 ```bash
 docker-compose -f docker-compose.prod.yml logs backend
+docker logs medix-backend-dev-1
 ```
 
 - Use these commands to see real-time logs and troubleshoot issues.

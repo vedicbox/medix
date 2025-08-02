@@ -51,3 +51,7 @@ export const GENDER_PARSER = {
 export const PATENT_JOURNEY = {
   "COMPLETE": 1
 }
+
+export const ROLE_ENUM = {
+  ADMINISTRATOR: "ADMINISTRATION"
+}

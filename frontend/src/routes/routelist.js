@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { APP_BAR_ENUM, ROUTE_MODE_ENUM } from "values/enum";
 import Loadable from "./Loadable";
 import ParentRouteMiddleware from "./middleware/ParentRouteMid";
-import { AUTH_ROUTE, PARAMS_ROUTE } from "./routeurl";
+import { ADMINISTRATOR_ROUTE, AUTH_ROUTE, PARAMS_ROUTE } from "./routeurl";
 
 const SignInPage = Loadable(lazy(() => import("pages/auth/login")));
 const DashboardPage = Loadable(lazy(() => import("pages/dashboard")));
@@ -12,6 +12,10 @@ const PageNotFoundPage = Loadable(
 const PatientDashboardPage = Loadable(
   lazy(() => import("pages/patientBoard"))
 );
+const AdministratorPage = Loadable(
+  lazy(() => import("pages/administrator"))
+);
+
 
 export const routelist = [
   {
@@ -30,6 +34,10 @@ export const routelist = [
   {
     path: PARAMS_ROUTE.INDEX + PARAMS_ROUTE.WILD_CARD,
     element: <ParentRouteMiddleware baseProps={{ element: DashboardPage }} />,
+  },
+  {
+    path: ADMINISTRATOR_ROUTE.INDEX + "/" + PARAMS_ROUTE.WILD_CARD,
+    element: <ParentRouteMiddleware baseProps={{ element: AdministratorPage }} />,
   },
   {
     path:

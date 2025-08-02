@@ -9,6 +9,7 @@ const LOC_POINT = {
   CLINIC: "clinic",
   PAYMENT: "api/payment",
   APPOINT: "appoint",
+  MODULE: "module"
 };
 
 /**
@@ -46,6 +47,7 @@ export const PATIENT_ENDPOINT = {
   CHANGE_ALIGN_STATUS: `${BASE_URL}/${LOC_POINT.PATIENT}/change-status`,
 };
 
+
 export const FILE_PUBLISH_ENDPOINT = {
   GENERATE_CONSULT_RECEPT: `${BASE_URL}/${LOC_POINT.PUBLISH}/generate-recept`,
 };
@@ -57,3 +59,8 @@ export const CLINIC_ENDPOINT = {
   FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.CLINIC}/fetch-tablist`,
   FETCH_CLINIC_LIST: `${BASE_URL}/${LOC_POINT.CLINIC}/list`,
 };
+export const MODULE_ENDPOINT = {
+  CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/create`,
+   CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/update`,
+  FIND_ALL:`${BASE_URL}/${LOC_POINT.MODULE}/find-all`,
+}

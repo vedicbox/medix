@@ -1,9 +1,9 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import connectDB from "./config/connectdb.js";
-import DefaultFactory from "./config/defaultFactory.js";
-import routelist from "./src/routes/index.js";
+import connectDB from "@config/connectdb.js";
+import DefaultFactory from "@config/defaultFactory.js";
+import routelist from "@routes/index.js";
 
 dotenv.config();
 

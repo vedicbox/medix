@@ -93,6 +93,7 @@ export default function ClassicMenu(props) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        sx={{ maxWidth: 360}}
       >
         {topContent}
         {menulist.map((itemObj, index) => {
@@ -103,7 +104,7 @@ export default function ClassicMenu(props) {
           return (
             <MenuItem
               key={index}
-              onClick={() => handleAction(itemObj)}       
+              onClick={() => handleAction(itemObj)}
               component={itemObj.link ? NavLink : undefined}
               to={itemObj.link}
             >

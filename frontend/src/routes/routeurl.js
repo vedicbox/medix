@@ -35,8 +35,12 @@ export const DASHBOARD_ROUTE = {
   }
 };
 
+export const ADMINISTRATOR_ROUTE = {
+  INDEX: "/administrator",
+  MODULES:"modules"
+}
+
 
 export const PATIENT_ROUTE = {
   CONSULT: "consult",
-
 };

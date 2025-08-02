@@ -308,3 +308,21 @@ export const ROLES_FORM_RULES = {
     },
 
 };
+
+export const MODULE_FORM_RULES = {
+    name: {
+        required: true,
+        alpha: true,
+        props: {
+            msgVariable: { label: "Name" },
+        }
+    },
+    desc: {
+        required: true,
+        alpha: true,
+        props: {
+            msgVariable: { label: "Description" },
+        }
+    },
+};
+
