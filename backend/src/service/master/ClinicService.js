@@ -1,9 +1,9 @@
 
+import ClinicMapper from "../../mapper/ClinicMapper.js";
 import ClinicRepo from "../../repo/master/ClinicRepo.js";
 import MESSAGES from "../../utils/message.js";
 import { ServiceResponse } from "../../utils/responseHandler.js";
 import STATUS_CODES from "../../utils/statusCodes.js";
-import ClinicMapper from "../../mapper/ClinicMapper.js";
 
 /**
  * Service for clinic management operations.
@@ -77,11 +77,11 @@ export default class ClinicService {
             return new ServiceResponse(STATUS_CODES.BAD_REQUEST, "Organization code is required");
         }
 
-        const clinicData = ClinicMapper.createClinicMapper(rawData, orgCode);    
+        const clinicData = ClinicMapper.createClinicMapper(rawData, orgCode);
 
         const newClinic = await ClinicRepo.createClinic(clinicData);
 
-        return new ServiceResponse(STATUS_CODES.CREATED, MESSAGES.CLINIC_CREATED_SUCCESSFULLY, newClinic);
+        return new ServiceResponse(STATUS_CODES.OK, MESSAGES.CLINIC_CREATED_SUCCESSFULLY, newClinic);
 
     }
 

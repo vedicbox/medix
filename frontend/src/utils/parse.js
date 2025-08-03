@@ -35,7 +35,7 @@ export const parseJsonObj = (value) => {
 
 export const parsePicker = (val, type, format = "YYYY-MM-DD") => {
   if (!val) return null;
-  
+
   switch (type) {
     case "date":
       return dayjs(val).format(format);
@@ -70,3 +70,14 @@ export const capitalizeFirstLetter = (str) => {
   if (typeof str !== "string" || !str.length) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+export const defaultTimeParser = (val) => {
+  if (!val) return null;
+  return dayjs(val).format("HH:mm")
+}
+
+export const encodeByComma = (val) => {
+  return isDataArray(val)
+    .map((item) => item.key)
+    .join(",");
+}

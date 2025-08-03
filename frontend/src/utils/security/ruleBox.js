@@ -131,6 +131,7 @@ export const STAFF_FORM_RULES = {
             msgVariable: { label: "Address" },
         }
     },
+    
 
 }
 
@@ -326,3 +327,104 @@ export const MODULE_FORM_RULES = {
     },
 };
 
+
+
+export const CLINIC_FORM_RULES = {
+    name: {
+        required: true,
+        props: {
+            msgVariable: { label: "Clinic Name" },
+        }
+    },
+    gstNo: {
+        required: true,
+        props: {
+            msgVariable: { label: "Gst No" },
+        }
+    },
+    shortDesc: {
+        required: true,
+        alpha: true,
+        props: {
+            msgVariable: { label: "Short Description" },
+        }
+    },
+    phone1: {
+        required: true,
+        numeric: true,
+        length: 10,
+        props: {
+            msgVariable: { label: "Phone No", count: 10 },
+
+        }
+    },
+    phone2: {
+        numeric: true,
+        length: 10,
+        props: {
+            msgVariable: { label: "Alternate Number", count: 10 },
+            optional: true
+        }
+
+    },
+    email: {
+        required: true,
+        email: true,
+        props: {
+            msgVariable: { label: "Email Address" },
+        }
+
+    },
+    country: {
+        required: true,
+        props: {
+            msgVariable: { label: "Country" },
+        }
+    },
+    state: {
+        required: true,
+        props: {
+            msgVariable: { label: "State" },
+        }
+
+    },
+    city: {
+        required: true,
+        props: {
+            msgVariable: { label: "City" },
+        }
+
+    },
+    pincode: {
+        required: true,
+        numeric: true,
+        props: {
+            msgVariable: { label: "Pincode" },
+        }
+
+    },
+    address: {
+        required: true,
+        props: {
+            msgVariable: { label: "Address" },
+        }
+    },
+    shiftFrom: {
+        required: true,
+        props: {
+            msgVariable: { label: "Shift From" },
+        }
+    },
+    shiftTo: {
+        required: true,
+        props: {
+            msgVariable: { label: "Shift To" },
+        }
+    },
+    weekOff: {
+        required: true,
+        props: {
+            msgVariable: { label: "Week Off" },
+        }
+    },
+}

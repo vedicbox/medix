@@ -17,11 +17,11 @@ export default function ClinicMasterPage() {
   const navigate = useNavigate();
 
   const { data: tbData } = useFetchTbClinicQuery();
-  let clinicTbData = tbData?.payload?.cliniclist || [];
+  let clinicTbData = tbData?.payload?.clinics || [];
 
   const handleEdit = (row) => {
-    navigate(PARAMS_ROUTE.EDIT, {
-      state: { userId: row.userRef._id, staffId: row._id },
+    navigate(PARAMS_ROUTE.UPDATE, {
+      state: { clinicId: row._id },
     });
   };
 
@@ -48,7 +48,7 @@ export default function ClinicMasterPage() {
         rows={clinicTbData}
         actionList={(row) => crud_mnlst(listenerBox(row))}
         placeholderDetails={placeholderDetails}
-        breadlist={DASHBOARD_CRUMB.MASTER.CLINIC}
+        breadlist={DASHBOARD_CRUMB.MASTER.CLINIC.INDEX}
         topBar={topBar}
       />
     </>

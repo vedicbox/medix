@@ -7,7 +7,7 @@ class AuthMapper {
    * @returns {Object} User entity with required fields
    */
   static toUserEntity(profileData, orgCode) {
-    const { email, firstName, lastName, roleRef } = profileData;
+    const { email, firstName, lastName, roleRef ,clinicRef } = profileData;
 
     return {
       email,

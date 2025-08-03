@@ -59,12 +59,32 @@ export const DASHBOARD_CRUMB = {
         ]
     },
     MASTER: {
-        CLINIC: [
-            {
-                icon: ICON_NAME.CLINIC,
-                label: "Clinic",
-            },
-        ],
+        CLINIC: {
+            INDEX: [
+                {
+                    icon: ICON_NAME.CLINIC,
+                    label: "Clinic",
+                },
+            ],
+            CREATE: [
+                {
+                    icon: ICON_NAME.CLINIC,
+                    label: "Clinic",
+                },
+                {
+                    label: "Create",
+                },
+            ],
+            UPDATE: [
+                {
+                    icon: ICON_NAME.CLINIC,
+                    label: "Clinic",
+                },
+                {
+                    label: "Update",
+                },
+            ]
+        }
     }
 }
 

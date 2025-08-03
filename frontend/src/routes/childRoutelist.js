@@ -16,8 +16,8 @@ const ConsultInitPage = Loadable(lazy(() => import("pages/patientBoard/consult")
 const ModulePage = Loadable(lazy(() => import("pages/administrator/modules")));
 const PatientProfileUpdate = Loadable(lazy(() => import("pages/patientBoard/profileUpdate")));
 const ClinicMasterPage = Loadable(lazy(() => import("pages/dashboard/master/clinic")));
-const ClinicAddPage = Loadable(lazy(() => import("pages/dashboard/master/clinic/add")));
-const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clinic/update")));
+const ClinicAddPage = Loadable(lazy(() => import("pages/dashboard/master/clinic/crud/add")));
+const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clinic/crud/edit")));
 const ModuleCreatePage = Loadable(lazy(() => import("pages/administrator/modules/create")));
 const ModuleUpdatePage = Loadable(lazy(() => import("pages/administrator/modules/update")));
 const WorkspacePage = Loadable(lazy(() => import("pages/administrator/workspace")));

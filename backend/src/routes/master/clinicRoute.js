@@ -10,16 +10,16 @@ router.use(isAuthenticated);
 
 router.get("/list", ClinicController.getClinicList);
 
-router.get("/fetch-tablist", ClinicController.getAllClinics);
+router.get("/fetchAll", ClinicController.fetchAll);
 
 // GET /clinic/:clinicId - Get clinic by ID
-router.get("/:clinicId", ClinicController.getClinicById);
+router.get("/:clinicId", ClinicController.fetchById);
 
 // POST /clinic - Create a new clinic
-router.post("/create", ClinicController.createClinic);
+router.post("/create", ClinicController.create);
 
 // PUT /clinic/:clinicId - Update clinic by ID
-router.put("/update", ClinicController.updateClinic);
+router.put("/update", ClinicController.update);
 
 
 export default router;

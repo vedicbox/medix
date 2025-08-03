@@ -2,6 +2,7 @@ import AuthMapper from "../mapper/AuthMapper.js";
 import StaffMapper from "../mapper/StaffMapper.js";
 import AuthRepo from "../repo/auth/AuthRepo.js";
 import RoleRepo from "../repo/auth/RoleRepo.js";
+import ClinicRepo from '../repo/master/ClinicRepo.js';
 import { default as StaffProfileRepo, default as StaffRepo } from "../repo/StaffRepo.js";
 import MESSAGES from "../utils/message.js";
 import { ServiceResponse } from "../utils/responseHandler.js";
@@ -24,7 +25,7 @@ export default class StaffService {
     if (!role) {
       return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.ROLE_NOT_FOUND);
     }
-
+    
     const clinic = await ClinicRepo.findClinicById(profileData.clinicRef);
     if (!clinic) {
       return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.CLINIC_NOT_FOUND);
