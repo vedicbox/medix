@@ -17,6 +17,8 @@ export default class ClinicController {
      */
     static async getClinicList(req, res) {
         try {
+           
+            
             const authentication = req.auth;
             const response = await ClinicService.getClinicList(authentication);
             HttpHandler.send(res, response);
@@ -83,9 +85,9 @@ export default class ClinicController {
      */
     static async update(req, res) {
         try {
-            const updateData = req.body;
+            const { clinicId, ...restUpdateData } = req.body; // clinicId ko alag kiya
             const authentication = req.auth;
-            const response = await ClinicService.updateClinic(updateData, authentication);
+            const response = await ClinicService.updateClinic(clinicId, restUpdateData, authentication);
             HttpHandler.send(res, response);
         } catch (error) {
             console.error("Error in updateClinic controller:", error);

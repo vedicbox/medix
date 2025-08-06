@@ -19,7 +19,7 @@ router.get("/:clinicId", ClinicController.fetchById);
 router.post("/create", ClinicController.create);
 
 // PUT /clinic/:clinicId - Update clinic by ID
-router.put("/update", ClinicController.update);
+router.post("/update", ClinicController.update);
 
 
 export default router;

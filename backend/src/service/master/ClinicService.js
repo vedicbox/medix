@@ -91,8 +91,12 @@ export default class ClinicService {
      * @param {Object} updateData - Update data
      * @returns {Promise<ServiceResponse>}
      */
-    static async updateClinic(clinicId, updateData) {
+    static async updateClinic( clinicId,updateData,authentication) {
+        const { orgCode } = authentication;
 
+        if (!orgCode) {
+            return new ServiceResponse(STATUS_CODES.BAD_REQUEST, "Organization code is required");
+        }
         if (!clinicId) {
             return new ServiceResponse(STATUS_CODES.BAD_REQUEST, "Clinic ID is required");
         }
