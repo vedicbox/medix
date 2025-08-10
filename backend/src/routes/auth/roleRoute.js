@@ -1,7 +1,11 @@
 import express from "express";
 import RoleController from "../../controller/auth/RoleController.js";
+import { isAuthenticated } from "@middlewares/authMiddleware.js";
 
 const router = express.Router();
+
+// Apply authentication middleware to all routes
+router.use(isAuthenticated);
 
 /**
  * Route to fetch roles
@@ -30,7 +34,7 @@ router.post("/update/permissions", RoleController.updateRolePermissions);
  * Route to fetch available roles (active roles)
  * @route GET /fetch/availableRoles
  */
-router.get("/fetch-tablist", RoleController.fetchTableRoles);
+router.get("/fetchAll", RoleController.fetchAll);
 
 
 

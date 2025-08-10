@@ -6,17 +6,17 @@ class AuthMapper {
    * @param {string} orgCode - Organization code
    * @returns {Object} User entity with required fields
    */
-  static toUserEntity(profileData, orgCode) {
-    const { email, firstName, lastName, roleRef ,clinicRef } = profileData;
+  static toUserEntity(profileData, orgRef) {
+    const { email, firstName, lastName, roleRef, clinicRef } = profileData;
 
     return {
       email,
-      firstName: firstName ?? '',
-      lastName: lastName ?? '',
+      firstName: firstName,
+      lastName: lastName,
       password: email,
       roleRef,
       clinicRef,
-      orgCode,
+      orgRef,
     };
   }
 
@@ -26,15 +26,34 @@ class AuthMapper {
    * @returns {Object} Partial user entity with only provided fields
    */
   static toUserUpdateEntity(profileData) {
-    const { email, firstName, lastName, roleRef } = profileData;
+    const { email, firstName, lastName, roleRef, clinicRef } = profileData;
+    return {
+      email,
+      firstName: firstName,
+      lastName: lastName,
+      roleRef,
+      clinicRef
+    };
+  }
+
+  static getAdminstratorUser(orgRef, roleRef) {
+    const {
+      ADMINISTRATION_EMAIL: email,
+      ADMINISTRATION_PASSWORD: password,
+      ADMINISTRATION_FIRSTNAME: firstName,
+      ADMINISTRATION_LASTNAME: lastName
+    } = process.env;
 
     return {
       email,
-      firstName: firstName ?? '',
-      lastName: lastName ?? '',
+      password,
+      firstName,
+      lastName,
+      orgRef,
       roleRef
     };
   }
+
 }
 
 export default AuthMapper;

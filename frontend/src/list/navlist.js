@@ -1,7 +1,6 @@
-import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE } from "routes/routeurl";
+import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
 import { ID_MAPPING } from "service/config/permissionlist";
 import { ICON_NAME } from "values/img-links";
-import { PARAMS_ROUTE } from "routes/routeurl";
 
 export const dashboard_navigation = () => {
   return [
@@ -84,13 +83,19 @@ export const patientboard_navigation = () => {
 export const administrator_nav = () => {
   return [
     {
+      name: "Overview",
+      index: true,
+      path: ADMINISTRATOR_ROUTE.INDEX,
+      icon: ICON_NAME.DASHBOARD,
+    },
+    {
       name: "Workspace",
-      icon: ICON_NAME.MASTER,
+      icon: ICON_NAME.WORKSPACE,
       path: ADMINISTRATOR_ROUTE.WORKSPACE.PATH,
     },
     {
       name: "Module",
-      icon: ICON_NAME.MASTER,
+      icon: ICON_NAME.NAV_MODULE,
       path: ADMINISTRATOR_ROUTE.MODULES.PATH,
     }
   ]

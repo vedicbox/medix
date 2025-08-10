@@ -1,27 +1,24 @@
-import { Button, Grid } from "@mui/material";
-import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
+import { Grid } from "@mui/material";
+import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
-import Iconify from "components/icons/Iconify";
 import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import {
   useGetTBRolesQuery,
   useUpdatePermissionsMutation,
 } from "service/auth/roleService";
-import RoleDialogBox from "./dialogBox/RoleDialog";
-import PermissionListView from "./elements/PermissionListView";
-import RoleListView from "./elements/RoleListView";
-import { useDispatch } from "react-redux";
 import { snackbar_slice } from "store/root-reducer/global";
 import { SEVERITY_ENUM } from "values/enum";
 import { ALERT_MSG } from "values/messages";
-import { ICON_NAME } from "values/img-links";
+import RoleDialogBox from "./dialogBox/RoleDialog";
+import PermissionListView from "./elements/PermissionListView";
+import RoleListView from "./elements/RoleListView";
 
 export default function MasterRolePage() {
   const [roleObj, setRoleObj] = useState({});
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const { data: tbData } = useGetTBRolesQuery();
   let rolePayload = tbData?.payload?.rolelist || [];
@@ -41,15 +38,15 @@ export default function MasterRolePage() {
   };
 
   const handleSumitPermission = async () => {
-    if (!roleObj.roleId){
+    if (!roleObj.roleId) {
       dispatch(
         snackbar_slice({
           severity: SEVERITY_ENUM.ERROR,
           msg: ALERT_MSG.ROLE_SELECT,
         })
       );
-       return;
-    };
+      return;
+    }
     try {
       await updatePermissions(roleObj).unwrap();
       // Optionally show success message or refresh data
@@ -58,19 +55,22 @@ export default function MasterRolePage() {
     }
   };
 
+  const topBar = [
+    {
+      label: "Create Role",
+      icon: "basil:add-solid",
+      link: {
+        pathname: PARAMS_ROUTE.CREATE,
+      },
+    },
+  ];
+
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.ROLES.MANAGE}>
-        <Button
-          variant="outlined"
-          startIcon={<Iconify icon={ICON_NAME.ADD_NEW} />}
-          component={NavLink}
-          to={PARAMS_ROUTE.CREATE}
-          className="elevation1"
-        >
-          Add Role
-        </Button>
-      </CollapsedBreadcrumbs>
+      <ButtonBreadCrumbs
+        breadlist={DASHBOARD_CRUMB.ROLES.MANAGE}
+        topBar={topBar}
+      />
 
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, lg: 6 }}>

@@ -11,11 +11,6 @@ const StaffProfileSchema = new mongoose.Schema(
       ref: "users", // Reference to the User model
       required: true,
     },
-    clinicRef: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "clinic_masters", // Reference to the Clinic model
-      required: true,
-    },
     phone1: {
       type: String,
       required: [true, "Phone number is required"],
@@ -47,7 +42,6 @@ const StaffProfileSchema = new mongoose.Schema(
         validator: function (value) {
           const today = new Date();
           today.setHours(0, 0, 0, 0);
-          console.log("DOB Validation:", value, "<", today, "=>", value < today);
           return value < today;
         },
         message: "Date of birth must be in the past",

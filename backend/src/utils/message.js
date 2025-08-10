@@ -36,6 +36,11 @@ const MESSAGES = {
   ALIGN_PATIENT_NOT_FOUND: "Align patient not found",
   STATUS_UPDATED: "Status updated successfully",
   FAILED_TO_UPDATE_STATUS: "Failed to update status",
+
+  // Label Formatter
+  NOT_FOUND_MSG: "{label} Not Found.",
+  CREATE: "{label} created successfully",
+  UPDATE: "{label} updated successfully",
 };
 
 export default MESSAGES; 

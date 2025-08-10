@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema(
         },
         message: "First name must contain only letters",
       },
-       set: (value) =>
+      set: (value) =>
         value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
     },
     lastName: {
@@ -46,20 +46,26 @@ const UserSchema = new mongoose.Schema(
         },
         message: "Last name must contain only letters",
       },
-       set: (value) =>
+      set: (value) =>
         value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
     },
     isActive: {
       type: Boolean,
       default: true,
     },
-    orgCode: {
-      type: String,
-      trim: true,
+    orgRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "organization",
+      required: true,
     },
     roleRef: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "roles", 
+      ref: "roles",
+      required: false,
+    },
+    clinicRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "clinic_masters",
       required: false,
     },
   },

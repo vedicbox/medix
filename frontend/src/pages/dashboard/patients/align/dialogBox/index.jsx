@@ -41,7 +41,7 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
   }, [setDialogObj, navigate]);
 
   const handleNewPatient = useCallback(() => {
-    navigate(`/${DASHBOARD_ROUTE.PATIENT.ENROLL}`);
+    navigate(DASHBOARD_ROUTE.PATIENT.ENROLL);
   }, [navigate]);
 
   const handlePtStatus = useCallback(async () => {

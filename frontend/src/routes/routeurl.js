@@ -21,6 +21,10 @@ export const DASHBOARD_ROUTE = {
   STAFF: {
     ENROLL: "/staff/enrollment",
     MANAGE: "/staff/manage",
+    BOARD: {
+      PATH: "/staff/manage/board",
+      PARAM: "board"
+    }
   },
   PATIENT: {
     ALIGN: "/patients/align",
@@ -32,7 +36,7 @@ export const DASHBOARD_ROUTE = {
   MASTER: {
     ROLES: "/master/roles",
     CLINIC: "/master/clinic"
-  }
+  },
 };
 
 export const ADMINISTRATOR_ROUTE = {

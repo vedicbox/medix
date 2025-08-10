@@ -7,8 +7,8 @@ import { CLINIC_FORM_RULES } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
 import { WEEKS_ENUM } from "values/enum";
 
-const CrudClinicMaster = forwardRef((props, ref) => {
-  const { defaultError, processObj, setProcessObj, defaultData } = props;
+const ClinicFormUtil = forwardRef((props, ref) => {
+  const { processObj, setProcessObj, defaultData } = props;
   const formRef = useRef(null);
 
   const {
@@ -20,16 +20,10 @@ const CrudClinicMaster = forwardRef((props, ref) => {
     handleErrorUpdate,
   } = useFormValidation(CLINIC_FORM_RULES);
 
-  useEffect(() => {
-    if (defaultError) {
-      setErrors(defaultError);
-    }
-  }, [defaultError]);
-
   useImperativeHandle(ref, () => ({
     preparedData,
+    setErrors,
   }));
-
 
   const initDefaultData = async () => {
     // Iterate over the entries of the flat default data
@@ -81,7 +75,7 @@ const CrudClinicMaster = forwardRef((props, ref) => {
     }
   };
 
-  const preparedData = () => {
+  const preparedData = async () => {
     let formData = Object.fromEntries(new FormData(formRef.current));
     let weekOff = encodeByComma(processObj["weekOff"]);
 
@@ -89,10 +83,11 @@ const CrudClinicMaster = forwardRef((props, ref) => {
       ...formData,
       weekOff: weekOff,
       shiftFrom: defaultTimeParser(processObj.shiftFrom),
-      shiftTo: defaultTimeParser(processObj.shiftTo)
+      shiftTo: defaultTimeParser(processObj.shiftTo),
     };
 
-    if (validateAll(formData)) return formData;
+    const isValid = await validateAll(formData);
+    if (isValid) return formData;
   };
 
   useEffect(() => {
@@ -116,7 +111,6 @@ const CrudClinicMaster = forwardRef((props, ref) => {
               errors={errors}
               onChange={handleChange}
               onBlur={handleBlur}
-              formRef={formRef}
               processObj={processObj}
               handleProcessObj={handleProcessObj}
             />
@@ -127,4 +121,4 @@ const CrudClinicMaster = forwardRef((props, ref) => {
   );
 });
 
-export default CrudClinicMaster;
+export default ClinicFormUtil;

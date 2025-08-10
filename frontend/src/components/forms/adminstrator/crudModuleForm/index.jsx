@@ -1,10 +1,11 @@
+import { Paper } from "@mui/material";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import ClassicDialog from "components/dialog/ClassicDialog";
 import FormHeading from "components/forms/element/FormHeading";
-import MuiSelectField from "components/mui/MuiSelectField";
+import MuiMultiSelectField from "components/mui/MuiMultiSelect";
 import MuiTextField from "components/mui/MuiTextField";
 import ClassicInnerTable from "components/table/innerTable";
-import { STATUS_OPTIONS } from "list/optionsList";
+import { PROJ_CATEGORY } from "list/optionsList";
 import { ADMINSTRATOR_HEADER } from "list/tableColist";
 import { useEffect, useRef, useState } from "react";
 import { isDataArray } from "utils/parse";
@@ -28,7 +29,7 @@ export default function CrudModuleForm(props) {
     setProcessObj,
   } = props;
   const [dialogObj, setDialogObj] = useState({});
-  const [status, setStatus] = useState("0");
+  const [category, setCategory] = useState();
 
   const subFormRef = useRef(null);
 
@@ -42,6 +43,8 @@ export default function CrudModuleForm(props) {
           inputElement.value = value;
         }
       });
+
+      setProcessObj({ subModules: defaultData.subModules });
     }
   }, [defaultData]);
 
@@ -61,7 +64,7 @@ export default function CrudModuleForm(props) {
 
     setProcessObj((prev) => ({
       ...prev,
-      subModule: [...isDataArray(prev?.subModule), payload],
+      subModules: [...isDataArray(prev?.subModules), payload],
     }));
 
     handleClose();
@@ -71,51 +74,50 @@ export default function CrudModuleForm(props) {
 
   return (
     <>
-      <form
-        ref={formRef}
-        style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-      >
+      <form ref={formRef} className="mb-4">
         <FormHeading title="Module" icon={ICON_NAME.MODULE} />
 
-        <div>
-          <MuiTextField
-            label="Name"
-            required={true}
-            textProps={{
-              name: "name",
-              placeholder: "e.g. Abcd",
-              onChange: onChange,
-              onBlur: onBlur,
-              slotProps: { htmlInput: { maxLength: 30 } },
-            }}
-            error={errors["name"]}
-          />
-        </div>
+        <Paper className="p-4 my-4">
+          <div className="mb-4">
+            <MuiTextField
+              label="Name"
+              required={true}
+              textProps={{
+                name: "name",
+                placeholder: "e.g. Abcd",
+                onChange: onChange,
+                onBlur: onBlur,
+                slotProps: { htmlInput: { maxLength: 30 } },
+              }}
+              error={errors["name"]}
+            />
+          </div>
 
-        <div className="mt-2 ">
-          <MuiSelectField
-            label="Status"
-            name="status"
-            value={status}
-            options={STATUS_OPTIONS}
-            handleProcessObj={(e) => setStatus(e.target.checked)}
-            error={errors["status"]}
-          />
-        </div>
-
-        <div className="mt-2 mb-4">
-          <MuiTextField
-            label="Description"
-            error={errors["desc"]}
-            textProps={{
-              name: "desc",
-              rows: 2,
-              multiline: true,
-              onChange,
-              onBlur,
-            }}
-          />
-        </div>
+          <div className="mb-4">
+            <MuiTextField
+              label="Tag"
+              required={true}
+              textProps={{
+                name: "tag",
+                placeholder: "e.g. tag",
+                onChange: onChange,
+                onBlur: onBlur,
+                slotProps: { htmlInput: { maxLength: 30 } },
+              }}
+              error={errors["tag"]}
+            />
+          </div>
+          <div className="mt-2">
+            <MuiMultiSelectField
+              label="Category"
+              name="category"
+              value={category}
+              options={PROJ_CATEGORY}
+              handleProcessObj={(obj) => setCategory(obj.category)}
+              error={errors["category"]}
+            />
+          </div>
+        </Paper>
       </form>
 
       <FormHeading
@@ -130,7 +132,7 @@ export default function CrudModuleForm(props) {
       <div className="mt-3">
         <ClassicInnerTable
           headers={ADMINSTRATOR_HEADER.CREATE_MODULE}
-          rows={isDataArray(processObj?.subModule)}
+          rows={isDataArray(processObj?.subModules)}
           placeholder={placeholderDetails}
           keyPicker="name"
         />
@@ -145,7 +147,7 @@ export default function CrudModuleForm(props) {
         <SubModuleForm
           ref={subFormRef}
           defaultData={dialogObj}
-          subModule={processObj.subModule}
+          subModules={processObj.subModules}
         />
       </ClassicDialog>
     </>

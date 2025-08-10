@@ -77,7 +77,7 @@ export default function PatientEnroll() {
       <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.PATIENTS.ENROLL} />
 
       <Grid container justifyContent="center">
-        <Grid  size={{ xs: 12, lg: 10 }}>
+        <Grid size={{ xs: 12, lg: 10 }}>
           <form ref={formRef}>
             <PatientDetailsForm
               errors={errors}

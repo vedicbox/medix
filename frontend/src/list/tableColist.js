@@ -1,120 +1,17 @@
-import { yellow } from "@mui/material/colors";
+import { Chip, FormControlLabel, Radio } from "@mui/material";
+import { createMRTColumnHelper } from "material-react-table";
 import { ICON_NAME } from "values/img-links";
 
+
+const columnHelper = createMRTColumnHelper();
+
 export const DASHBOARD_HEADER = {
-  STAFF: {
-    MANAGE: [
-      {
-        label: "First Name",
-        picker: "userRef.firstName",
-      },
-      {
-        label: "Last Name",
-        picker: "userRef.lastName",
-      },
-      {
-        label: "Email",
-        picker: "userRef.email",
-      },
-      {
-        label: "Phone No",
-        picker: "phone1",
-      },
-      {
-        label: "Gender",
-        picker: "gender",
-      },
-      {
-        label: "Role",
-        picker: "userRef.roleRef.name",
-      },
-      {
-        label: "Created Dt",
-        picker: "createdAt",
-      },
-      {
-        label: "Action",
-        action: true,
-        cellProps: {
-          align: "right",
-        },
-      },
-    ],
-  },
+
   PATIENTS: {
-    ALIGN: [
-      {
-        label: "Patient Name",
-        picker: "patientName",
-      },
-      {
-        label: "Phone No",
-        picker: "phone1",
-      },
-      {
-        label: "Doctor Name",
-        picker: "doctorName",
-      },
-      {
-        label: "Status",
-        picker: "status",
-        align: "center",
-        width: 100,
-        chip: {
-          "Pending": yellow[100]
-        }
-      },
-      {
-        label: "Fee",
-        picker: "fee",
-      },
-      {
-        label: "Pay Mode",
-        picker: "payTag",
-      },
-      {
-        label: "Action",
-        action: true,
-        cellProps: {
-          align: "right",
-        },
-      },
-    ]
+
   },
   MASTER: {
-    CLINIC: [
-      {
-        label: "ClinicName",
-        picker: "name",
-      },
-      {
-        label: "Email",
-        picker: "email",
-      },
-      {
-        label: "Phone No",
-        picker: "phone1",
-      },
-      {
-        label: "GST No",
-        picker: "gstNo",
-      },
-      {
-        label: "Created Dt",
-        picker: "createdAt",
-      },
-      {
-        label: "Status",
-        picker: "status",
-      },
-      {
-        label: "Action",
-        action: true,
-        cellProps: {
-          align: "right",
-        },
-      },
-    ],
+
     ROLES: [
       {
         label: "Role Id",
@@ -190,6 +87,188 @@ export const ADMINSTRATOR_HEADER = {
         },
       },
     ]
-  }
+  },
 
+
+}
+
+export const ADMINSTRATOR_TBCOL = {
+  MODULE: {
+    key: "_id",
+    COLUMNS: [
+      columnHelper.accessor("_id", {
+        header: "UUID",
+      }),
+      columnHelper.accessor("tag", {
+        header: "Tag",
+      }),
+      columnHelper.accessor("name", {
+        header: "Module Name",
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Date",
+      }),
+    ],
+    SUBOBJ: {
+      key: "uuid",
+      title: "Sub Module",
+      picker: "subModules",
+      columns: [
+        columnHelper.accessor("uuid", {
+          header: "UUID",
+        }),
+        columnHelper.accessor("tag", {
+          header: "Tag",
+        }),
+        columnHelper.accessor("name", {
+          header: "Name",
+        }),
+      ]
+    }
+  },
+  workspace: () => ({
+    key: "_id",
+    isMenuAction: true,
+    title: "Workspace List",
+    COLUMNS: [
+      columnHelper.accessor("orgCode", {
+        header: "OrgCode",
+      }),
+      columnHelper.accessor("orgName", {
+        header: "Module Name",
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Date",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+        Cell: ({ cell }) => <Chip variant="outlined" size="small" label={cell.getValue() ? "Active" : "InActive"} color={cell.getValue() ? "success" : "danger"} />
+      }),
+    ],
+
+  })
+}
+
+
+export const WORKSPACE_TBCOL = [
+  columnHelper.accessor("org", {
+    header: "Organization",
+  }),
+  columnHelper.accessor("name", {
+    header: "Client Name",
+  }),
+  columnHelper.accessor("phone1", {
+    header: "Phone No",
+  }),
+  columnHelper.accessor("gstNo", {
+    header: "GST No",
+  }),
+  columnHelper.accessor("createDt", {
+    header: "Create Dt",
+  }),
+  columnHelper.accessor("expiryDt", {
+    header: "Expiry Dt",
+  }),
+];
+
+export const DASHBOARD_TBCOL = {
+  roles: (props) => ({
+    key: "_id",
+    title: "Workspace List",
+    isMenuAction: false,
+    COLUMNS: [
+      columnHelper.accessor("name", {
+        header: "Role Name",
+        Cell: ({ cell }) => {
+          const { _id, name, status } = cell.row.original
+          return <FormControlLabel
+            value={_id}
+            control={<Radio size="small" />}
+            label={name}
+            checked={props.roleSelect === _id}
+            onChange={props.handleRoleSelect}
+            disabled={status == 0}
+          />
+        }
+      })
+    ]
+  }),
+  clinic: (props) => ({
+    key: "_id",
+    title: "Clinic List",
+    isMenuAction: true,
+    COLUMNS: [
+      columnHelper.accessor("name", {
+        header: "Clinic Name",
+      }),
+      columnHelper.accessor("email", {
+        header: "Email",
+      }),
+      columnHelper.accessor("phone1", {
+        header: "Phone No",
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Dt",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+        Cell: ({ cell }) => <Chip variant="outlined" size="small" label={cell.getValue() ? "Active" : "InActive"} color={cell.getValue() ? "success" : "danger"} />
+      }),
+    ]
+  }),
+  staff: (props) => ({
+    key: "_id",
+    title: "Staff List",
+    isMenuAction: true,
+    COLUMNS: [
+      columnHelper.accessor("userRef.firstName", {
+        header: "First Name",
+      }),
+      columnHelper.accessor("userRef.lastName", {
+        header: "Last Name",
+      }),
+      columnHelper.accessor("userRef.email", {
+        header: "Email",
+      }),
+      columnHelper.accessor("phone1", {
+        header: "Phone No",
+      }),
+      columnHelper.accessor("gender", {
+        header: "Gender",
+      }),
+      columnHelper.accessor("userRef.roleRef.name", {
+        header: "Role",
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Dt",
+      }),
+    ],
+
+  }),
+  alignPatient: (props) => ({
+    key: "_id",
+    title: "Patient List",
+    isMenuAction: true,
+    COLUMNS: [
+      columnHelper.accessor("patientName", {
+        header: "Patient Name",
+      }),
+      columnHelper.accessor("Phone No", {
+        header: "phone1",
+      }),
+      columnHelper.accessor("doctorName", {
+        header: "Doctor Name",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+      }),
+      columnHelper.accessor("fee", {
+        header: "Fee",
+      }),
+      columnHelper.accessor("payTag", {
+        header: "Pay Mode",
+      }),
+    ],
+
+  })
 }

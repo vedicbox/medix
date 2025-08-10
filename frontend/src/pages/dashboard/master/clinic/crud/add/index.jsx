@@ -5,14 +5,13 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateClinicMutation } from "service/clinicService";
 import { HTTP_STATUS_CODES } from "values/enum";
-import CrudClinicMaster from "..";
+import ClinicFormUtil from "../ClinicFormUtil";
 
 export default function ClinicAddPage() {
   const formRef = useRef(null);
   const [createClinic] = useCreateClinicMutation();
   const [processObj, setProcessObj] = useState({});
   const navigate = useNavigate();
-  const [errors, setErrors] = useState(null);
 
   const handleSubmit = async () => {
     const formData = await formRef.current.preparedData();
@@ -22,22 +21,25 @@ export default function ClinicAddPage() {
       if (data?.status == HTTP_STATUS_CODES.OK) {
         navigate(-1);
       } else if (error?.status === HTTP_STATUS_CODES.BAD_REQUEST) {
-        setErrors(error?.data?.payload?.details || {});
+        handleServerSideErrors(error?.data?.payload?.details || {});
       }
     }
+  };
+
+  const handleServerSideErrors = (errors = {}) => {
+    formRef.current?.setErrors(errors);
   };
 
   return (
     <>
       <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.MASTER.CLINIC.CREATE} />
-      <CrudClinicMaster
-        defaultError={errors}
+      <ClinicFormUtil
         processObj={processObj}
         setProcessObj={setProcessObj}
         ref={formRef}
       />
 
-      <MuiSubmitBtn onSubmit={handleSubmit} className="text-center" />
+      <MuiSubmitBtn onSubmit={handleSubmit} className="text-center mt-4" />
     </>
   );
 }

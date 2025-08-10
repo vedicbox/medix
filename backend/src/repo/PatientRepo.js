@@ -23,52 +23,72 @@ export default class PatientRepo {
 
     }
 
-    static async updatePatient(patientDetails,patientContact,patientAddress) {
-       
+    static async updatePatient(patientDetails, patientContact, patientAddress) {
+
 
         return patientDetailDao;
-    }   
+    }
 
-    static async findByPhone(phoneNumber) {
+    static async findByPhone(phoneNumber, orgCode) {
         return PatientContactDao.aggregate([
+            // Stage 1: Match phone numbers
             {
                 $match: {
-                    $or: [{ phone1: phoneNumber }, { phone2: phoneNumber }],
-                },
+                    $or: [
+                        { phone1: phoneNumber },
+                        { phone2: phoneNumber }
+                    ]
+                }
             },
+
+            // Stage 2: Join with patient_details with orgCode filter
             {
                 $lookup: {
                     from: "patient_details",
-                    localField: "caseId",
-                    foreignField: "_id",
-                    as: "details",
-                },
+                    let: { caseId: "$caseId" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: { $eq: ["$_id", "$$caseId"] },
+                                orgCode: orgCode  // OrgCode filter happens here
+                            }
+                        },
+                        { $limit: 1 }  // Optimize - we only need one match
+                    ],
+                    as: "patient"
+                }
             },
+
+            // Stage 3: Unwind and filter (replaces client-side filtering)
             {
                 $unwind: {
-                    path: "$details",
-                    preserveNullAndEmptyArrays: false,
-                },
+                    path: "$patient",
+                    preserveNullAndEmptyArrays: false  // Automatically filters nulls
+                }
             },
+
+            // Stage 4: Project final format
             {
                 $project: {
                     _id: 0,
-                    caseId: "$caseId",
-                    gender: "$details.gender",
-                    age: "$details.age",
+                    caseId: "$patient._id",
+                    gender: "$patient.gender",
+                    age: "$patient.age",
                     patientName: {
                         $trim: {
                             input: {
-                                $concat: ["$details.firstName", " ", "$details.lastName"],
-                            },
-                        },
-                    },
-
-                },
-            },
+                                $concat: [
+                                    "$patient.firstName",
+                                    " ",
+                                    "$patient.lastName"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
         ]);
     }
-
     static async validatePatientById(caseId) {
         const patient = await PatientDetailDao.findOne(
             { _id: caseId },

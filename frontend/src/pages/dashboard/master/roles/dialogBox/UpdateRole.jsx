@@ -8,9 +8,8 @@ const UpdateRole = forwardRef((props, ref) => {
   const formRef = useRef(null);
   const [processObj, setProcessObj] = useState({});
 
- 
+  console.log(state)
 
-  // Use useImperativeHandle to expose the resetForm method to the parent
   useImperativeHandle(ref, () => ({
     preparedData,
   }));

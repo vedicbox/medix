@@ -1,33 +1,12 @@
 import mongoose from "mongoose";
 
-/**
- * ClinicMaster Model
- * @typedef {Object} ClinicMaster
- * @property {ObjectId} _id - Auto-generated MongoDB ID (Primary Key)
- * @property {string} name - Unique clinic name (required)
- * @property {string} [shortDesc] - Short description
- * @property {string} [address] - Physical address
- * @property {string} [email] - Validated email format
- * @property {string} [phone1] - Primary contact (10-15 digits)
- * @property {string} [phone2] - Secondary contact (10-15 digits)
- * @property {string} [country] - Country name
- * @property {string} [state] - State/Province
- * @property {string} [city] - City
- * @property {string} [pincode] - Postal code
- * @property {string} [shiftFrom] - Opening time (HH:MM)
- * @property {string} [shiftTo] - Closing time (HH:MM)
- * @property {string} [weekOff] - Day of weekly closure
- * @property {string} [gstNo] - Valid GST number format
- * @property {number} [isActive=1] - 1=active, 0=inactive
- * @property {Date} createdAt - Auto-created timestamp
- * @property {Date} updatedAt - Auto-updated timestamp
- */
+
 const ClinicSchema = new mongoose.Schema(
   {
-    orgCode: {
-      type: String,
-      required: [true, "Organization code is required"],
-      trim: true,
+    orgRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "organization",
+      required: true,
     },
     name: {
       type: String,

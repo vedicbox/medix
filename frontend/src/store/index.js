@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { moduleService } from "service/adminstrator/moduleService";
+import { orgService } from "service/adminstrator/orgService";
 import { authService } from "service/auth/authService";
 import { roleService } from "service/auth/roleService";
+import { clinicService } from "service/clinicService";
 import { patientService } from "service/patientService";
 import { staffService } from "service/staffService";
-import { moduleService } from "service/adminstrator/moduleService";
-import { clinicService } from "service/clinicService";
 import rootReducer from "./root-reducer";
 
 export const store = configureStore({
@@ -20,6 +21,7 @@ export const store = configureStore({
     [patientService.reducerPath]: patientService.reducer,
     [moduleService.reducerPath]: moduleService.reducer,
     [clinicService.reducerPath]: clinicService.reducer,
+    [orgService.reducerPath]: orgService.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -32,7 +34,8 @@ export const store = configureStore({
       roleService.middleware,
       patientService.middleware,
       moduleService.middleware,
-      clinicService.middleware
+      clinicService.middleware,
+      orgService.middleware,
     ]),
 });
 

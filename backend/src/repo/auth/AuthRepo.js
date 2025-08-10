@@ -12,10 +12,10 @@ export default class AuthRepo {
     const query = UserDao.findOne(queryFields);
 
     if (selectFields) {
-      query.select(selectFields);
+      query.select(selectFields); 
     }
 
-    return query.exec();
+    return query.lean().exec(); 
   }
 
   /**
@@ -69,16 +69,12 @@ export default class AuthRepo {
    * @param {string} org - Organization code
    * @returns {Promise<Object|null>} - Lean user object
    */
-  static async findUserSessionInfo(userId, orgCode) {
-    return UserDao.findOne({ _id: userId, orgCode })
-      .select('-password -updatedAt -createdAt -__v')
-      .populate({
-        path: 'roleRef',
-        select: 'name status permission',
-        options: { lean: true }
-      })
-      .lean()
-      .exec();
+  static async findUserSessionInfo(userRef, orgRef) {
+    return UserDao.findOne({ _id: userRef, orgRef })
+      .select('-password')
+      .populate('roleRef', 'name status permission')
+      .populate('clinicRef', 'name')
+      .lean();
   }
 
 }

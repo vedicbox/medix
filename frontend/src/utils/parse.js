@@ -35,6 +35,7 @@ export const parseJsonObj = (value) => {
 
 export const parsePicker = (val, type, format = "YYYY-MM-DD") => {
   if (!val) return null;
+  else if (typeof val === "string") return val;
 
   switch (type) {
     case "date":
@@ -73,6 +74,7 @@ export const capitalizeFirstLetter = (str) => {
 
 export const defaultTimeParser = (val) => {
   if (!val) return null;
+  else if (typeof val === "string") return val;
   return dayjs(val).format("HH:mm")
 }
 

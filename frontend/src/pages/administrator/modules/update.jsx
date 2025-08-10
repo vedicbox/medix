@@ -43,7 +43,8 @@ export default function ModuleUpdatePage() {
     const isValid = await validateAll(packet);
     if (!isValid) return;
 
-    packet["subModule"] = processObj.subModule;
+    packet["subModules"] = processObj.subModules;
+    packet["_id"] = row._id;
 
     const { data, error } = await createModuleMutation(packet);
     handleMutationResponse(data, error);

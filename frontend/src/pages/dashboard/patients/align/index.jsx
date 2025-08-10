@@ -1,7 +1,8 @@
-import DataViewTemplate from "components/template/dataView";
+import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
+import MuiClassicTable from "components/table/MuiClassicTable";
 import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { alignPt_mnlst } from "list/menulist";
-import { DASHBOARD_HEADER } from "list/tableColist";
+import { DASHBOARD_TBCOL } from "list/tableColist";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
@@ -12,8 +13,8 @@ import { PLACEHOLDER_MSG } from "values/messages";
 import DialogBox from "./dialogBox";
 
 const placeholderDetails = {
-  img: PLACEHOLDER_IMG.NO_PATIENTS_ALIGN,
-  heading: PLACEHOLDER_MSG.NO_PATIENTS_ALIGN,
+  src: PLACEHOLDER_IMG.NO_PATIENTS_ALIGN,
+  text: PLACEHOLDER_MSG.NO_PATIENTS_ALIGN,
 };
 
 export default function ManagePatient() {
@@ -21,6 +22,8 @@ export default function ManagePatient() {
   const [dialogObj, setDialogObj] = useState({});
 
   const { data: alignPtlist } = useFetchAlignPatientQuery();
+  let patientTbData = alignPtlist?.payload || [];
+
   const [generateConsultRecept] = useGenerateConsultReceptMutation();
 
   const handleDialogStatus = (row) => {
@@ -55,13 +58,16 @@ export default function ManagePatient() {
 
   return (
     <>
-      <DataViewTemplate
-        header={DASHBOARD_HEADER.PATIENTS.ALIGN}
-        rows={alignPtlist?.payload || []}
-        placeholderDetails={placeholderDetails}
-        actionList={(row) => alignPt_mnlst(listenerBox(row))}
+      <ButtonBreadCrumbs
         breadlist={DASHBOARD_CRUMB.PATIENTS.ALIGN}
         topBar={topBar}
+      />
+
+      <MuiClassicTable
+        rows={patientTbData}
+        colObj={DASHBOARD_TBCOL.alignPatient()}
+        actionList={(row) => alignPt_mnlst(listenerBox(row))}
+        placeholder={placeholderDetails}
       />
 
       <DialogBox dialogObj={dialogObj} setDialogObj={setDialogObj} />

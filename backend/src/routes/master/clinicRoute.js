@@ -1,7 +1,7 @@
 // routes/patientRoutes.js
 import express from "express";
-import ClinicController from "../../controller/master/ClinicController.js";
-import { isAuthenticated } from "../../middlewares/authMiddleware.js";
+import ClinicController from "@controller/master/ClinicController.js";
+import { isAuthenticated } from "@middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.get("/:clinicId", ClinicController.fetchById);
 router.post("/create", ClinicController.create);
 
 // PUT /clinic/:clinicId - Update clinic by ID
-router.put("/update", ClinicController.update);
+router.post("/update", ClinicController.update);
 
 
 export default router;

@@ -15,7 +15,8 @@ export default class RoleController {
    */
   static async fetchRoleNames(req, res) {
     try {
-      const response = await RoleService.fetchRoleNames();
+      const authentication = req.auth;
+      const response = await RoleService.findActiveRoles(authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
@@ -30,7 +31,8 @@ export default class RoleController {
    */
   static async createRole(req, res) {
     try {
-      const response = await RoleService.createRole(req.body);
+      const authentication = req.auth;
+      const response = await RoleService.createRole(req.body, authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
@@ -45,7 +47,8 @@ export default class RoleController {
    */
   static async updateRole(req, res) {
     try {
-      const response = await RoleService.updateRole(req.body);
+      const authentication = req.auth;
+      const response = await RoleService.updateRole(req.body, authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
@@ -58,9 +61,10 @@ export default class RoleController {
    * @param {import('express').Response} res - Express response object
    * @returns {Promise<void>}
    */
-  static async fetchTableRoles(req, res) {
+  static async fetchAll(req, res) {
     try {
-      const response = await RoleService.fetchTableRoles();
+      const authentication = req.auth;
+      const response = await RoleService.fetchAll(authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
@@ -75,8 +79,8 @@ export default class RoleController {
    */
   static async updateRolePermissions(req, res) {
     try {
-      const { roleId, permissions } = req.body;
-      const response = await RoleService.updateRolePermissions(roleId, permissions);
+      const authentication = req.auth;
+      const response = await RoleService.updateRolePermissions(req.body, authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);

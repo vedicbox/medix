@@ -1,30 +1,37 @@
 import mongoose from "mongoose";
 
-// Only letters (uppercase/lowercase)
 const roleNameRegex = /^[a-zA-Z]+$/;
 
 const RoleSchema = new mongoose.Schema(
   {
+    orgRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "organization",
+      required: true,
+    },
     name: {
       type: String,
       required: [true, "Role name is required"],
       uppercase: true,
-      unique: true, 
       trim: true,
       validate: {
         validator: function (value) {
-          return roleNameRegex.test(value); // Only letters
+          return roleNameRegex.test(value);
         },
         message: "Role name must contain only letters (A–Z or a–z)",
       },
       set: (value) => value.toUpperCase()
     },
     status: {
-      type: Number, 
+      type: Boolean,
+      default: true,
+    },
+    type: {
+      type: Number,
       default: 1
     },
     permission: {
-      type: [String], // Array of strings
+      type: [String],
       default: []
     }
   },

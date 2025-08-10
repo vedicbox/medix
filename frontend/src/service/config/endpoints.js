@@ -9,7 +9,8 @@ const LOC_POINT = {
   CLINIC: "clinic",
   PAYMENT: "api/payment",
   APPOINT: "appoint",
-  MODULE: "module"
+  MODULE: "module",
+  ORG: "org"
 };
 
 /**
@@ -25,7 +26,7 @@ export const STAFF_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.STAFF}/profile/create`,
   UPDATE: `${BASE_URL}/${LOC_POINT.STAFF}/profile/update`,
   EDIT: `${BASE_URL}/${LOC_POINT.STAFF}/profile/edit`,
-  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.STAFF}/fetch-tablist`,
+  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.STAFF}/fetchAll`,
   STAFF_LIST_VIA_ROLE: `${BASE_URL}/${LOC_POINT.STAFF}/list-via-role`,
 };
 
@@ -34,7 +35,7 @@ export const ROLE_ENDPOINT = {
   UPDATE_ROLE: `${BASE_URL}/${LOC_POINT.ROLES}/update`,
   UPDATE_PERMISSIONS: `${BASE_URL}/${LOC_POINT.ROLES}/update/permissions`,
   FETCH_ROLE_NAMES: `${BASE_URL}/${LOC_POINT.ROLES}/fetch/roleNames`,
-  FETCH_TB_LIST: `${BASE_URL}/${LOC_POINT.ROLES}/fetch-tablist`,
+  FETCH_TB_LIST: `${BASE_URL}/${LOC_POINT.ROLES}/fetchAll`,
 };
 
 export const PATIENT_ENDPOINT = {
@@ -59,8 +60,15 @@ export const CLINIC_ENDPOINT = {
   FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.CLINIC}/fetchAll`,
   FETCH_CLINIC_LIST: `${BASE_URL}/${LOC_POINT.CLINIC}/list`,
 };
+
 export const MODULE_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/create`,
-   CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/update`,
-  FIND_ALL:`${BASE_URL}/${LOC_POINT.MODULE}/find-all`,
+  UPDATE: `${BASE_URL}/${LOC_POINT.MODULE}/update`,
+  FIND_ALL: `${BASE_URL}/${LOC_POINT.MODULE}/find-all`,
+}
+
+export const ORG_ENDPOINT = {
+  CREATE: `${BASE_URL}/${LOC_POINT.ORG}/create`,
+  UPDATE: `${BASE_URL}/${LOC_POINT.ORG}/update`,
+  FIND_ALL: `${BASE_URL}/${LOC_POINT.ORG}/find-all`,
 }

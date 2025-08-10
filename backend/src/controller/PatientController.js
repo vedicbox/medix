@@ -52,6 +52,7 @@ export default class PatientController {
      */
     static async searchPatient(req, res) {
         const { searchVal } = req.query;
+        const authentication = req.auth;
         if (!searchVal) {
             return HttpHandler.error(
                 res,
@@ -60,7 +61,7 @@ export default class PatientController {
             );
         }
         try {
-            const response = await patientService.searchPatientService(searchVal);
+            const response = await patientService.searchPatientService(searchVal, authentication);
             return HttpHandler.send(res, response);
         } catch (error) {
             return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);

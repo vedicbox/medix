@@ -27,7 +27,7 @@ export const ICON_NAME = {
   CLINIC: "material-symbols:help-clinic-outline-rounded",
   SEARCH_DUOTONE: "lets-icons:search-duotone",
   ADD_NEW: "basil:add-solid",
-  ADD_CHAT:"fluent-color:chat-add-28",
+  ADD_CHAT: "fluent-color:chat-add-28",
   INFORMATION: "fluent-emoji:information",
   CONTACTS: "flat-color-icons:contacts",
   ADDRESS_BOOK: "flat-color-icons:address-book",
@@ -54,7 +54,8 @@ export const ICON_NAME = {
   DELETE: "icon-park-twotone:delete",
   PUBLISH: "ic:twotone-publish",
   UPDATE: "mdi:update",
-  MODULE:"streamline-plump-color:module",
-  SUB_MODULE:"streamline-color:module-three"
-
+  MODULE: "streamline-plump-color:module",
+  NAV_MODULE: "streamline-sharp:module",
+  SUB_MODULE: "streamline-color:module-three",
+  WORKSPACE: "tabler:spaces"
 }

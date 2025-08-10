@@ -56,9 +56,7 @@ function SearchPage() {
   const showPlaceholder = !data?.payload?.length || isEmpty;
 
   return (
-    <div>
-      {" "}
-      {/* Changed from fragment to div as root container */}
+    <>
       <SearchField
         placeholder="Enter Phone No..."
         formRef={searchFormRef}
@@ -78,10 +76,9 @@ function SearchPage() {
           }
         >
           <Box sx={{ minHeight: 250 }}>{patientCards}</Box>{" "}
-          {/* Added wrapper div */}
         </DisplayContent>
       </div>
-    </div>
+    </>
   );
 }
 

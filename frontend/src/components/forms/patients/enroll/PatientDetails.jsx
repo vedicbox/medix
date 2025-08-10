@@ -1,5 +1,5 @@
-import { Grid, Paper, Stack, Typography } from "@mui/material";
-import Iconify from "components/icons/Iconify";
+import { Grid } from "@mui/material";
+import FormHeading from "components/forms/element/FormHeading";
 import HeightTextField from "components/mui/HeightTextField";
 import MuiDatePicker from "components/mui/MuiDateField";
 import MuiSelectField from "components/mui/MuiSelectField";
@@ -7,7 +7,6 @@ import MuiTextField from "components/mui/MuiTextField";
 import dayjs from "dayjs";
 import { GENDER_OPTIONS, MARTIAL_OPTIONS } from "list/optionsList";
 import { ICON_NAME } from "values/img-links";
-
 
 function PatientDetailsForm(props) {
   const { errors, processObj, handleProcessObj, onChange, onBlur } = props;
@@ -18,23 +17,7 @@ function PatientDetailsForm(props) {
 
   return (
     <>
-      <Stack
-        direction="row"
-        sx={{
-          bgcolor: (theme) => theme.palette.primary[50],
-          p: "10px",
-          borderBottomLeftRadius: 10,
-          borderTopRightRadius: 10,
-          mb: "5px",
-          border: "1px solid #ccc",
-        }}
-      >
-        <Iconify icon={ICON_NAME.INFORMATION} />
-        <Typography className="f-w-600 text-muted ml-2 f-italic">
-          Personal Details
-        </Typography>
-      </Stack>
-      <Paper className="p-4 mb-3">
+      <FormHeading title="Personal Details" icon={ICON_NAME.INFORMATION}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 6 }}>
             <div className="mb-2">
@@ -77,8 +60,8 @@ function PatientDetailsForm(props) {
                 pickerProps={{
                   disableFuture: true,
                   shouldDisableDate: (day) => {
-                    return day.isSame(dayjs(), 'day');
-                  }
+                    return day.isSame(dayjs(), "day");
+                  },
                 }}
               />
             </div>
@@ -99,7 +82,7 @@ function PatientDetailsForm(props) {
                 error={errors.feet}
                 ftVal={processObj.feet}
                 inchVal={processObj.inch}
-                handleStateChange={handleStateChange}
+                handleProcessObj={handleProcessObj}
               />
             </div>
           </Grid>
@@ -145,7 +128,7 @@ function PatientDetailsForm(props) {
             />
           </Grid>
         </Grid>
-      </Paper>
+      </FormHeading>
     </>
   );
 }
