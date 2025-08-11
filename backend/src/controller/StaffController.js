@@ -1,6 +1,5 @@
 import StaffService from "../service/StaffService.js";
 import { HttpHandler } from "../utils/responseHandler.js";
-import STATUS_CODES from "../utils/statusCodes.js";
 
 export default class StaffController {
   /**
@@ -12,8 +11,7 @@ export default class StaffController {
   static async createStaffProfile(req, res) {
     try {
       const authentication = req.auth;
-      console.log(req.body);
-      const response = await StaffService.createStaffProfile(req.body,authentication);
+      const response = await StaffService.createStaffProfile(req.body, authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error);
@@ -28,7 +26,8 @@ export default class StaffController {
    */
   static async editStaffProfile(req, res) {
     try {
-      const response = await StaffService.editStaffProfile(req.query.staffId);
+      const authentication = req.auth;
+      const response = await StaffService.editStaffProfile(req.query.staffId, authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error);
@@ -43,7 +42,8 @@ export default class StaffController {
    */
   static async updateStaffProfile(req, res) {
     try {
-      const response = await StaffService.updateStaffProfile(req.body);
+      const authentication = req.auth;
+      const response = await StaffService.updateStaffProfile(req.body, authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error);
@@ -56,9 +56,10 @@ export default class StaffController {
    * @param {Object} res - Express response object
    * @returns {ResponseHandler}
    */
-  static async fetchTabList(req, res) {
+  static async fetchAllStaff(req, res) {
     try {
-      const response = await StaffService.fetchTabList();
+      const authentication = req.auth;
+      const response = await StaffService.fetchAll(authentication);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error);
@@ -73,7 +74,7 @@ export default class StaffController {
  */
   static async fetchStaffListByRole(req, res) {
     try {
-      const { roleName } = req.query; 
+      const { roleName } = req.query;
       const response = await StaffService.fetchStaffListByRole(roleName);
       return HttpHandler.send(res, response);
     } catch (error) {

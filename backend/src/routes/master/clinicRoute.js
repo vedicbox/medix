@@ -1,7 +1,7 @@
 // routes/patientRoutes.js
 import express from "express";
-import ClinicController from "../../controller/master/ClinicController.js";
-import { isAuthenticated } from "../../middlewares/authMiddleware.js";
+import ClinicController from "@controller/master/ClinicController.js";
+import { isAuthenticated } from "@middlewares/authMiddleware.js";
 
 const router = express.Router();
 

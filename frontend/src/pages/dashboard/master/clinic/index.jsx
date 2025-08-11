@@ -1,7 +1,8 @@
-import DataViewTemplate from "components/template/dataView";
+import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
+import MuiClassicTable from "components/table/MuiClassicTable";
 import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { crud_mnlst } from "list/menulist";
-import { DASHBOARD_HEADER } from "list/tableColist";
+import { DASHBOARD_TBCOL } from "list/tableColist";
 import { useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import { useFetchTbClinicQuery } from "service/clinicService";
@@ -9,11 +10,11 @@ import { PLACEHOLDER_IMG } from "values/img-links";
 import { PLACEHOLDER_MSG } from "values/messages";
 
 const placeholderDetails = {
-  img: PLACEHOLDER_IMG.NO_CLINIC,
-  heading: PLACEHOLDER_MSG.NO_CLINIC,
+  src: PLACEHOLDER_IMG.NO_CLINIC,
+  text: PLACEHOLDER_MSG.NO_CLINIC,
 };
 
-export default function ClinicMasterPage() {
+export default function ClinicFormUtil() {
   const navigate = useNavigate();
 
   const { data: tbData } = useFetchTbClinicQuery();
@@ -43,13 +44,16 @@ export default function ClinicMasterPage() {
 
   return (
     <>
-      <DataViewTemplate
-        header={DASHBOARD_HEADER.MASTER.CLINIC}
-        rows={clinicTbData}
-        actionList={(row) => crud_mnlst(listenerBox(row))}
-        placeholderDetails={placeholderDetails}
+      <ButtonBreadCrumbs
         breadlist={DASHBOARD_CRUMB.MASTER.CLINIC.INDEX}
         topBar={topBar}
+      />
+
+      <MuiClassicTable
+        rows={clinicTbData}
+        colObj={DASHBOARD_TBCOL.clinic()}
+        actionList={(row) => crud_mnlst(listenerBox(row))}
+        placeholder={placeholderDetails}
       />
     </>
   );

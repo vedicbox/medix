@@ -67,6 +67,101 @@ docker volume rm mongodb_prod
 docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
+## 🔧 Troubleshooting
+
+### UUID Package Installation Issue
+
+**Problem:**
+
+```
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'uuid' imported from /app/src/utils/uuid.js
+```
+
+**Solution Steps:**
+
+1. **Install UUID package in backend:**
+
+   ```bash
+   cd backend
+   npm install uuid
+   ```
+
+2. **Rebuild Docker containers:**
+
+   ```bash
+   cd ..
+   docker-compose -f docker-compose.dev.yml down
+   docker-compose -f docker-compose.dev.yml build --no-cache backend-dev
+   ```
+
+3. **Start containers:**
+
+   ```bash
+   docker-compose -f docker-compose.dev.yml up -d
+   ```
+
+4. **Verify installation:**
+   ```bash
+   docker-compose -f docker-compose.dev.yml logs backend-dev
+   ```
+
+### Docker Container Conflicts
+
+**Problem:**
+
+```
+Error response from daemon: Conflict. The container name "/medix-frontend-dev-1" is already in use
+```
+
+**Solution Steps:**
+
+1. **Remove conflicting containers:**
+
+   ```bash
+   docker-compose -f docker-compose.dev.yml down --remove-orphans
+   docker container prune -f
+   ```
+
+2. **Force remove specific container:**
+
+   ```bash
+   docker rm -f <container-id>
+   ```
+
+3. **Start fresh:**
+   ```bash
+   docker-compose -f docker-compose.dev.yml up -d
+   ```
+
+### Frontend Material React Table Issue
+
+**Problem:**
+
+```
+Module not found: Error: Can't resolve 'material-react-table' in '/app/src/components/table'
+```
+
+**Solution Steps:**
+
+1. **Install package locally:**
+
+   ```bash
+   cd frontend
+   npm install material-react-table@^3.2.1
+   ```
+
+2. **Rebuild frontend container:**
+
+   ```bash
+   cd ..
+   docker-compose -f docker-compose.dev.yml build --no-cache frontend-dev
+   ```
+
+3. **Restart containers:**
+   ```bash
+   docker-compose -f docker-compose.dev.yml up -d
+   ```
+
 ## 📁 Project Structure
 
 ```
@@ -100,7 +195,11 @@ docker logs medix-backend-dev-1
 
 - Use these commands to see real-time logs and troubleshoot issues.
 - You can also add `-f` to follow logs live:
+
   ```bash
   docker-compose -f docker-compose.prod.yml logs -f nginx
   docker-compose -f docker-compose.prod.yml logs -f backend
   ```
+
+  Continuous logs :
+  docker logs -f medix-backend-dev-1

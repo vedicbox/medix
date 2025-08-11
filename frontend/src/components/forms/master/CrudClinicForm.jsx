@@ -1,4 +1,4 @@
-import { Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 import CityAutoField from "components/autocomplete/CityAutoField";
 import CountryAutoField from "components/autocomplete/CountryAutoField";
 import StateAutoField from "components/autocomplete/StateAutoField";
@@ -12,9 +12,7 @@ export default function CrudClinicForm(props) {
 
   return (
     <>
-      <FormHeading title="Personal Details" icon="fluent-emoji:information" />
-
-      <Paper className="p-4 mb-3">
+      <FormHeading title="Personal Details" icon="fluent-emoji:information">
         <Grid container spacing={3}>
           <Grid size={6}>
             <MuiTextField
@@ -56,14 +54,12 @@ export default function CrudClinicForm(props) {
             />
           </Grid>
         </Grid>
-      </Paper>
+      </FormHeading>
 
       <FormHeading
         title=" Contact Details"
         icon="flat-color-icons:business-contact"
-      />
-
-      <Paper className="p-4 mb-3">
+      >
         <Grid container spacing={3}>
           <Grid size={12}>
             <MuiTextField
@@ -158,11 +154,9 @@ export default function CrudClinicForm(props) {
             </div>
           </Grid>
         </Grid>
-      </Paper>
+      </FormHeading>
 
-      <FormHeading title="Timing Details" icon="openmoji:timer" />
-
-      <Paper className="p-4 mb-3">
+      <FormHeading title="Timing Details" icon="openmoji:timer">
         <Grid container spacing={2}>
           <Grid size={6}>
             <div>
@@ -197,7 +191,7 @@ export default function CrudClinicForm(props) {
             </div>
           </Grid>
         </Grid>
-      </Paper>
+      </FormHeading>
     </>
   );
 }

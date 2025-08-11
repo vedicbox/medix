@@ -1,6 +1,6 @@
-import MuiSelectField from "components/mui/MuiSelectField";
+import MuiMultiSelectField from "components/mui/MuiMultiSelect";
 import MuiTextField from "components/mui/MuiTextField";
-import { STATUS_OPTIONS } from "list/optionsList";
+import { PROJ_CATEGORY } from "list/optionsList";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { capitalizeFirstLetter } from "utils/parse";
 import { MODULE_FORM_RULES } from "utils/security/ruleBox";
@@ -8,9 +8,9 @@ import { useFormValidation } from "utils/security/useFormValidation";
 import { isValueExistInArray } from "utils/security/validation";
 
 const SubModuleForm = forwardRef((props, ref) => {
-  const { subModule = [] } = props;
+  const { subModules = [] } = props;
   const formRef = useRef(null);
-  const [status, setStatus] = useState("1");
+  const [category, setCategory] = useState("-");
 
   const {
     errors,
@@ -32,9 +32,8 @@ const SubModuleForm = forwardRef((props, ref) => {
     }
     let payload = Object.fromEntries(new FormData(formRef.current));
     payload.name = capitalizeFirstLetter(payload.name);
-    payload.status = status;
 
-    const isNameExist = isValueExistInArray(payload.name, subModule);
+    const isNameExist = isValueExistInArray(payload.name, subModules);
     if (isNameExist) {
       setErrors({ name: "Name already exists." });
       return null;
@@ -62,29 +61,28 @@ const SubModuleForm = forwardRef((props, ref) => {
           error={errors["name"]}
         />
       </div>
-
-      <div className="mt-4">
-        <MuiSelectField
-          label="Status"
-          name="status"
-          value={status}
-          options={STATUS_OPTIONS}
-          handleProcessObj={(e) => setStatus(e.target.checked)}
-          error={errors["status"]}
-        />
-      </div>
-
-      <div className="mt-4">
+      <div className="mb-4">
         <MuiTextField
-          label="Description"
-          error={errors["desc"]}
+          label="Tag"
+          required={true}
           textProps={{
-            name: "desc",
-            rows: 2,
-            multiline: true,
+            name: "tag",
+            placeholder: "e.g. tag",
             onChange: handleChange,
             onBlur: handleBlur,
+            slotProps: { htmlInput: { maxLength: 30 } },
           }}
+          error={errors["tag"]}
+        />
+      </div>
+      <div className="mt-2">
+        <MuiMultiSelectField
+          label="Category"
+          name="category"
+          value={category}
+          options={PROJ_CATEGORY}
+          handleProcessObj={(obj) => setCategory(obj.category)}
+          error={errors["category"]}
         />
       </div>
     </form>

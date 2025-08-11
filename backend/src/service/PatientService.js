@@ -1,9 +1,9 @@
+import { generateRecept } from "../generator/recept/index.js";
 import PatientMapper from "../mapper/PatientMapper.js";
 import PatientRepo from "../repo/PatientRepo.js";
 import MESSAGES from "../utils/message.js";
 import { ServiceResponse } from "../utils/responseHandler.js";
 import STATUS_CODES from "../utils/statusCodes.js";
-import { generateRecept } from "../generator/recept/index.js";
 
 /**
  * Service for patient management operations.
@@ -51,17 +51,14 @@ export default class PatientService {
    * @param {string} searchValue - The value to search for
    * @returns {Promise<ServiceResponse>}
    */
-  static async searchPatientService(searchValue) {
-    try {
-      const patientData = await PatientRepo.findByPhone(searchValue);
-      if (!patientData.length) {
-        return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.NO_PATIENTS_FOUND);
-      }
-      return new ServiceResponse(STATUS_CODES.OK, null, patientData);
-    } catch (error) {
-      console.error("Search patient error:", error);
-      return new ServiceResponse(STATUS_CODES.INTERNAL_SERVER_ERROR, MESSAGES.PATIENT_SEARCH_FAILED);
+  static async searchPatientService(searchValue, authentication) {
+    const { orgCode } = authentication;
+    const patientData = await PatientRepo.findByPhone(searchValue, orgCode);
+    if (!patientData.length) {
+      return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.NO_PATIENTS_FOUND);
     }
+    return new ServiceResponse(STATUS_CODES.OK, null, patientData);
+
   }
 
   /**
@@ -96,7 +93,7 @@ export default class PatientService {
         alignPatientDTO,
         userId
       );
-    
+
       // Save the assignment in the database
       const savedResponse = await PatientRepo.initiateConsult(assignPatientDao);
 

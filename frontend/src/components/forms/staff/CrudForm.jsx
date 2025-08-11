@@ -8,7 +8,7 @@ import MuiTextField from "components/mui/MuiTextField";
 import dayjs from "dayjs";
 import { GENDER_OPTIONS, WHATSAPP_OPTIONS } from "list/optionsList";
 
-export default function StaffEnrollmentForm(props) {
+export default function StaffCrudForm(props) {
   const { errors, processObj, handleProcessObj, onChange, onBlur } = props;
 
   return (

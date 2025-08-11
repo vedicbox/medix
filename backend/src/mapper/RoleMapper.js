@@ -1,3 +1,4 @@
+import { AUTH_ENUM } from "../enum/authEnum.js";
 
 class RoleMapper {
     /**
@@ -15,6 +16,15 @@ class RoleMapper {
         };
     }
 
+    static getAdminstratorRole(orgRef) {
+        return {
+            name: AUTH_ENUM.ROLES.ADMINSTRATOR,
+            status: 1,
+            type: 3,
+            permission: [0],
+            orgRef
+        };
+    }
 
 }
 

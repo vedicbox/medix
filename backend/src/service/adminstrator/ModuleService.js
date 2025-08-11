@@ -15,12 +15,17 @@ export default class ModuleService {
         return new ServiceResponse(STATUS_CODES.OK, null, ModuleMapper.toModuleResponse(modules));
     }
 
-    static async updateModule(moduleId, request) {
-        const moduleEntity = ModuleMapper.toModuleEntity(request);
-        const updated = await ModuleRepo.updateModule(moduleId, moduleEntity);
-        if (!updated) {
+    static async updateModule(request) {
+        // First, get the existing module to access current subModules
+        const existingModule = await ModuleRepo.findModuleById(request._id);
+        if (!existingModule) {
             return new ServiceResponse(STATUS_CODES.NOT_FOUND, "Module not found");
         }
+
+        // Pass existing subModules to the mapper for UUID handling
+        const moduleEntity = ModuleMapper.toModuleEntity(request, existingModule.subModules);
+        const updated = await ModuleRepo.updateModule(request._id, moduleEntity);
+        
         return new ServiceResponse(STATUS_CODES.OK, "Module updated successfully", ModuleMapper.toModuleResponse(updated));
     }
 }

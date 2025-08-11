@@ -62,3 +62,15 @@ export const STATUS_OPTIONS = [
         label: "Inactive",
     },
 ];
+
+
+export const PROJ_CATEGORY = [
+    {
+        value: "0",
+        label: "All",
+    },
+    {
+        value: "1",
+        label: "Ayurveda",
+    },
+]

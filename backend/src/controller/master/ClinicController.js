@@ -1,8 +1,8 @@
 
-import ClinicService from "../../service/master/ClinicService.js";
-import MESSAGES from "../../utils/message.js";
-import { HttpHandler } from "../../utils/responseHandler.js";
-import STATUS_CODES from "../../utils/statusCodes.js";
+import ClinicService from "@service/master/ClinicService.js";
+import MESSAGES from "@utils/message.js";
+import { HttpHandler } from "@utils/responseHandler.js";
+import STATUS_CODES from "@utils/statusCodes.js";
 
 /**
  * Controller for clinic management endpoints.

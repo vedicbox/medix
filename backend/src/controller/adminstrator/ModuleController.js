@@ -40,8 +40,7 @@ export default class ModuleController {
    */
   static async updateModule(req, res) {
     try {
-      const moduleId = req.params.id;
-      const response = await ModuleService.updateModule(moduleId, req.body);
+      const response = await ModuleService.updateModule(req.body);
       return HttpHandler.send(res, response);
     } catch (error) {
       return HttpHandler.error(res, error);

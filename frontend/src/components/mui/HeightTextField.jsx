@@ -7,7 +7,13 @@ import {
 } from "@mui/material";
 
 export default function HeightTextField(props) {
-  const { ftVal, inchVal, helperText, error, handleStateChange } = props;
+  const { ftVal, inchVal, helperText, error, handleProcessObj } = props;
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    handleProcessObj({ [name]: value });
+  };
+
   return (
     <>
       <Stack direction="row" spacing={1}>
@@ -17,7 +23,7 @@ export default function HeightTextField(props) {
           </InputLabel>
           <Select
             value={ftVal || ""}
-            onChange={(e) => handleStateChange("feet", e.target.value)}
+            onChange={onChange}
             fullWidth
             size="small"
             error={!!error}
@@ -36,7 +42,7 @@ export default function HeightTextField(props) {
           </InputLabel>
           <Select
             value={inchVal || 0}
-            onChange={(e) => handleStateChange("inch", e.target.value)}
+            onChange={onChange}
             fullWidth
             size="small"
             error={!!error}

@@ -1,27 +1,11 @@
 import { Paper, Stack, Typography } from "@mui/material";
 import Iconify from "components/icons/Iconify";
 import MuiAutoComplete from "components/mui/MuiAutoComplete";
-import { useEffect } from "react";
-import { useFetchRoleNamesQuery } from "service/auth/roleService";
-import { useFetchClinicNamesQuery } from "service/clinicService";
 import { ICON_NAME } from "values/img-links";
 
 export default function EntityAssignForm(props) {
-  const { errors, handleProcessObj, processObj } = props;
+  const { errors, handleProcessObj, processObj, roleslist, cliniclist } = props;
   const { roleRef, clinicRef } = processObj;
-
-  const { data: roleData } = useFetchRoleNamesQuery();
-  const { data: clinicData } = useFetchClinicNamesQuery();
-
-  let roleslist = roleData?.payload || [];
-  let cliniclist = clinicData?.payload || [];
-
-  useEffect(() => {
-    if (typeof roleRef == "string") {
-      let roleObj = roleslist.find((el) => el._id == roleRef);
-      if (roleObj) handleProcessObj({ roleRef: roleObj });
-    }
-  }, [roleData]);
 
   return (
     <>

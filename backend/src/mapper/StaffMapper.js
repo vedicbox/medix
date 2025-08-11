@@ -1,4 +1,3 @@
-import { defaultDateFormatter } from "../utils/parse.js";
 
 class StaffMapper {
   /**
@@ -55,13 +54,7 @@ class StaffMapper {
     };
   }
 
-  static toStaffTableResponseMapper(datalist) {
-    return datalist.map(profileData => ({
-      ...profileData,
-      gender: profileData.gender === "M" ? "Male" : profileData.gender === "F" ? "Female" : profileData.gender === "O" ? "Other" : profileData.gender,
-      createdAt: defaultDateFormatter(profileData.createdAt)
-    }));
-  }
+
 }
 
 export default StaffMapper;

@@ -1,9 +1,9 @@
 import RoleDao from "../../models/auth/RoleDao.js";
 
 export default class RoleRepo {
-  
-  static async findRoles() {
-    return await RoleDao.find({ status: 1 }, { name: 1, _id: 1 });
+
+  static async findActiveRoles(orgRef) {
+    return await RoleDao.find({ status: 1, orgRef, type: 1 }, { name: 1, _id: 1 });
   }
 
   static async createRole(roleData) {
@@ -11,7 +11,7 @@ export default class RoleRepo {
     return await role.save();
   }
 
-  static async updateRole(roleId,roleData) {
+  static async updateRole(roleId, roleData) {
     return await RoleDao.findByIdAndUpdate(roleId, roleData, { new: true });
   }
 
@@ -20,16 +20,16 @@ export default class RoleRepo {
    * @param {string} roleId
    * @returns {Promise<Object|null>}
    */
-  static async findRoleById(roleId) {
-    return await RoleDao.findById(roleId);
+  static async findRoleById(roleId, orgCode) {
+    return await RoleDao.findById({ _id: roleId, orgCode });
   }
 
   /**
   * Fetch all active roles
   * @returns {Promise<Array<Object>>}
   */
-  static async fetchTableRoles() {
-    return await RoleDao.find({ status: { $ne: 3 } });
+  static async fetchAllRoles(orgRef) {
+    return await RoleDao.find({ orgRef, type: 1 });
   }
 
   /**

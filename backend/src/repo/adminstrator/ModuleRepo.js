@@ -10,6 +10,10 @@ export default class ModuleRepo {
     return await ModuleDao.find({}).lean();
   }
 
+  static async findModuleById(moduleId) {
+    return await ModuleDao.findById(moduleId).lean();
+  }
+
   static async updateModule(moduleId, moduleEntity) {
     return await ModuleDao.findByIdAndUpdate(moduleId, moduleEntity, { new: true, runValidators: true }).lean();
   }

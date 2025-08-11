@@ -1,32 +1,39 @@
 import { FormHelperText, InputLabel } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import PropTypes from 'prop-types';
+import { useCallback } from 'react';
 
-export default function MuiAutoComplete(props) {
-  const {
-    error,
-    options,
-    placeholder,
-    helperText,
-    label,
-    required = true,
-    handleProcessObj,
-    value,
-    autoProps,
-    name,
-  } = props;
-
-  const onChange = (e, newVal) => {
-    handleProcessObj({ [name]: newVal });
-  };
+const MuiAutoComplete = ({
+  error,
+  options = [],
+  placeholder,
+  helperText,
+  label,
+  required = true,
+  handleProcessObj,
+  value,
+  autoProps = {},
+  name,
+}) => {
+  const onChange = useCallback(
+    (_, newVal) => {
+      handleProcessObj({ [name]: newVal });
+    },
+    [handleProcessObj, name]
+  );
 
   return (
-    <>
-      <InputLabel error={!!error} className="mb-2">
-        {label} <span className="c-red">{required ? "*" : ""}</span>
-      </InputLabel>
+    <div className="mui-autocomplete-wrapper">
+      {label && (
+        <InputLabel error={!!error} className="mb-2">
+          {label}
+          {required && <span className="c-red">*</span>}
+        </InputLabel>
+      )}
+
       <Autocomplete
-        options={options || []}
+        options={options}
         size="small"
         freeSolo
         onChange={onChange}
@@ -38,10 +45,27 @@ export default function MuiAutoComplete(props) {
             placeholder={placeholder}
             helperText={helperText}
             error={!!error}
+            fullWidth
           />
         )}
       />
-      <FormHelperText error={!!error}>{error}</FormHelperText>
-    </>
+
+      {error && <FormHelperText error>{error}</FormHelperText>}
+    </div>
   );
-}
+};
+
+MuiAutoComplete.propTypes = {
+  error: PropTypes.string,
+  options: PropTypes.array,
+  placeholder: PropTypes.string,
+  helperText: PropTypes.string,
+  label: PropTypes.string,
+  required: PropTypes.bool,
+  handleProcessObj: PropTypes.func.isRequired,
+  value: PropTypes.any,
+  autoProps: PropTypes.object,
+  name: PropTypes.string.isRequired,
+};
+
+export default MuiAutoComplete;

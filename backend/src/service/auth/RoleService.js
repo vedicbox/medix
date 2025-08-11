@@ -1,7 +1,7 @@
 import RoleMapper from "../../mapper/RoleMapper.js";
 import RoleRepo from "../../repo/auth/RoleRepo.js";
-import { ServiceResponse } from "../../utils/responseHandler.js";
 import MESSAGES from "../../utils/message.js";
+import { ServiceResponse } from "../../utils/responseHandler.js";
 import STATUS_CODES from "../../utils/statusCodes.js";
 
 /**
@@ -13,8 +13,9 @@ export default class RoleService {
    * Fetch all role names.
    * @returns {Promise<ServiceResponse>}
    */
-  static async fetchRoleNames() {
-    const roles = await RoleRepo.findRoles();
+  static async findActiveRoles(authentication) {
+    const { orgRef } = authentication;
+    const roles = await RoleRepo.findActiveRoles(orgRef);
     return new ServiceResponse(STATUS_CODES.OK, null, roles);
   }
 
@@ -23,8 +24,11 @@ export default class RoleService {
    * @param {Object} roleData - Role data
    * @returns {Promise<ServiceResponse>}
    */
-  static async createRole(roleData) {
+  static async createRole(roleData, authentication) {
+    const { orgRef } = authentication;
     const createObj = RoleMapper.createRoleMapper(roleData);
+    createObj.orgRef = orgRef;
+
     await RoleRepo.createRole(createObj);
     return new ServiceResponse(STATUS_CODES.OK, MESSAGES.ROLE_CREATED, null);
   }
@@ -44,8 +48,9 @@ export default class RoleService {
    * Fetch the list of available roles (active roles).
    * @returns {Promise<ServiceResponse>}
    */
-  static async fetchTableRoles() {
-    const availableRoles = await RoleRepo.fetchTableRoles();
+  static async fetchAll(authentication) {
+    const { orgRef } = authentication;
+    const availableRoles = await RoleRepo.fetchAllRoles(orgRef);
     return new ServiceResponse(STATUS_CODES.OK, null, { rolelist: availableRoles });
   }
 

@@ -1,10 +1,10 @@
 import { Button, Grid } from "@mui/material";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import Iconify from "components/icons/Iconify";
-import ClassicInnerTable from "components/table/innerTable";
+import MuiClassicTable from "components/table/MuiClassicTable";
 import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
 import { crud_mnlst } from "list/menulist";
-import { ADMINSTRATOR_HEADER } from "list/tableColist";
+import { ADMINSTRATOR_TBCOL } from "list/tableColist";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import { useFindAllModuleQuery } from "service/adminstrator/moduleService";
@@ -49,10 +49,9 @@ export default function ModulePage() {
 
       <Grid container spacing={2} justifyContent="center">
         <Grid size={{ xs: 12 }}>
-          <ClassicInnerTable
-            headers={ADMINSTRATOR_HEADER.MODULE}
+          <MuiClassicTable
             rows={modulePayload}
-            placeholder={placeholderDetails}
+            colObj={ADMINSTRATOR_TBCOL.MODULE}
             actionList={(row) => crud_mnlst(listenerBox(row))}
           />
         </Grid>

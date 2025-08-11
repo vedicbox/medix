@@ -1,9 +1,10 @@
 import bcrypt from "bcryptjs";
+import OrgRepo from "../../repo/adminstrator/OrgRepo.js";
 import AuthRepo from "../../repo/auth/AuthRepo.js";
 import JWT_UTILS from "../../utils/jwtUtils.js";
 import MESSAGES from "../../utils/message.js";
-import STATUS_CODES from "../../utils/statusCodes.js";
 import { ServiceResponse } from "../../utils/responseHandler.js";
+import STATUS_CODES from "../../utils/statusCodes.js";
 
 /**
  * Service for authentication operations.
@@ -16,9 +17,9 @@ export default class AuthService {
    * @returns {Promise<ServiceResponse>}
    */
   static async authCheck(authentication) {
-    const { userId, orgCode } = authentication;
+    const { userRef, orgRef } = authentication;
     try {
-      const user = await AuthRepo.findUserSessionInfo(userId, orgCode);
+      const user = await AuthRepo.findUserSessionInfo(userRef, orgRef);
       return user
         ? new ServiceResponse(STATUS_CODES.OK, null, { user })
         : new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.USER_NOT_FOUND);
@@ -35,26 +36,34 @@ export default class AuthService {
    */
   static async login({ email, orgCode, password }) {
     try {
-      // 1. Find user with password field
-      const user = await AuthRepo.findUserByFields({ email, orgCode }, "+password");
+
+      const orgRes = await OrgRepo.findOrgByFields({ orgCode }, "+_id");
+
+      const user = await AuthRepo.findUserByFields({ email, orgRef: orgRes._id }, "_id password");
+
       if (!user) {
         return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.INVALID_CREDENTIALS);
       }
-      // 2. Compare passwords
+
       const isPasswordMatch = await bcrypt.compare(password, user.password);
       if (!isPasswordMatch) {
         return new ServiceResponse(STATUS_CODES.UNAUTHORIZED, MESSAGES.INVALID_CREDENTIALS);
       }
-      // 3. Generate token
+
+
+      const userData = await AuthRepo.findUserSessionInfo(user._id, orgRes.id);
+
       const token = JWT_UTILS.generateToken({
-        userId: user._id,
-        orgCode: user.orgCode
+        userRef: userData._id,
+        orgRef: orgRes._id,
+        clinicRef: userData.clinicRef,
+        role: userData.roleRef.name
       });
+
       if (!token) {
         return new ServiceResponse(STATUS_CODES.INTERNAL_SERVER_ERROR, MESSAGES.TOKEN_GENERATION_FAILED);
       }
-      // 4. Get user data without sensitive fields
-      const userData = await AuthRepo.findUserSessionInfo(user._id, orgCode);
+
       return new ServiceResponse(STATUS_CODES.OK, MESSAGES.LOGIN_SUCCESSFUL, {
         access_token: token,
         user: userData,

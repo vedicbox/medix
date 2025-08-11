@@ -8,8 +8,8 @@ const MasterRolePage = Loadable(lazy(() => import("pages/dashboard/master/roles"
 const OverViewPage = Loadable(lazy(() => import("pages/dashboard/overview")));
 const InitiatePatientConsultation = Loadable(lazy(() => import("pages/dashboard/patients/align")));
 const PatientsEnrollment = Loadable(lazy(() => import("pages/dashboard/patients/enroll")));
-const AddStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollment/create")));
-const EditStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollment/update")));
+const AddStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollCrud/create")));
+const EditStaff = Loadable(lazy(() => import("pages/dashboard/staff/enrollCrud/update")));
 const StaffManagePage = Loadable(lazy(() => import("pages/dashboard/staff/manage")));
 const PageNotFoundPage = Loadable(lazy(() => import("pages/other/PageNotFound")));
 const ConsultInitPage = Loadable(lazy(() => import("pages/patientBoard/consult")));
@@ -21,6 +21,9 @@ const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clin
 const ModuleCreatePage = Loadable(lazy(() => import("pages/administrator/modules/create")));
 const ModuleUpdatePage = Loadable(lazy(() => import("pages/administrator/modules/update")));
 const WorkspacePage = Loadable(lazy(() => import("pages/administrator/workspace")));
+const OwnerViewPage = Loadable(lazy(() => import("pages/administrator/overview")));
+const WorkspaceCreatePage = Loadable(lazy(() => import("pages/administrator/workspace/create")));
+const ManageStaffBoard = Loadable(lazy(() => import("pages/dashboard/staff/manage/board")));
 
 export const dashboard_crl = [
   {
@@ -54,6 +57,16 @@ export const dashboard_crl = [
       element: <EditStaff />,
       title: "Edit Staff"
     },
+  },
+  {
+    path:
+      DASHBOARD_ROUTE.STAFF.BOARD.PATH +
+      "/" +
+      PARAMS_ROUTE.WILD_CARD,
+    baseProps: {
+      element: <ManageStaffBoard />,
+      title: "Staff Board"
+    }
   },
   {
     uuid: ID_MAPPING.patient.uuid,
@@ -147,6 +160,13 @@ export const patientboard_crl = [
  */
 export const administrator_crl = [
   {
+    path: PARAMS_ROUTE.INDEX,
+    baseProps: {
+      element: <OwnerViewPage />,
+      title: "Overview"
+    },
+  },
+  {
     path: ADMINISTRATOR_ROUTE.MODULES.PARAM,
     baseProps: {
       element: <ModulePage />,
@@ -157,21 +177,28 @@ export const administrator_crl = [
     path: ADMINISTRATOR_ROUTE.MODULES.PARAM + "/" + PARAMS_ROUTE.CREATE,
     baseProps: {
       element: <ModuleCreatePage />,
-      title: "Module"
+      title: "Module Create"
     },
   },
   {
     path: ADMINISTRATOR_ROUTE.MODULES.PARAM + "/" + PARAMS_ROUTE.EDIT,
     baseProps: {
       element: <ModuleUpdatePage />,
-      title: "Module"
+      title: "Module Edit"
     },
   },
   {
     path: ADMINISTRATOR_ROUTE.WORKSPACE.PARAM,
     baseProps: {
       element: <WorkspacePage />,
-      title: "Module"
+      title: "Workspace"
+    },
+  },
+  {
+    path: ADMINISTRATOR_ROUTE.WORKSPACE.PARAM + "/" + PARAMS_ROUTE.CREATE,
+    baseProps: {
+      element: <WorkspaceCreatePage />,
+      title: "Workspace"
     },
   },
   {

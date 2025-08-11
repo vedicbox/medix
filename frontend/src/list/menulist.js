@@ -23,8 +23,13 @@ export const staff_mnlst = (listenerBox) => {
   return [
     {
       label: "Edit Form",
-      icon:ICON_NAME.EDIT,
+      icon: ICON_NAME.EDIT,
       handler: listenerBox["edit"],
+    },
+    {
+      label: "Board",
+      icon: "icon-park-outline:setting",
+      handler: listenerBox["board"],
     },
   ];
 };

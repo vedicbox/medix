@@ -25,18 +25,6 @@ export const LOGIN_RULES = {
 };
 
 export const STAFF_FORM_RULES = {
-    roleRef: {
-        required: true,
-        props: {
-            msgVariable: { label: "Role" },
-        }
-    },
-    clinicRef: {
-        required: true,
-        props: {
-            msgVariable: { label: "Clinic" },
-        }
-    },
     firstName: {
         required: true,
         alpha: true,
@@ -131,8 +119,21 @@ export const STAFF_FORM_RULES = {
             msgVariable: { label: "Address" },
         }
     },
-    
+}
 
+export const ASSIGN_ENTITY_RULES = {
+    roleRef: {
+        required: true,
+        props: {
+            msgVariable: { label: "Role" },
+        }
+    },
+    clinicRef: {
+        required: true,
+        props: {
+            msgVariable: { label: "Clinic" },
+        }
+    },
 }
 
 
@@ -318,13 +319,6 @@ export const MODULE_FORM_RULES = {
             msgVariable: { label: "Name" },
         }
     },
-    desc: {
-        required: true,
-        alpha: true,
-        props: {
-            msgVariable: { label: "Description" },
-        }
-    },
 };
 
 
@@ -425,6 +419,33 @@ export const CLINIC_FORM_RULES = {
         required: true,
         props: {
             msgVariable: { label: "Week Off" },
+        }
+    },
+}
+
+export const ORG_FORM_RULES = {
+    orgName: {
+        required: true,
+        props: {
+            msgVariable: { label: "Organization Name" },
+        }
+    },
+    orgCode: {
+        required: true,
+        props: {
+            msgVariable: { label: "OrgCode" },
+        }
+    },
+    category: {
+        required: true,
+        props: {
+            msgVariable: { label: "Category" },
+        }
+    },
+    status: {
+        required: true,
+        props: {
+            msgVariable: { label: "Status" },
         }
     },
 }

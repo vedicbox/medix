@@ -42,7 +42,7 @@ export default function ModuleCreatePage() {
     const isValid = await validateAll(packet);
     if (!isValid) return;
 
-    packet["subModule"] = processObj.subModule;
+    packet["subModules"] = processObj.subModules;
 
     const { data, error } = await createModuleMutation(packet);
     handleMutationResponse(data, error);
