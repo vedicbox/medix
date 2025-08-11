@@ -13,12 +13,11 @@ class AdminFactory {
             let orgRes = await OrgRepo.findOrgByFields({ orgCode });
 
             if (!orgRes) {
-                orgRes = await this.createOrganization();
-
+                orgRes = await this.createOrganization();   
                 const roleRes = await this.createRole(orgRes._id);
                 await this.createUser(orgRes._id, roleRes._id);
-                
-                console.log("Default factory initialization completed.");
+
+                console.log("Adminstrator initialization completed.");
             }
 
 
@@ -30,7 +29,7 @@ class AdminFactory {
 
     static async createOrganization() {
         const orgObj = OrgMapper.getAdminstratorOrg();
-        await OrgRepo.create(orgObj);
+        return await OrgRepo.create(orgObj);
     }
 
     static async createRole(orgRef) {

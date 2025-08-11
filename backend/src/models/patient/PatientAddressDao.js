@@ -43,12 +43,7 @@ const PatientAddressSchema = new mongoose.Schema(
             default: "India", // Set default country if appropriate
             maxlength: [50, "Country cannot exceed 50 characters"],
             trim: true,
-        },
-        createId: {
-            type: mongoose.Schema.Types.ObjectId, // Changed from Number to ObjectId
-            ref: "users", // Reference to your User model
-            required: true,
-        },
+        }
     },
     {
         timestamps: {

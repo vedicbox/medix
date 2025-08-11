@@ -85,10 +85,7 @@ const ClinicSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: {
-      createdAt: "createdAt",
-      updatedAt: "updatedAt",
-    },
+    timestamps: true,
   }
 );
 

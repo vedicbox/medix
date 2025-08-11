@@ -1,7 +1,8 @@
-import AlignPatientDao from "../models/patient/AlignPatientDao.js";
-import PatientAddressDao from "../models/patient/PatientAddressDao.js";
-import PatientContactDao from "../models/patient/PatientContactDao.js";
-import PatientDetailDao from "../models/patient/PatientDetailDao.js";
+import AlignPatientDao from "@models/patient/AlignPatientDao.js";
+import PatientAddressDao from "@models/patient/PatientAddressDao.js";
+import PatientContactDao from "@models/patient/PatientContactDao.js";
+import PatientDetailDao from "@models/patient/PatientDetailDao.js";
+import { parseToMongoId } from "@utils/parse.js";
 
 
 export default class PatientRepo {
@@ -29,9 +30,8 @@ export default class PatientRepo {
         return patientDetailDao;
     }
 
-    static async findByPhone(phoneNumber, orgCode) {
+    static async findByPhone(phoneNumber, orgRef) {
         return PatientContactDao.aggregate([
-            // Stage 1: Match phone numbers
             {
                 $match: {
                     $or: [
@@ -40,8 +40,6 @@ export default class PatientRepo {
                     ]
                 }
             },
-
-            // Stage 2: Join with patient_details with orgCode filter
             {
                 $lookup: {
                     from: "patient_details",
@@ -50,24 +48,20 @@ export default class PatientRepo {
                         {
                             $match: {
                                 $expr: { $eq: ["$_id", "$$caseId"] },
-                                orgCode: orgCode  // OrgCode filter happens here
+                                orgRef: parseToMongoId(orgRef)
                             }
                         },
-                        { $limit: 1 }  // Optimize - we only need one match
+                        { $limit: 1 }
                     ],
                     as: "patient"
                 }
             },
-
-            // Stage 3: Unwind and filter (replaces client-side filtering)
             {
                 $unwind: {
                     path: "$patient",
-                    preserveNullAndEmptyArrays: false  // Automatically filters nulls
+                    preserveNullAndEmptyArrays: false
                 }
             },
-
-            // Stage 4: Project final format
             {
                 $project: {
                     _id: 0,
@@ -93,82 +87,53 @@ export default class PatientRepo {
         const patient = await PatientDetailDao.findOne(
             { _id: caseId },
             { firstName: 1, lastName: 1 }
-        ).lean(); // Using `.lean()` for faster plain JS object
+        ).lean();
 
-        if (!patient) return null; // Early return if no patient found
+        if (!patient) return null;
 
         const { _id, ...rest } = patient;
-        return { ...rest, caseId: _id }; // Destructure and rename _id → caseId
+        return { ...rest, caseId: _id }; 
     }
 
-    /**
-     * Get contact details by caseId
-     * @param {string} caseId - The case ID of the patient
-     * @returns {Promise<Object|null>}
-     */
+
     static async getContactByCaseId(caseId) {
         return PatientContactDao.findOne({ caseId }).lean();
     }
 
-    /**
-     * Update contact details by caseId
-     * @param {Object} contactData - The updated contact data
-     * @returns {Promise<Object|null>}
-     */
     static async updateContactByCaseId(contactData) {
         const { caseId, ...updateFields } = contactData;
 
         return PatientContactDao.findOneAndUpdate(
             { caseId },
             { $set: updateFields },
-            { new: true } // Return the updated document
+            { new: true }
         ).lean();
     }
 
-    /**
-     * Get patient details by caseId
-     * @param {string} caseId - The case ID of the patient
-     * @returns {Promise<Object|null>}
-     */
+
     static async getPatientDetailsByCaseId(caseId) {
         return PatientDetailDao.findOne({ _id: caseId }).lean();
     }
 
-    /**
-     * Update patient details by caseId
-     * @param {Object} patientData - The updated patient data
-     * @returns {Promise<Object|null>}
-     */
     static async updatePatientDetailsByCaseId(patientData) {
         const { caseId, ...updateFields } = patientData;
 
         return PatientDetailDao.findOneAndUpdate(
             { _id: caseId },
             { $set: updateFields },
-            { new: true, runValidators: true } // Return the updated document
+            { new: true, runValidators: true }
         ).lean();
     }
 
-    /**
-     * Save patient assignment to the database
-     * @param {Object} alignPatientDao - DAO object for patient assignment
-     * @returns {Promise<void>}
-     */
     static async initiateConsult(assignPatientDao) {
-        // Check if a record with the given caseId exists and status != 0
         const existing = await AlignPatientDao.findOne({ caseId: assignPatientDao.caseId, status: { $ne: 0 } });
         if (existing) {
-            // Not allowed to save, return null or throw error
             return null;
         }
         const assignPatient = new AlignPatientDao(assignPatientDao);
         return await assignPatient.save();
     }
 
-    /**
-     * Get list of align patients with status 0, populate doctor name and patient name
-     * @returns {Promise<Array>}
-     */
     static async getAlignPatientList() {
         return AlignPatientDao.aggregate([
             { $match: { status: 0 } },
@@ -194,7 +159,7 @@ export default class PatientRepo {
                 $lookup: {
                     from: "patient_contacts",
                     localField: "caseId",
-                    foreignField: "caseId", // <-- corrected field
+                    foreignField: "caseId",
                     as: "contact"
                 }
             },
@@ -229,13 +194,6 @@ export default class PatientRepo {
         ]);
     }
 
-
-    /**
-     * Change status of an align patient by _id
-     * @param {string} alignPatientId
-     * @param {number|string} status
-     * @returns {Promise<Object|null>}
-     */
     static async changeAlignPatientStatus(alignPatientId, status) {
         return AlignPatientDao.findByIdAndUpdate(
             alignPatientId,

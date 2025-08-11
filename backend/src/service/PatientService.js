@@ -18,11 +18,11 @@ export default class PatientService {
    */
   static async createPatientService(request, authentication) {
 
-    const { userId, orgCode } = authentication;
+    const { userRef, orgRef } = authentication;
 
-    const patientDetails = PatientMapper.patientDetailsMapper(request, userId, orgCode);
-    const patientContact = PatientMapper.patientContactMapper(request, userId);
-    const patientAddress = PatientMapper.patientAddressMapper(request, userId);
+    const patientDetails = PatientMapper.patientDetailsMapper(request, userRef, orgRef);
+    const patientContact = PatientMapper.patientContactMapper(request);
+    const patientAddress = PatientMapper.patientAddressMapper(request);
 
     const response = await PatientRepo.createPatient(patientDetails, patientContact, patientAddress);
 
@@ -38,10 +38,11 @@ export default class PatientService {
    * @returns {Promise<ServiceResponse>}
    */
   static async updatePatientService(request, authentication) {
-    const { userId, orgCode } = authentication;
-    const patientDetails = PatientMapper.patientDetailsMapper(request, userId, orgCode);
-    const patientContact = PatientMapper.patientContactMapper(request, userId);
-    const patientAddress = PatientMapper.patientAddressMapper(request, userId);
+    const { userRef, orgRef } = authentication;
+    const patientDetails = PatientMapper.patientDetailsMapper(request, userRef, orgRef);
+    const patientContact = PatientMapper.patientContactMapper(request);
+    const patientAddress = PatientMapper.patientAddressMapper(request);
+
     const response = await PatientRepo.updatePatient(patientDetails, patientContact, patientAddress);
     return new ServiceResponse(STATUS_CODES.OK, MESSAGES.PATIENT_UPDATED, response);
   }
@@ -52,8 +53,8 @@ export default class PatientService {
    * @returns {Promise<ServiceResponse>}
    */
   static async searchPatientService(searchValue, authentication) {
-    const { orgCode } = authentication;
-    const patientData = await PatientRepo.findByPhone(searchValue, orgCode);
+    const { orgRef } = authentication;
+    const patientData = await PatientRepo.findByPhone(searchValue, orgRef);
     if (!patientData.length) {
       return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.NO_PATIENTS_FOUND);
     }
@@ -79,22 +80,15 @@ export default class PatientService {
     }
   }
 
-  /**
-   * Assign a patient to a doctor.
-   * @param {Object} alignPatientDTO - Data transfer object for assigning a patient
-   * @param {Object} authentication - Auth context containing userId
-   * @returns {Promise<ServiceResponse>}
-   */
+
   static async initiateConsultService(alignPatientDTO, authentication) {
     try {
-      const { userId } = authentication;
-      // Map DTO to DAO
+
       const assignPatientDao = PatientMapper.initiateConsultMapper(
         alignPatientDTO,
-        userId
+        authentication
       );
 
-      // Save the assignment in the database
       const savedResponse = await PatientRepo.initiateConsult(assignPatientDao);
 
       if (savedResponse && savedResponse.publishReceipt) {

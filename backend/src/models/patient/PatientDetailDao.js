@@ -68,9 +68,10 @@ const PatientDetailSchema = new mongoose.Schema(
             required: [true, "Martial status is required"],
             type: String,
         },
-        orgCode: {
-            type: String,
-            trim: true,
+        orgRef: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "organization",
+            required: true,
         },
         createId: {
             type: mongoose.Schema.Types.ObjectId,
