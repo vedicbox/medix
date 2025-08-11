@@ -3,7 +3,7 @@ import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import Iconify from "components/icons/Iconify";
 import DisplayContent from "components/placeholder/DisplayContent";
-import ClassicStepper from "components/stepper/ClassicStepper";
+import ScrollableTabs from "components/tabs/ScrollableTabs";
 import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
 import StaffFormUtil from "pages/dashboard/staff/enrollCrud/formUtil/StaffFormUtil";
 import { useRef, useState } from "react";
@@ -12,7 +12,14 @@ import { useCreateOrgMutation } from "service/adminstrator/orgService";
 import { HTTP_STATUS_CODES } from "values/enum";
 import OrgFormUtil from "./OrgFormUtil";
 
-const stepperSteps = ["Workspace Enroll", "Admin Form"];
+const stepperSteps = [
+  {
+    label: "Workspace Enroll",
+  },
+  {
+    label: "Admin Form",
+  },
+];
 
 export default function WorkspaceEditPage() {
   const navigate = useNavigate();
@@ -55,11 +62,19 @@ export default function WorkspaceEditPage() {
     orgFormRef.current?.setErrors(errors);
   };
 
+  const handleTabChange = (event, newValue) => {
+    setPageIndex(newValue);
+  };
+
   return (
     <>
       <CollapsedBreadcrumbs breadlist={ADMINSTRATOR_CRUMB.MODULE.CREATE} />
 
-      <ClassicStepper steps={stepperSteps} activeStep={pageIndex} />
+      <ScrollableTabs
+        navlist={stepperSteps}
+        indexVal={pageIndex}
+        handleChange={handleTabChange}
+      />
 
       <Grid container spacing={2} justifyContent="center">
         <Grid size={{ xs: 12, lg: 10 }}>

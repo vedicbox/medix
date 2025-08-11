@@ -1,8 +1,6 @@
 import { AppBar } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import { global_msr } from "values/measure";
-
 export default function ScrollableTabs(props) {
   const { navlist, indexVal, handleChange } = props;
 
@@ -22,11 +20,7 @@ export default function ScrollableTabs(props) {
         textColor="inherit"
       >
         {navlist.map((navObj) => (
-          <Tab
-            key={navObj.label}
-            sx={{ minWidth: global_msr._150 }}
-            label={navObj.label}
-          />
+          <Tab key={navObj.label} sx={{ minWidth: 150 }} label={navObj.label} />
         ))}
       </Tabs>
     </AppBar>
