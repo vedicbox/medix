@@ -23,6 +23,7 @@ const ModuleUpdatePage = Loadable(lazy(() => import("pages/administrator/modules
 const WorkspacePage = Loadable(lazy(() => import("pages/administrator/workspace")));
 const OwnerViewPage = Loadable(lazy(() => import("pages/administrator/overview")));
 const WorkspaceCreatePage = Loadable(lazy(() => import("pages/administrator/workspace/create")));
+const WorkspaceUpdatePage = Loadable(lazy(() => import("pages/administrator/workspace/edit")));
 const ManageStaffBoard = Loadable(lazy(() => import("pages/dashboard/staff/manage/board")));
 
 export const dashboard_crl = [
@@ -198,6 +199,13 @@ export const administrator_crl = [
     path: ADMINISTRATOR_ROUTE.WORKSPACE.PARAM + "/" + PARAMS_ROUTE.CREATE,
     baseProps: {
       element: <WorkspaceCreatePage />,
+      title: "Workspace"
+    },
+  },
+  {
+    path: ADMINISTRATOR_ROUTE.WORKSPACE.PARAM + "/" + PARAMS_ROUTE.EDIT,
+    baseProps: {
+      element: <WorkspaceUpdatePage />,
       title: "Workspace"
     },
   },
