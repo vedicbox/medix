@@ -8,7 +8,7 @@ class PatientMapper {
      * @param {string} orgCode - Organization code
      * @returns {PatientDetails} - Mapped patient details object
      */
-    static patientDetailsMapper(request, userId, orgCode) {
+    static patientDetailsMapper(request, userRef, orgRef) {
         const { firstName, lastName, dob, gender, height, weight, age, martial } = request;
         return {
             firstName,
@@ -19,8 +19,8 @@ class PatientMapper {
             weight,
             age,
             martial,
-            createId: userId,
-            orgCode
+            createId: userRef,
+            orgRef
         };
     }
 
@@ -31,14 +31,13 @@ class PatientMapper {
      * @param {string} userId - Creating user ID
      * @returns {PatientContact} - Mapped patient contact object
      */
-    static patientContactMapper(request, userId) {
+    static patientContactMapper(request) {
         const { phone1, phone2, whatsappPref, email } = request;
         return {
             phone1,
             phone2,
             whatsappPref,
-            email,
-            createId: userId
+            email
         };
     }
 
@@ -49,7 +48,7 @@ class PatientMapper {
      * @param {string} userId - Creating user ID
      * @returns {PatientAddress} - Mapped patient address object
      */
-    static patientAddressMapper(request, userId) {
+    static patientAddressMapper(request) {
         const { addr1, addr2, state, city, pincode, country } = request;
         return {
             addr1,
@@ -57,8 +56,8 @@ class PatientMapper {
             state,
             city,
             pincode,
-            country,
-            createId: userId
+            country
+
         };
     }
 
@@ -68,9 +67,11 @@ class PatientMapper {
      * @param {string} userId - Creating user ID
      * @returns {Object} - Mapped alignment object
      */
-    static initiateConsultMapper(initiateConsultDto, userId) {
+    static initiateConsultMapper(initiateConsultDto, authentication) {
+        const { userRef, clinicRef, orgRef } = authentication;
+
         const { caseId, assignDoc: docId, fee, payMode: payTag, transId, publishReceipt } = initiateConsultDto;
-        return { caseId, docId, fee, payTag, transId, publishReceipt, createId: userId };
+        return { caseId, docId, fee, payTag, transId, publishReceipt, createId: userRef, clinicRef, orgRef };
     }
 
     /**

@@ -10,7 +10,7 @@ const AlignPatientSchema = new mongoose.Schema(
         },
         docId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "doctors", // Reference to the Doctor model
+            ref: "doctors",
             required: [true, "Doctor ID is required"],
         },
         fee: {
@@ -36,12 +36,19 @@ const AlignPatientSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        orgRef: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "organization",
+            required: true,
+        },
+        clinicRef: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "clinic_masters",
+            required: true,
+        },
     },
     {
-        timestamps: {
-            createdAt: "created_at",
-            updatedAt: "updated_at",
-        },
+        timestamps: true,
     }
 );
 

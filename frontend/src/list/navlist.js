@@ -75,7 +75,7 @@ export const patientboard_navigation = () => {
       name: "Update Patient",
       icon: ICON_NAME.UPDATE,
       uuid: ID_MAPPING.patient.uuid,
-      path: PARAMS_ROUTE.UPDATE,
+      path: `./${PARAMS_ROUTE.UPDATE}`,
     },
   ];
 };

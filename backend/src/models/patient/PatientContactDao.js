@@ -43,12 +43,7 @@ const PatientContactSchema = new mongoose.Schema(
       match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
       lowercase: true,
       trim: true,
-    },
-    createId: {
-      type: mongoose.Schema.Types.ObjectId, // Changed to ObjectId
-      ref: "users",
-       required: [true, "Creator ID is required"],
-    },
+    }
   },
   {
     timestamps: {

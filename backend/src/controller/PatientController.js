@@ -115,7 +115,8 @@ export default class PatientController {
      */
     static async alignPatientList(req, res) {
         try {
-            const response = await patientService.getAlignPatientListService();
+            const authentication = req.auth;
+            const response = await patientService.getAlignPatientListService(authentication);
             return HttpHandler.send(res, response);
         } catch (error) {
             return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
