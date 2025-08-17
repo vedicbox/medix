@@ -25,6 +25,7 @@ const OwnerViewPage = Loadable(lazy(() => import("pages/administrator/overview")
 const WorkspaceCreatePage = Loadable(lazy(() => import("pages/administrator/workspace/create")));
 const WorkspaceUpdatePage = Loadable(lazy(() => import("pages/administrator/workspace/edit")));
 const ManageStaffBoard = Loadable(lazy(() => import("pages/dashboard/staff/manage/board")));
+const AddMeetingPage = Loadable(lazy(() => import("pages/dashboard/staff/manage/board/staff-meetings/crud/AddMeeting")));
 
 export const dashboard_crl = [
   {
@@ -61,13 +62,19 @@ export const dashboard_crl = [
   },
   {
     path:
-      DASHBOARD_ROUTE.STAFF.BOARD.PATH +
-      "/" +
-      PARAMS_ROUTE.WILD_CARD,
+      DASHBOARD_ROUTE.STAFF.BOARD.PATH,
     baseProps: {
       element: <ManageStaffBoard />,
       title: "Staff Board"
     }
+  },
+    {
+    uuid: ID_MAPPING.master.uuid,
+    path: DASHBOARD_ROUTE.STAFF.BOARD.PATH + "/" + PARAMS_ROUTE.CREATE,
+    baseProps: {
+      element: <AddMeetingPage />,
+      title: "Add Clinic"
+    },
   },
   {
     uuid: ID_MAPPING.patient.uuid,

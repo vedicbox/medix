@@ -245,6 +245,35 @@ export const DASHBOARD_TBCOL = {
     ],
 
   }),
+  staffMeeting: (props) => ({
+    key: "_id",
+    title: "Staff List",
+    isMenuAction: true,
+    COLUMNS: [
+      columnHelper.accessor("userRef.firstName", {
+        header: "First Name",
+      }),
+      columnHelper.accessor("userRef.lastName", {
+        header: "Last Name",
+      }),
+      columnHelper.accessor("userRef.email", {
+        header: "Email",
+      }),
+      columnHelper.accessor("phone1", {
+        header: "Phone No",
+      }),
+      columnHelper.accessor("gender", {
+        header: "Gender",
+      }),
+      columnHelper.accessor("userRef.roleRef.name", {
+        header: "Role",
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Dt",
+      }),
+    ],
+
+  }),
   alignPatient: (props) => ({
     key: "_id",
     title: "Patient List",

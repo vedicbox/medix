@@ -23,6 +23,8 @@ const MESSAGES = {
   STAFF_PROFILE_CREATED: "Staff profile created successfully",
   STAFF_PROFILE_UPDATED: "Staff profile updated successfully",
   STAFF_PROFILE_NOT_FOUND: "Staff Profile Not Found",
+  STAFF_MEETING_CREATED : "Staff meeting created successfully",
+  STAFF_MEETING_FETCHED : "Staff meeting fetched successfully",
   USER_NOT_FOUND: "User Not Found",
   ROLE_NOT_FOUND: "Role Not Found",
   NO_STAFF_FOR_ROLE: "No staff found for the given role",

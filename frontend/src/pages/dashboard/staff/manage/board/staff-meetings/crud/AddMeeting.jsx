@@ -2,21 +2,24 @@ import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCreateClinicMutation } from "service/clinicService";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useCreateStaffMeetingMutation } from "service/staffMeetingService";
 import { HTTP_STATUS_CODES } from "values/enum";
-import ClinicFormUtil from "../ClinicFormUtil";
+import MeetingFormUtil from "../MeetingFormUtil";
 
-export default function ClinicAddPage() {
+export default function AddMeetingPage() {
+  const { staffId } = useLocation()?.state || {};
+
+  console.log(useLocation(),"location")
+
   const formRef = useRef(null);
-  const [createClinic] = useCreateClinicMutation();
+  const [createStaffMeeing] = useCreateStaffMeetingMutation();
   const [processObj, setProcessObj] = useState({});
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const formData = await formRef.current.preparedData();  
-    if (formData) {
-      let { data, error } = await createClinic(formData);
+    if (processObj) {
+      let { data, error } = await createStaffMeeing(processObj);
       if (data?.status == HTTP_STATUS_CODES.OK) {
         navigate(-1);
       } else if (error?.status === HTTP_STATUS_CODES.BAD_REQUEST) {
@@ -31,7 +34,7 @@ export default function ClinicAddPage() {
   return (
     <>
       <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.MASTER.CLINIC.CREATE} />
-      <ClinicFormUtil
+      <MeetingFormUtil
         processObj={processObj}
         setProcessObj={setProcessObj}
         ref={formRef}

@@ -5,6 +5,7 @@ const BASE_URL = env.BACKEND_ENDPOINT;
 const LOC_POINT = {
   ROLES: "roles",
   STAFF: "staff",
+  STAFF_MEETING: "staffMeeting",
   PATIENT: "patient",
   CLINIC: "clinic",
   PAYMENT: "api/payment",
@@ -29,6 +30,11 @@ export const STAFF_ENDPOINT = {
   FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.STAFF}/fetchAll`,
   STAFF_LIST_VIA_ROLE: `${BASE_URL}/${LOC_POINT.STAFF}/list-via-role`,
 };
+
+export const STAFF_MEETING_ENDPOINT = {
+  CREATE: `${BASE_URL}/${LOC_POINT.STAFF_MEETING}/create`,
+  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.STAFF_MEETING}/fetchAll`,
+}
 
 export const ROLE_ENDPOINT = {
   CREATE_ROLE: `${BASE_URL}/${LOC_POINT.ROLES}/create`,
