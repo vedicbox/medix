@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { httpConfig } from "service/config/httpConfig";
+import { httpConfig } from "config/httpConfig";
 
 // Initlize state
 const initialState = {

@@ -23,25 +23,32 @@ export const AUTH_ENDPOINT = {
 };
 
 export const STAFF_ENDPOINT = {
-  CREATE: `${BASE_URL}/${LOC_POINT.STAFF}/profile/create`,
-  UPDATE: `${BASE_URL}/${LOC_POINT.STAFF}/profile/update`,
-  EDIT: `${BASE_URL}/${LOC_POINT.STAFF}/profile/edit`,
-  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.STAFF}/fetchAll`,
-  STAFF_LIST_VIA_ROLE: `${BASE_URL}/${LOC_POINT.STAFF}/list-via-role`,
+  CREATE: `${BASE_URL}/${LOC_POINT.STAFF}/create`,
+  EDIT: `${BASE_URL}/${LOC_POINT.STAFF}/edit`,
+  UPDATE: `${BASE_URL}/${LOC_POINT.STAFF}/update`,
+  PROFILES: `${BASE_URL}/${LOC_POINT.STAFF}/fetch-all`,
+  BY_ROLE: `${BASE_URL}/${LOC_POINT.STAFF}/by-role`,
 };
 
+
 export const ROLE_ENDPOINT = {
-  CREATE_ROLE: `${BASE_URL}/${LOC_POINT.ROLES}/create`,
-  UPDATE_ROLE: `${BASE_URL}/${LOC_POINT.ROLES}/update`,
-  UPDATE_PERMISSIONS: `${BASE_URL}/${LOC_POINT.ROLES}/update/permissions`,
-  FETCH_ROLE_NAMES: `${BASE_URL}/${LOC_POINT.ROLES}/fetch/roleNames`,
-  FETCH_TB_LIST: `${BASE_URL}/${LOC_POINT.ROLES}/fetchAll`,
+  // GET endpoints
+  GET_ALL: `${BASE_URL}/${LOC_POINT.ROLES}/fetch-all`,
+  GET_NAMES: `${BASE_URL}/${LOC_POINT.ROLES}/names`,
+  GET_ADMIN_LIST: `${BASE_URL}/${LOC_POINT.ROLES}/admin-list`,
+  
+  // POST endpoints
+  CREATE: `${BASE_URL}/${LOC_POINT.ROLES}/create`,
+  UPDATE: `${BASE_URL}/${LOC_POINT.ROLES}/update`,
+  UPDATE_PERMISSIONS: `${BASE_URL}/${LOC_POINT.ROLES}/update-permissions`,
 };
+
 
 export const PATIENT_ENDPOINT = {
   SEARCH: `${BASE_URL}/${LOC_POINT.PATIENT}/search`,
   ENROLL_PT: `${BASE_URL}/${LOC_POINT.PATIENT}/create`,
   UPDATE_PT: `${BASE_URL}/${LOC_POINT.PATIENT}/update`,
+  EDIT: `${BASE_URL}/${LOC_POINT.PATIENT}/edit`,
   VALIDATE: `${BASE_URL}/${LOC_POINT.PATIENT}/validate`,
   INITIATE_CONSULT: `${BASE_URL}/${LOC_POINT.PATIENT}/initiate-consult`,
   ALIGN_PATIENT_LIST: `${BASE_URL}/${LOC_POINT.PATIENT}/align-list`,
@@ -57,18 +64,21 @@ export const CLINIC_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.CLINIC}/create`,
   UPDATE: `${BASE_URL}/${LOC_POINT.CLINIC}/update`,
   EDIT: `${BASE_URL}/${LOC_POINT.CLINIC}/edit`,
-  FETCH_TABLIST: `${BASE_URL}/${LOC_POINT.CLINIC}/fetchAll`,
-  FETCH_CLINIC_LIST: `${BASE_URL}/${LOC_POINT.CLINIC}/list`,
+  FIND_ALL: `${BASE_URL}/${LOC_POINT.CLINIC}/fetch-all`,
+  FETCH_CLINIC_LIST: `${BASE_URL}/${LOC_POINT.CLINIC}/names`,
 };
 
 export const MODULE_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/create`,
   UPDATE: `${BASE_URL}/${LOC_POINT.MODULE}/update`,
-  FIND_ALL: `${BASE_URL}/${LOC_POINT.MODULE}/find-all`,
+  FIND_ALL: `${BASE_URL}/${LOC_POINT.MODULE}/fetch-all`,
 }
 
 export const ORG_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.ORG}/create`,
-  UPDATE: `${BASE_URL}/${LOC_POINT.ORG}/update`,
-  FIND_ALL: `${BASE_URL}/${LOC_POINT.ORG}/find-all`,
-}
+  FIND_ALL: `${BASE_URL}/${LOC_POINT.ORG}/fetch-all`,
+  UPDATE_ORG_DETAILS: `${BASE_URL}/${LOC_POINT.ORG}/update`,
+  UPDATE_ADMIN_DETAILS: `${BASE_URL}/${LOC_POINT.ORG}/admin/update`,
+  EDIT_ORG: `${BASE_URL}/${LOC_POINT.ORG}/edit`,
+  EDIT_ADMIN: `${BASE_URL}/${LOC_POINT.ORG}/admin/edit`,
+};

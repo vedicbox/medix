@@ -40,6 +40,12 @@ const RoleSchema = new mongoose.Schema(
   }
 );
 
+// 1. Unique compound index for organization + role name (most critical)
+RoleSchema.index({ orgRef: 1, name: 1 }, { unique: true });
+
+// 2. Compound index for the most common query pattern: orgRef + status
+RoleSchema.index({ orgRef: 1, status: 1 });
+
 const RoleDao = mongoose.model("roles", RoleSchema);
 
 export default RoleDao;

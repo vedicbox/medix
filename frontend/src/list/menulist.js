@@ -66,3 +66,19 @@ export const crud_mnlst = (listenerBox) => {
   ];
 };
 
+
+export const org_mnlst = (listenerBox) => {
+  return [
+    {
+      label: "Edit",
+      icon: ICON_NAME.EDIT,
+      handler: listenerBox["edit"],
+    },
+    {
+      label: "Permission",
+      icon: ICON_NAME.SECURITY,
+      handler: listenerBox["permission"],
+
+    },
+  ];
+};

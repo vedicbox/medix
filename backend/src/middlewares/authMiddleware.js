@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import STATUS_CODES from "../utils/statusCodes.js";
+import STATUS_CODES from "@utils/statusCodes.js";
 
 // Middleware to check if the user is authenticated (for private routes)
 export const isAuthenticated = (req, res, next) => {
@@ -18,6 +18,6 @@ export const isAuthenticated = (req, res, next) => {
   } else {
     res
       .status(STATUS_CODES.UNAUTHORIZED)
-      .json({ statusCode: false, msg: "Authorization token is required." });
+      .json({ statusCode: false, msg: "Authorization session expired." });
   }
 };

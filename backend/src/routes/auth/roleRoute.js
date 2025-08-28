@@ -1,41 +1,26 @@
-import express from "express";
-import RoleController from "../../controller/auth/RoleController.js";
+import RoleController from "@controller/auth/RoleController.js";
 import { isAuthenticated } from "@middlewares/authMiddleware.js";
+import express from "express";
 
 const router = express.Router();
-
-// Apply authentication middleware to all routes
 router.use(isAuthenticated);
 
-/**
- * Route to fetch roles
- * @route GET /fetch/roles
- */
-router.get("/fetch/roleNames", RoleController.fetchRoleNames);
+// Get all roles
+router.get("/fetch-all", RoleController.getAll);
 
-/**
- * Route to create a new role
- * @route POST /create/role
- */
-router.post("/create", RoleController.createRole);
+//  Get role names only
+router.get("/names", RoleController.getNames);
 
-/**
- * Route to update an existing role
- */
-router.post("/update", RoleController.updateRole);
+//  Get admin roles
+router.get("/admin-list", RoleController.getAdminList);
 
-/**
- * Route to update permissions for a role
- * @route POST /update/permissions
- */
-router.post("/update/permissions", RoleController.updateRolePermissions);
+//  Create a new role
+router.post("/create", RoleController.create);
 
-/**
- * Route to fetch available roles (active roles)
- * @route GET /fetch/availableRoles
- */
-router.get("/fetchAll", RoleController.fetchAll);
+//  Update role
+router.post("/update", RoleController.update);
 
-
+//  Update role permissions
+router.post("/update-permissions", RoleController.updatePermissions);
 
 export default router;

@@ -16,6 +16,12 @@ class RoleMapper {
         };
     }
 
+    static updatePermissionMapper(data) {
+        return {
+            permission: data.permission,
+        };
+    }
+
     static getAdminstratorRole(orgRef) {
         return {
             name: AUTH_ENUM.ROLES.ADMINSTRATOR,

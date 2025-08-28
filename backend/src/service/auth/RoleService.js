@@ -1,70 +1,102 @@
-import RoleMapper from "../../mapper/RoleMapper.js";
-import RoleRepo from "../../repo/auth/RoleRepo.js";
-import MESSAGES from "../../utils/message.js";
-import { ServiceResponse } from "../../utils/responseHandler.js";
-import STATUS_CODES from "../../utils/statusCodes.js";
+import RoleMapper from "@mapper/RoleMapper.js";
+import RoleRepo from "@repo/auth/RoleRepo.js";
+import MESSAGES from "@utils/message.js";
+import { formatMsg } from "@utils/parse.js";
+import { ServiceResponse } from "@utils/responseHandler.js";
+import STATUS_CODES from "@utils/statusCodes.js";
 
-/**
- * Service for role management operations.
- * Handles creation, update, and permission management for roles.
- */
 export default class RoleService {
-  /**
-   * Fetch all role names.
-   * @returns {Promise<ServiceResponse>}
-   */
-  static async findActiveRoles(authentication) {
+  static async getAll({ authentication }) {
     const { orgRef } = authentication;
-    const roles = await RoleRepo.findActiveRoles(orgRef);
-    return new ServiceResponse(STATUS_CODES.OK, null, roles);
+    const payload = await RoleRepo.getAll(orgRef);
+    return new ServiceResponse(
+      STATUS_CODES.OK,
+      null,
+      payload
+    );
   }
 
-  /**
-   * Create a new role.
-   * @param {Object} roleData - Role data
-   * @returns {Promise<ServiceResponse>}
-   */
-  static async createRole(roleData, authentication) {
+
+  static async getNames({ authentication }) {
     const { orgRef } = authentication;
-    const createObj = RoleMapper.createRoleMapper(roleData);
+    const roles = await RoleRepo.getNames(orgRef);
+    return new ServiceResponse(
+      STATUS_CODES.OK,
+      null,
+      roles
+    );
+  }
+
+  static async getAdminList({ authentication }) {
+    const { orgRef } = authentication;
+    const availableRoles = await RoleRepo.getAdminList(orgRef);
+    return new ServiceResponse(
+      STATUS_CODES.OK,
+      null,
+      { rolelist: availableRoles }
+    );
+  }
+
+  static async create({ authentication, packet }) {
+    const { orgRef } = authentication;
+
+    const exists = await RoleRepo.isExists({ name: packet.name, orgRef });
+    if (exists) {
+      return new ServiceResponse(
+        STATUS_CODES.CONFLICT,
+        formatMsg(MESSAGES.ALREADY_EXISTS, { label: "Role" })
+      );
+    }
+
+    const createObj = RoleMapper.createRoleMapper(packet);
     createObj.orgRef = orgRef;
 
-    await RoleRepo.createRole(createObj);
-    return new ServiceResponse(STATUS_CODES.OK, MESSAGES.ROLE_CREATED, null);
+    const newRole = await RoleRepo.create(createObj);
+    return new ServiceResponse(
+      STATUS_CODES.OK,
+      formatMsg(MESSAGES.CREATE, { label: "Role" }),
+      newRole
+    );
   }
 
-  /**
-   * Update an existing role.
-   * @param {Object} roleData - Role data
-   * @returns {Promise<ServiceResponse>}
-   */
-  static async updateRole(roleData) {
-    const updateObj = RoleMapper.createRoleMapper(roleData);
-    const updatedRole = await RoleRepo.updateRole(roleData._id, updateObj);
-    return new ServiceResponse(STATUS_CODES.OK, MESSAGES.ROLE_UPDATED, updatedRole);
-  }
-
-  /**
-   * Fetch the list of available roles (active roles).
-   * @returns {Promise<ServiceResponse>}
-   */
-  static async fetchAll(authentication) {
+  static async update({ authentication, packet }) {
     const { orgRef } = authentication;
-    const availableRoles = await RoleRepo.fetchAllRoles(orgRef);
-    return new ServiceResponse(STATUS_CODES.OK, null, { rolelist: availableRoles });
+
+    const exists = await RoleRepo.isExists({ _id: packet._id, orgRef });
+    if (!exists) {
+      return new ServiceResponse(
+        STATUS_CODES.NOT_FOUND,
+        formatMsg(MESSAGES.NOT_FOUND, { label: "Role" })
+      );
+    }
+
+    const updateObj = RoleMapper.createRoleMapper(packet);
+    await RoleRepo.update(packet._id, updateObj);
+
+    return new ServiceResponse(
+      STATUS_CODES.OK,
+      formatMsg(MESSAGES.UPDATE, { label: "Role" }),
+      null
+    );
   }
 
-  /**
-   * Update permissions for a role.
-   * @param {string} roleId - Role ID
-   * @param {Array<string>} permissions - Permissions to set
-   * @returns {Promise<ServiceResponse>}
-   */
-  static async updateRolePermissions(roleId, permissions) {
-    const updatedRole = await RoleRepo.updateRolePermissions(roleId, permissions);
-    if (!updatedRole) {
-      return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.ROLE_NOT_FOUND_GENERIC);
+  static async updatePermissions({ authentication, packet }) {
+    const { orgRef } = authentication;
+
+    const exists = await RoleRepo.isExists({ _id: packet.roleId });
+    if (!exists) {
+      return new ServiceResponse(
+        STATUS_CODES.NOT_FOUND,
+        formatMsg(MESSAGES.NOT_FOUND, { label: "Role" })
+      );
     }
-    return new ServiceResponse(STATUS_CODES.OK, MESSAGES.PERMISSIONS_UPDATED, updatedRole);
+
+    const updateObj = RoleMapper.updatePermissionMapper(packet);
+    await RoleRepo.update(packet.roleId, updateObj);
+    return new ServiceResponse(
+      STATUS_CODES.OK,
+      formatMsg(MESSAGES.UPDATE, { label: "Role permissions" }),
+      null
+    );
   }
 }

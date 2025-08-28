@@ -1,44 +1,33 @@
-import { Grid } from "@mui/material";
 import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
-import { useState } from "react";
+import PermissionUtils from "pages/utilPages/permissionUtil";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import {
-  useGetTBRolesQuery,
-  useUpdatePermissionsMutation,
+  useGetAllRolesQuery,
+  useUpdateRolePermissionsMutation,
 } from "service/auth/roleService";
 import { snackbar_slice } from "store/root-reducer/global";
 import { SEVERITY_ENUM } from "values/enum";
 import { ALERT_MSG } from "values/messages";
 import RoleDialogBox from "./dialogBox/RoleDialog";
-import PermissionListView from "./elements/PermissionListView";
-import RoleListView from "./elements/RoleListView";
 
 export default function MasterRolePage() {
-  const [roleObj, setRoleObj] = useState({});
   const dispatch = useDispatch();
+  const formRef = useRef(null);
 
-  const { data: tbData } = useGetTBRolesQuery();
-  let rolePayload = tbData?.payload?.rolelist || [];
+  const { data: tbData } = useGetAllRolesQuery();
+  let rolePayload = tbData?.payload || [];
+
   const [updatePermissions, { isLoading: isUpdating }] =
-    useUpdatePermissionsMutation();
+    useUpdateRolePermissionsMutation();
 
-  const handleRoleSelect = (event) => {
-    const roleId = event.target.value;
-    const permissions = rolePayload.find(
-      (item) => item._id == roleId
-    )?.permission;
+  const handleSubmit = async () => {
+    const formData = formRef.current.prepareData();
 
-    setRoleObj((prev) => ({
-      roleId,
-      permissions,
-    }));
-  };
-
-  const handleSumitPermission = async () => {
-    if (!roleObj.roleId) {
+    if (!formData.roleId) {
       dispatch(
         snackbar_slice({
           severity: SEVERITY_ENUM.ERROR,
@@ -47,12 +36,8 @@ export default function MasterRolePage() {
       );
       return;
     }
-    try {
-      await updatePermissions(roleObj).unwrap();
-      // Optionally show success message or refresh data
-    } catch (err) {
-      // Optionally handle error
-    }
+
+    await updatePermissions(formData).unwrap();
   };
 
   const topBar = [
@@ -72,23 +57,16 @@ export default function MasterRolePage() {
         topBar={topBar}
       />
 
-      <Grid container spacing={2}>
-        <Grid size={{ xs: 12, lg: 6 }}>
-          <RoleListView
-            handleRoleSelect={handleRoleSelect}
-            roleSelect={roleObj.roleId}
-            rolePayload={rolePayload}
-          />
-        </Grid>
-        <Grid size={{ xs: 12, lg: 6 }}>
-          <PermissionListView roleObj={roleObj} setRoleObj={setRoleObj} />
-        </Grid>
-      </Grid>
+      <PermissionUtils
+        roles={rolePayload}
+        ref={formRef}
+        roleColPicker="roles"
+      />
 
       <div className="mt-4 text-right">
         <MuiSubmitBtn
           text="Set Permission"
-          onSubmit={handleSumitPermission}
+          onSubmit={handleSubmit}
           isLoading={isUpdating}
         />
       </div>

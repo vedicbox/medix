@@ -1,10 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { MODULE_ENDPOINT } from "service/config/endpoints";
+import { MODULE_ENDPOINT } from "config/endpoints";
 import {
     httpConfig,
     httpMiddlewareBoundary,
     onHttpSuccess,
-} from "service/config/httpConfig";
+} from "config/httpConfig";
 
 const MODULE_API_PATH_KEY = "module-api";
 
@@ -60,5 +60,6 @@ export const moduleService = createApi({
 // auto-generated based on the defined endpoints
 export const {
     useCreateModuleMutation,
+    useUpdateModuleMutation,
     useFindAllModuleQuery
 } = moduleService;

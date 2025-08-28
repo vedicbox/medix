@@ -1,49 +1,60 @@
 import ModuleService from "@service/adminstrator/ModuleService.js";
+import MESSAGES from "@utils/message.js";
+import { formatMsg } from "@utils/parse.js";
 import { HttpHandler } from "@utils/responseHandler.js";
+
+const MODULE_OPERATIONS = {
+  GET_ALL: {
+    serviceMethod: 'getAll',
+    inputExtractor: () => ({}),
+    operationName: 'Get all modules',
+  },
+  CREATE: {
+    serviceMethod: 'create',
+    inputExtractor: (req) => ({ packet: req.body }),
+    operationName: 'Create module',
+  },
+  UPDATE: {
+    serviceMethod: 'update',
+    inputExtractor: (req) => ({ packet: req.body }),
+    operationName: 'Update module',
+  },
+  GET_JSON: {
+    serviceMethod: 'getJson',
+    inputExtractor: () => ({}),
+    operationName: 'Get modules JSON',
+  }
+};
 
 export default class ModuleController {
   /**
-   * Find all modules
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
-   * @returns {ResponseHandler}
+   * Generic request handler
+   * @private
    */
-  static async findAllModules(req, res) {
+  static async #handleRequest(req, res, operationConfig) {
     try {
-      const response = await ModuleService.findAllModules();
-      return HttpHandler.send(res, response);
+      const input = operationConfig.inputExtractor(req);
+      const result = await ModuleService[operationConfig.serviceMethod](input);
+      return HttpHandler.send(res, result);
     } catch (error) {
-      return HttpHandler.error(res, error);
+      console.error(`${operationConfig.operationName} Error:`, error);
+      return HttpHandler.error(res, error, formatMsg(MESSAGES.TRY_AGAIN, { label: operationConfig.operationName }));
     }
   }
 
-  /**
-   * Create a new module
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
-   * @returns {ResponseHandler}
-   */
-  static async createModule(req, res) {
-    try {
-      const response = await ModuleService.createModule(req.body);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error);
-    }
+  static async getAll(req, res) {
+    return ModuleController.#handleRequest(req, res, MODULE_OPERATIONS.GET_ALL);
   }
 
-  /**
-   * Update a module
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
-   * @returns {ResponseHandler}
-   */
-  static async updateModule(req, res) {
-    try {
-      const response = await ModuleService.updateModule(req.body);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error);
-    }
+  static async create(req, res) {
+    return ModuleController.#handleRequest(req, res, MODULE_OPERATIONS.CREATE);
+  }
+
+  static async update(req, res) {
+    return ModuleController.#handleRequest(req, res, MODULE_OPERATIONS.UPDATE);
+  }
+
+  static async getJson(req, res) {
+    return ModuleController.#handleRequest(req, res, MODULE_OPERATIONS.GET_JSON);
   }
 }

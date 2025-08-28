@@ -80,5 +80,10 @@ export default class ClinicRepo {
         });
     }
 
+    static async getNames(orgRef) {
+        return ClinicDao.find({ orgRef, status: 1 })
+            .select('name _id')
+            .lean();
+    }
 
 }

@@ -1,5 +1,5 @@
-import RoleDao from "../../models/auth/RoleDao.js";
-import UserDao from "../../models/auth/UserDao.js";
+import UserDao from "@models/auth/UserDao.js";
+import { parseToMongoId } from "@utils/parse.js";
 
 export default class AuthRepo {
   /**
@@ -12,10 +12,10 @@ export default class AuthRepo {
     const query = UserDao.findOne(queryFields);
 
     if (selectFields) {
-      query.select(selectFields); 
+      query.select(selectFields);
     }
 
-    return query.lean().exec(); 
+    return query.lean().exec();
   }
 
   /**
@@ -42,24 +42,47 @@ export default class AuthRepo {
   /**
    * Fetch users' names and IDs by role name
    * @param {string} roleName - Role name to filter users
-   * @returns {Promise<Array<{ id: string, name: string }>>}
+   * @param {string} orgRef - Organization reference
+   * @returns {Promise<Array<{ _id: string, name: string }>>}
    */
-  static async fetchUsersByRoleName(roleName) {
-    // Step 1: Fast indexed query on Role
-    const role = await RoleDao.findOne({ name: roleName }).select("_id").lean();
-    if (!role) return [];
-
-    // Step 2: Filter users directly with indexed roleRef
+  static async fetchUsersByRoleName(roleName, orgRef) {
     return await UserDao.aggregate([
-      { $match: { roleRef: role._id } },
+      // Lookup roles to filter by role name
+      {
+        $lookup: {
+          from: "roles",
+          localField: "roleRef",
+          foreignField: "_id",
+          as: "role",
+          pipeline: [
+            {
+              $match: {
+                name: roleName,
+                orgRef: parseToMongoId(orgRef),
+                type: 1
+              }
+            }
+          ]
+        }
+      },
+      // Filter users who have the matching role
+      {
+        $match: {
+          "role.0": { $exists: true }
+        }
+      },
+      // Project only required fields
       {
         $project: {
           _id: 1,
-          name: { $concat: ["$firstName", " ", "$lastName"] },
-        },
-      },
+          name: {
+            $trim: {
+              input: { $concat: ["$firstName", " ", "$lastName"] }
+            }
+          }
+        }
+      }
     ]);
-
   }
 
 

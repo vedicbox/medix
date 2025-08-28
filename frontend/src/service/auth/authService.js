@@ -3,9 +3,9 @@ import {
   httpConfig,
   httpMiddlewareBoundary,
   onHttpSuccess,
-} from "service/config/httpConfig";
+} from "config/httpConfig";
 import { authInit_slc } from "store/root-reducer/auth";
-import { AUTH_ENDPOINT } from "../config/endpoints";
+import { AUTH_ENDPOINT } from "../../config/endpoints";
 
 const AUTH_API_PATH_KEY = "auth-api";
 

@@ -78,9 +78,7 @@ export default function MuiMultiSelectField(props) {
         ))}
       </Select>
 
-      {helperText && (
-        <FormHelperText error={!!error}>{error || helperText}</FormHelperText>
-      )}
+      <FormHelperText error={!!error}>{error || helperText}</FormHelperText>
     </>
   );
 }

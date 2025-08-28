@@ -2,33 +2,41 @@ import { Grid } from "@mui/material";
 import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
 import MuiClassicTable from "components/table/MuiClassicTable";
 import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
-import { crud_mnlst } from "list/menulist";
+import { org_mnlst } from "list/menulist";
 import { ADMINSTRATOR_TBCOL } from "list/tableColist";
 import { useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import { useFindAllOrgQuery } from "service/adminstrator/orgService";
+import { formatMsg } from "utils/security/validation";
 import { PLACEHOLDER_IMG } from "values/img-links";
 import { PLACEHOLDER_MSG } from "values/messages";
 
 const placeholderDetails = {
-  src: PLACEHOLDER_IMG.NO_PATIENTS_ALIGN,
-  text: PLACEHOLDER_MSG.NO_PATIENTS_ALIGN,
+  src: PLACEHOLDER_IMG.NO_ORG,
+  text: formatMsg(PLACEHOLDER_MSG.EMPTY, { label: "organization" }),
 };
 
-export default function WorkspacePage() {
+export default function OrgPage() {
   const navigate = useNavigate();
   const { data: orgData } = useFindAllOrgQuery();
   let orgObj = orgData?.payload || [];
 
   const handleEdit = (row) => {
     navigate(PARAMS_ROUTE.EDIT, {
-      state: { row },
+      state: { orgId: row._id },
+    });
+  };
+
+  const handlePermission = (row) => {
+    navigate(PARAMS_ROUTE.PERMISSION, {
+      state: { orgId: row._id },
     });
   };
 
   const listenerBox = (row) => {
     return {
       edit: () => handleEdit(row),
+      permission: () => handlePermission(row),
     };
   };
 
@@ -45,7 +53,7 @@ export default function WorkspacePage() {
   return (
     <>
       <ButtonBreadCrumbs
-        breadlist={ADMINSTRATOR_CRUMB.WORKSPACE.INDEX}
+        breadlist={ADMINSTRATOR_CRUMB.ORG.INDEX}
         topBar={topBar}
       />
 
@@ -53,8 +61,8 @@ export default function WorkspacePage() {
         <Grid size={{ xs: 12 }}>
           <MuiClassicTable
             rows={orgObj}
-            colObj={ADMINSTRATOR_TBCOL.workspace()}
-            actionList={(row) => crud_mnlst(listenerBox(row))}
+            colObj={ADMINSTRATOR_TBCOL.org()}
+            actionList={(row) => org_mnlst(listenerBox(row))}
             placeholder={placeholderDetails}
           />
         </Grid>

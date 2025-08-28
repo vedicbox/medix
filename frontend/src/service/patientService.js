@@ -1,11 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { patientInit_slc } from "store/root-reducer/patient";
-import { PATIENT_ENDPOINT } from "./config/endpoints";
+import { PATIENT_ENDPOINT } from "../config/endpoints";
 import {
     httpConfig,
     httpMiddlewareBoundary,
     onHttpSuccess,
-} from "./config/httpConfig";
+} from "../config/httpConfig";
 
 const PATIENT_API_PATH_KEY = "patient-api";
 
@@ -57,6 +57,17 @@ export const patientService = createApi({
             }),
             transformResponse: (result, { dispatch }) =>
                 onHttpSuccess(result, dispatch),
+            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+                await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+            },
+        }),
+        editPatient: builder.query({
+            query: (params) => ({
+                url: PATIENT_ENDPOINT.EDIT,
+                method: "GET",
+                params
+            }),
+            transformResponse: (result, { dispatch }) => onHttpSuccess(result, dispatch),
             async onQueryStarted(args, { dispatch, queryFulfilled }) {
                 await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
             },
@@ -124,5 +135,6 @@ export const {
     useInitiateConsultMutation,
     useFetchAlignPatientQuery,
     useChangeAlignPtStatusMutation,
-    useUpdatePatientMutation
+    useUpdatePatientMutation,
+    useEditPatientQuery
 } = patientService;

@@ -1,14 +1,13 @@
 import mongoose from "mongoose";
 
 const phoneRegex = /^[0-9]{10}$/;
-const nameRegex = /^[A-Za-z\s]+$/;
 const pinCodeRegex = /^[1-9][0-9]{5}$/;
 
 const StaffProfileSchema = new mongoose.Schema(
   {
     userRef: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users", // Reference to the User model
+      ref: "users",
       required: true,
     },
     phone1: {
@@ -21,8 +20,8 @@ const StaffProfileSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: function (value) {
-          if (!value) return true; // allow empty value
-          return phoneRegex.test(value); // validate only if value is provided
+          if (!value) return true;
+          return phoneRegex.test(value);
         },
         message: "WhatsApp number must be a valid 10-digit number",
       },
@@ -73,19 +72,10 @@ const StaffProfileSchema = new mongoose.Schema(
       minlength: [5, "Address must be at least 5 characters long"],
       maxlength: [250, "Address cannot exceed 250 characters"],
       trim: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now, // Automatically set the creation timestamp
-      immutable: true, // Prevent updates to this field
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now, // Automatically set the update timestamp
-    },
+    }
   },
   {
-    timestamps: true, // Automatically manage `createdAt` and `updatedAt`
+    timestamps: true,
   }
 );
 

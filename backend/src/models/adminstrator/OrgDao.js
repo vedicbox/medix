@@ -2,17 +2,17 @@ import mongoose from "mongoose";
 
 const OrgSchema = new mongoose.Schema(
     {
-        orgName: {
+        name: {
             type: String,
             required: true,
-            trim: true,
-            uppercase: true
+            trim: true
         },
         orgCode: {
             type: String,
             required: true,
             trim: true,
-            unique: true
+            unique: true,
+            index: true
         },
         category: {
             type: String,

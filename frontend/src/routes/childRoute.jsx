@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { MASTER_PERMISSION } from "service/config/permissionlist";
+import { MASTER_PERMISSION } from "config/module/ID_Config";
 import ChildRouteMiddleware from "./middleware/ChildRouteMid";
 
 // Memoized selector outside the component

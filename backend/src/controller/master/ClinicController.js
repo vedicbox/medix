@@ -1,97 +1,84 @@
-
 import ClinicService from "@service/master/ClinicService.js";
 import MESSAGES from "@utils/message.js";
+import { formatMsg } from "@utils/parse.js";
 import { HttpHandler } from "@utils/responseHandler.js";
-import STATUS_CODES from "@utils/statusCodes.js";
 
-/**
- * Controller for clinic management endpoints.
- * Handles clinic creation, retrieval, update, and deletion.
- */
+const CLINIC_OPERATIONS = {
+    GET_LIST: {
+        serviceMethod: 'getClinicList',
+        inputExtractor: (req) => ({ authentication: req.auth }),
+        operationName: 'Get clinic list',
+    },
+    GET_ALL: {
+        serviceMethod: 'getAllClinics',
+        inputExtractor: (req) => ({ authentication: req.auth }),
+        operationName: 'Get all clinics',
+    },
+    GET_BY_ID: {
+        serviceMethod: 'getClinicById',
+        inputExtractor: (req) => ({ id: req.query.clinicId, authentication: req.auth }),
+        operationName: 'Get clinic by ID',
+    },
+    CREATE: {
+        serviceMethod: 'createClinic',
+        inputExtractor: (req) => ({ packet: req.body, authentication: req.auth }),
+        operationName: 'Create clinic',
+    },
+    UPDATE: {
+        serviceMethod: 'updateClinic',
+        inputExtractor: (req) => ({ packet: req.body, authentication: req.auth }),
+        operationName: 'Update clinic',
+    },
+    GET_NAMES: {
+        serviceMethod: 'getNames',
+        inputExtractor: (req) => ({ authentication: req.auth }),
+        operationName: 'Get clinic names'
+    },
+};
+
 export default class ClinicController {
-
     /**
-     * Get clinics by organization code
-     * @param {Object} req - Express request object
-     * @param {Object} res - Express response object
+     * Generic request handler for ClinicController
+     * @private
      */
+    static async #handleRequest(req, res, operationConfig) {
+        try {
+            const input = operationConfig.inputExtractor(req);
+            const result = await ClinicService[operationConfig.serviceMethod](input);
+
+            return HttpHandler.send(res, result);
+        } catch (error) {
+            console.error(`${operationConfig.operationName} Error:`, error);
+            return HttpHandler.error(
+                res,
+                error,
+                formatMsg(MESSAGES.TRY_AGAIN, { label: operationConfig.operationName })
+            );
+        }
+    }
+
     static async getClinicList(req, res) {
-        try {
-            const authentication = req.auth;
-            const response = await ClinicService.getClinicList(authentication);
-            HttpHandler.send(res, response);
-        } catch (error) {
-            console.error("Error in getClinicList controller:", error);
-            HttpHandler.error(res, STATUS_CODES.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-        }
+        return ClinicController.#handleRequest(req, res, CLINIC_OPERATIONS.GET_LIST);
     }
 
-    /**
-     * Get all clinics
-     * @param {Object} req - Express request object
-     * @param {Object} res - Express response object
-     */
     static async fetchAll(req, res) {
-        try {
-            const authentication = req.auth;
-            const response = await ClinicService.getAllClinics(authentication);
-            HttpHandler.send(res, response);
-        } catch (error) {
-            console.error("Error in getAllClinics controller:", error);
-            HttpHandler.error(res, STATUS_CODES.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-        }
+        return ClinicController.#handleRequest(req, res, CLINIC_OPERATIONS.GET_ALL);
     }
 
-    /**
-     * Get clinic by ID
-     * @param {Object} req - Express request object
-     * @param {Object} res - Express response object
-     */
-    static async fetchById(req, res) {
-        try {
-            const authentication = req.auth;
-            const { clinicId } = req.query;
-            const response = await ClinicService.getClinicById(clinicId, authentication);
-            HttpHandler.send(res, response);
-        } catch (error) {
-            console.error("Error in getClinicById controller:", error);
-            HttpHandler.error(res, STATUS_CODES.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-        }
+    static async getClinicById(req, res) {
+        return ClinicController.#handleRequest(req, res, CLINIC_OPERATIONS.GET_BY_ID);
     }
 
-    /**
-     * Create a new clinic
-     * @param {Object} req - Express request object
-     * @param {Object} res - Express response object
-     */
     static async create(req, res) {
-        try {
-            const clinicData = req.body;
-            const authentication = req.auth;
-            const response = await ClinicService.createClinic(clinicData, authentication);
-            HttpHandler.send(res, response);
-        } catch (error) {
-            console.error("Error in createClinic controller:", error);
-            HttpHandler.error(res, STATUS_CODES.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-        }
+        return ClinicController.#handleRequest(req, res, CLINIC_OPERATIONS.CREATE);
     }
 
-    /**
-     * Update clinic by ID
-     * @param {Object} req - Express request object
-     * @param {Object} res - Express response object
-     */
     static async update(req, res) {
-        try {
-            const updateData = req.body;
-            const authentication = req.auth;
-            const response = await ClinicService.updateClinic(updateData, authentication);
-            HttpHandler.send(res, response);
-        } catch (error) {
-            console.error("Error in updateClinic controller:", error);
-            HttpHandler.error(res, STATUS_CODES.INTERNAL_SERVER_ERROR, MESSAGES.INTERNAL_SERVER_ERROR);
-        }
+        return ClinicController.#handleRequest(req, res, CLINIC_OPERATIONS.UPDATE);
     }
 
+    static async getNames(req, res) {
+        return ClinicController.#handleRequest(req, res, CLINIC_OPERATIONS.GET_NAMES);
+    }
 
 }

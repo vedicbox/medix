@@ -1,84 +1,85 @@
-import StaffService from "../service/StaffService.js";
-import { HttpHandler } from "../utils/responseHandler.js";
+import StaffService from "@service/StaffService.js";
+import MESSAGES from "@utils/message.js";
+import { formatMsg } from "@utils/parse.js";
+import { HttpHandler } from "@utils/responseHandler.js";
+
+const STAFF_OPERATIONS = {
+  CREATE_PROFILE: {
+    serviceMethod: 'createStaffProfile',
+    inputExtractor: (req) => ({ packet: req.body, authentication: req.auth }),
+    operationName: 'Create staff profile'
+  },
+  GET_BY_ID: {
+    serviceMethod: 'editStaffProfile',
+    inputExtractor: (req) => ({ staffId: req.query.staffId, authentication: req.auth }),
+    operationName: 'Get staff by ID'
+  },
+  UPDATE_PROFILE: {
+    serviceMethod: 'updateStaffProfile',
+    inputExtractor: (req) => ({ packet: req.body, authentication: req.auth }),
+    operationName: 'Update staff profile'
+  },
+  FETCH_ALL_STAFF: {
+    serviceMethod: 'fetchAllStaff',
+    inputExtractor: (req) => ({ authentication: req.auth }),
+    operationName: 'Fetch all staff'
+  },
+  FETCH_BY_ROLE: {
+    serviceMethod: 'fetchStaffListByRole',
+    inputExtractor: (req) => ({ roleName: req.query.roleName,authentication: req.auth }),
+    operationName: 'Fetch staff by role'
+  }
+};
 
 export default class StaffController {
   /**
-   * Create a new staff profile
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
-   * @returns {ResponseHandler}
+   * Generic request handler with enhanced error handling and performance
+   * @private
    */
-  static async createStaffProfile(req, res) {
+  static async #handleRequest(req, res, operationConfig) {
     try {
-      const authentication = req.auth;
-      const response = await StaffService.createStaffProfile(req.body, authentication);
-      return HttpHandler.send(res, response);
+      const input = operationConfig.inputExtractor(req);
+      const result = await StaffService[operationConfig.serviceMethod](input);
+
+      return HttpHandler.send(res, result);
     } catch (error) {
-      return HttpHandler.error(res, error);
+      console.error(`${operationConfig.operationName} Error:`, error);
+      return HttpHandler.error(res, error, formatMsg(MESSAGES.TRY_AGAIN, { label: operationConfig.operationName }));
     }
   }
 
   /**
-   * Edit an existing staff profile (fetch details for editing)
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
-   * @returns {ResponseHandler}
+   * Create a new staff profile
    */
-  static async editStaffProfile(req, res) {
-    try {
-      const authentication = req.auth;
-      const response = await StaffService.editStaffProfile(req.query.staffId, authentication);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error);
-    }
+  static async createStaffProfile(req, res) {
+    return StaffController.#handleRequest(req, res, STAFF_OPERATIONS.CREATE_PROFILE);
+  }
+
+  /**
+   * Get staff details by ID
+   */
+  static async getStaffById(req, res) {
+    return StaffController.#handleRequest(req, res, STAFF_OPERATIONS.GET_BY_ID);
   }
 
   /**
    * Update an existing staff profile
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
-   * @returns {ResponseHandler}
    */
   static async updateStaffProfile(req, res) {
-    try {
-      const authentication = req.auth;
-      const response = await StaffService.updateStaffProfile(req.body, authentication);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error);
-    }
+    return StaffController.#handleRequest(req, res, STAFF_OPERATIONS.UPDATE_PROFILE);
   }
 
   /**
    * Fetch all staff details for tabular view
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
-   * @returns {ResponseHandler}
    */
   static async fetchAllStaff(req, res) {
-    try {
-      const authentication = req.auth;
-      const response = await StaffService.fetchAll(authentication);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error);
-    }
+    return StaffController.#handleRequest(req, res, STAFF_OPERATIONS.FETCH_ALL_STAFF);
   }
 
   /**
- * Fetch staff list (name and ID) by role name
- * @param {Object} req - Express request object
- * @param {Object} res - Express response object
- * @returns {ResponseHandler}
- */
+   * Fetch staff list by role name
+   */
   static async fetchStaffListByRole(req, res) {
-    try {
-      const { roleName } = req.query;
-      const response = await StaffService.fetchStaffListByRole(roleName);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error);
-    }
+    return StaffController.#handleRequest(req, res, STAFF_OPERATIONS.FETCH_BY_ROLE);
   }
 }

@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import { ID_MAPPING } from "config/module/ID_Config";
+import { MODULE_INFO } from "config/module/moduleInfo";
 import { VALIDATION_MSG } from "values/messages";
 
 export const parseValidationErrors = (errors) => {
@@ -82,4 +84,11 @@ export const encodeByComma = (val) => {
   return isDataArray(val)
     .map((item) => item.key)
     .join(",");
+}
+
+export const parseModuleTag = (tag) => {
+  return {
+    ...ID_MAPPING[tag],
+    ...MODULE_INFO[tag]
+  };
 }

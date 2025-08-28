@@ -1,15 +1,13 @@
-import express from "express";
-import { isAuthenticated } from "@middlewares/authMiddleware.js";
 import ModuleController from "@controller/adminstrator/ModuleController.js";
+import { isAuthenticated } from "@middlewares/authMiddleware.js";
+import express from "express";
 
 const router = express.Router();
-
 router.use(isAuthenticated);
 
-router.get("/find-all", ModuleController.findAllModules);
-router.post("/create", ModuleController.createModule);
-router.post("/update", ModuleController.updateModule);
+router.get("/fetch-all", ModuleController.getAll);
+router.post("/create", ModuleController.create);
+router.post("/update", ModuleController.update);
+router.get("/json", ModuleController.getJson);
 
 export default router;
-
-

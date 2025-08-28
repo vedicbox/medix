@@ -1,4 +1,4 @@
-import WorkspaceEnrollForm from "components/forms/adminstrator/workspace/EnrollForm";
+import OrgEnrollForm from "components/forms/adminstrator/org/EnrollForm";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { ORG_FORM_RULES } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
@@ -27,6 +27,11 @@ const OrgFormUtil = forwardRef((props, ref) => {
       if (inputElement) {
         inputElement.value = value;
       }
+    });
+
+    setProcessObj({
+      category: defaultData.category,
+      status: Number(defaultData.status),
     });
   };
 
@@ -58,7 +63,7 @@ const OrgFormUtil = forwardRef((props, ref) => {
   return (
     <>
       <form ref={formRef}>
-        <WorkspaceEnrollForm
+        <OrgEnrollForm
           errors={errors}
           onChange={handleChange}
           onBlur={handleBlur}

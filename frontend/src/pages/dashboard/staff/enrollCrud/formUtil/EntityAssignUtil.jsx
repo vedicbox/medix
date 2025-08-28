@@ -1,15 +1,15 @@
 import EntityAssignForm from "components/forms/staff/EntityAssignForm";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
-import { useFetchRoleNamesQuery } from "service/auth/roleService";
-import { useFetchClinicNamesQuery } from "service/clinicService";
+import { useGetRoleNamesQuery } from "service/auth/roleService";
+import { useGetClinicNamesQuery } from "service/clinicService";
 import { ASSIGN_ENTITY_RULES } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
 
 const EntityAssignUtil = forwardRef((props, ref) => {
   const { processObj, setProcessObj, defaultData } = props;
 
-  const { data: roleData } = useFetchRoleNamesQuery();
-  const { data: clinicData } = useFetchClinicNamesQuery();
+  const { data: roleData } = useGetRoleNamesQuery();
+  const { data: clinicData } = useGetClinicNamesQuery();
 
   let roleslist = roleData?.payload || [];
   let cliniclist = clinicData?.payload || [];

@@ -1,9 +1,8 @@
 import ScrollBarLayout from "components/layout/ScrollBarLayout";
-import {useMemo } from "react";
-import { useSelector } from "react-redux";
-import { MASTER_PERMISSION } from "service/config/permissionlist";
+import { MASTER_PERMISSION } from "config/module/ID_Config";
+import { useMemo } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 import NavItem from "./NavItem";
-import { shallowEqual } from 'react-redux';
 
 const NavContainer = ({ navlist }) => {
   const permissions = useSelector(

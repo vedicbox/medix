@@ -5,8 +5,8 @@ import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  useEditStaffQuery,
-  useUpdateStaffMutation,
+  useGetStaffByIdQuery,
+  useUpdateStaffProfileMutation,
 } from "service/staffService";
 import { HTTP_STATUS_CODES } from "values/enum";
 import EntityAssignUtil from "../formUtil/EntityAssignUtil";
@@ -22,10 +22,10 @@ export default function UpdateStaff() {
 
   const navigate = useNavigate();
 
-  const { data: profData } = useEditStaffQuery({ staffId: staffId });
+  const { data: profData } = useGetStaffByIdQuery({ staffId: staffId });
   const profDefaultData = profData?.payload || {};
 
-  const [updateStaffMutation, { isLoading }] = useUpdateStaffMutation();
+  const [updateStaffMutation, { isLoading }] = useUpdateStaffProfileMutation();
 
   const handleSubmit = async () => {
     const staffFormData = await staffFormRef.current.preparedData();

@@ -4,7 +4,7 @@ import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCreateStaffMutation } from "service/staffService";
+import { useCreateStaffProfileMutation } from "service/staffService";
 import { HTTP_STATUS_CODES } from "values/enum";
 import EntityAssignUtil from "../formUtil/EntityAssignUtil";
 import StaffFormUtil from "../formUtil/StaffFormUtil";
@@ -16,7 +16,7 @@ export default function AddStaff() {
   const [processObj, setProcessObj] = useState({});
   const navigate = useNavigate();
 
-  const [createStaffMutation, { isLoading }] = useCreateStaffMutation();
+  const [createStaffMutation, { isLoading }] = useCreateStaffProfileMutation();
 
   const handleSubmit = async () => {
     const staffFormData = await staffFormRef.current.preparedData();

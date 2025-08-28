@@ -1,31 +1,54 @@
 import ModuleMapper from "@mapper/adminstrator/ModuleMapper.js";
 import ModuleRepo from "@repo/adminstrator/ModuleRepo.js";
+import MESSAGES from "@utils/message.js";
+import { formatMsg } from "@utils/parse.js";
 import { ServiceResponse } from "@utils/responseHandler.js";
 import STATUS_CODES from "@utils/statusCodes.js";
 
 export default class ModuleService {
-    static async createModule(request) {
-        const moduleEntity = ModuleMapper.toModuleEntity(request);
-        const created = await ModuleRepo.createModule(moduleEntity);
-        return new ServiceResponse(STATUS_CODES.OK, "Module created successfully", ModuleMapper.toModuleResponse(created));
+    /**
+     * Create a new module
+     */
+    static async create({ packet }) {
+        const moduleEntity = ModuleMapper.toModuleEntity(packet);
+        console.log(moduleEntity)
+        await ModuleRepo.create(moduleEntity);
+        return new ServiceResponse(STATUS_CODES.OK, formatMsg(MESSAGES.CREATE, { label: "Module" }), null);
     }
 
-    static async findAllModules() {
-        const modules = await ModuleRepo.findAllModules();
+    /**
+     * Get all modules
+     */
+    static async getAll() {
+        const modules = await ModuleRepo.getAll();
         return new ServiceResponse(STATUS_CODES.OK, null, ModuleMapper.toModuleResponse(modules));
     }
 
-    static async updateModule(request) {
-        // First, get the existing module to access current subModules
-        const existingModule = await ModuleRepo.findModuleById(request._id);
-        if (!existingModule) {
-            return new ServiceResponse(STATUS_CODES.NOT_FOUND, "Module not found");
+    /**
+     * Update a module by ID
+     */
+    static async update({ packet }) {
+
+        const exists = await ModuleRepo.isExists({ _id: packet._id });
+        if (!exists) {
+            return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Role", id }));
         }
 
-        // Pass existing subModules to the mapper for UUID handling
-        const moduleEntity = ModuleMapper.toModuleEntity(request, existingModule.subModules);
-        const updated = await ModuleRepo.updateModule(request._id, moduleEntity);
-        
-        return new ServiceResponse(STATUS_CODES.OK, "Module updated successfully", ModuleMapper.toModuleResponse(updated));
+        const moduleEntity = ModuleMapper.toModuleEntity(packet);
+        await ModuleRepo.update(packet._id, moduleEntity);
+        return new ServiceResponse(STATUS_CODES.OK, formatMsg(MESSAGES.UPDATE, { label: "Module" }), null);
+
+    }
+
+    /**
+     * Get modules as JSON
+     */
+    static async getJson() {
+        try {
+            const modules = await ModuleRepo.getAll();
+            return new ServiceResponse(STATUS_CODES.OK, null, ModuleMapper.toModuleJson(modules));
+        } catch (error) {
+            throw new Error(MESSAGES.MODULE_JSON_FETCH_FAILED);
+        }
     }
 }

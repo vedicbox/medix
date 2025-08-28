@@ -1,34 +1,16 @@
-import { defaultDateFormatter } from "@utils/parse.js";
+import { isDataArray } from "@utils/parse.js";
 import { generateUUID, isValidUUID } from "@utils/uuid.js";
 
 class ModuleMapper {
 
-  static toModuleEntity(request, existingSubModules = []) {
-    // Process subModules to add UUIDs for new items
-    const processedSubModules = request.subModules?.map(subModule => {
-      // If subModule already has a UUID, keep it (existing item)
-      if (subModule.uuid && isValidUUID(subModule.uuid)) {
-        return subModule;
+  static toModuleEntity(request) {
+    const processedSubModules = isDataArray(request.subModules)?.map(subModule => {
+
+      if (!(subModule.uuid && isValidUUID(subModule.uuid))) {
+        subModule["uuid"] = generateUUID()
       }
 
-      // Check if this subModule exists in the database by name
-      const existingSubModule = existingSubModules.find(
-        existing => existing.name === subModule.name
-      );
-
-      // If it exists in DB, use the existing UUID
-      if (existingSubModule) {
-        return {
-          ...subModule,
-          uuid: existingSubModule.uuid
-        };
-      }
-
-      // Generate new UUID for new subModule
-      return {
-        ...subModule,
-        uuid: generateUUID(),
-      };
+      return subModule
     }) || [];
 
     return {
@@ -50,11 +32,28 @@ class ModuleMapper {
       name: item.name,
       category: item.category,
       tag: item.tag,
-      createdAt: defaultDateFormatter(item.createdAt),
+      createdAt: item.createdAt,
       subModules: item.subModules,
     });
     return Array.isArray(data) ? data.map(format) : format(data);
   }
+
+  static toModuleJson(data) {
+    const payloadData = Object.create(null);
+
+    for (let i = 0; i < data.length; i++) {
+      const { _id: uuid, name, tag, subModules } = data[i];
+      payloadData[tag] = { uuid, name, tag };
+
+      for (let j = 0; j < subModules.length; j++) {
+        const { uuid: subUuid, name: subName, tag: subTag } = subModules[j];
+        payloadData[subTag] = { uuid: subUuid, name: subName, tag: subTag };
+      }
+    }
+
+    return payloadData;
+  }
+
 }
 
 export default ModuleMapper;

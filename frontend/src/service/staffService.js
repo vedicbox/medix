@@ -1,19 +1,19 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { STAFF_ENDPOINT } from "./config/endpoints";
+import { STAFF_ENDPOINT } from "../config/endpoints";
 import {
   httpConfig,
   httpMiddlewareBoundary,
   onHttpSuccess,
-} from "./config/httpConfig";
+} from "../config/httpConfig";
 
 const STAFF_API_PATH_KEY = "staff-api";
 
 export const staffService = createApi({
   reducerPath: STAFF_API_PATH_KEY,
   baseQuery: httpConfig(),
-  tagTypes: ['Staff'], // 1. Define a tag type
+  tagTypes: ['staff'],
   endpoints: (builder) => ({
-    createStaff: builder.mutation({
+    createStaffProfile: builder.mutation({
       query: (packet) => ({
         url: STAFF_ENDPOINT.CREATE,
         method: "POST",
@@ -24,22 +24,24 @@ export const staffService = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
-      invalidatesTags: ['staff_modified'], // 2. Invalidate Staff tag on success
+      invalidatesTags: ['staff'],
     }),
-    editStaff: builder.query({
-      query: (packet) => ({
+
+    getStaffById: builder.query({
+      query: (params) => ({
         url: STAFF_ENDPOINT.EDIT,
         method: "GET",
-        params: packet,
+        params
       }),
       transformResponse: (result, { dispatch }) =>
         onHttpSuccess(result, dispatch),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
-      invalidatesTags: ['staff_modified'],
+      providesTags: (result, error, id) => [{ type: 'staff', id }],
     }),
-    updateStaff: builder.mutation({
+
+    updateStaffProfile: builder.mutation({
       query: (packet) => ({
         url: STAFF_ENDPOINT.UPDATE,
         method: "POST",
@@ -50,11 +52,15 @@ export const staffService = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
-      invalidatesTags: ['staff_modified'],
+      invalidatesTags: (result, error, { staffId }) => [
+        { type: 'staff', id: staffId },
+        'staff',
+      ],
     }),
-    fetchTbStaff: builder.query({
+
+    fetchAllStaff: builder.query({
       query: () => ({
-        url: STAFF_ENDPOINT.FETCH_TABLIST,
+        url: STAFF_ENDPOINT.PROFILES,
         method: "GET",
       }),
       transformResponse: (result, { dispatch }) =>
@@ -62,27 +68,29 @@ export const staffService = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
-      providesTags: ['staff_modified'],
+      providesTags: ['staff'],
     }),
-    stafflistViaRole: builder.query({
+
+    fetchStaffListByRole: builder.query({
       query: (params) => ({
-        url: STAFF_ENDPOINT.STAFF_LIST_VIA_ROLE,
+        url: STAFF_ENDPOINT.BY_ROLE,
         method: "GET",
-        params,
+        params
       }),
       transformResponse: (result, { dispatch }) =>
         onHttpSuccess(result, dispatch),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
+      providesTags: ['staff'],
     }),
   }),
 });
 
 export const {
-  useFetchTbStaffQuery,
-  useCreateStaffMutation,
-  useEditStaffQuery,
-  useUpdateStaffMutation,
-  useStafflistViaRoleQuery
+  useCreateStaffProfileMutation,
+  useGetStaffByIdQuery,
+  useUpdateStaffProfileMutation,
+  useFetchAllStaffQuery,
+  useFetchStaffListByRoleQuery,
 } = staffService;

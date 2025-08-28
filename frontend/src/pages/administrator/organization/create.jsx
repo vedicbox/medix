@@ -12,9 +12,9 @@ import { useCreateOrgMutation } from "service/adminstrator/orgService";
 import { HTTP_STATUS_CODES } from "values/enum";
 import OrgFormUtil from "./OrgFormUtil";
 
-const stepperSteps = ["Workspace Enroll", "Admin Form"];
+const stepperSteps = ["Org Enroll", "Admin Form"];
 
-export default function WorkspaceCreatePage() {
+export default function OrgCreatePage() {
   const navigate = useNavigate();
   const orgFormRef = useRef(null);
   const staffFormRef = useRef(null);

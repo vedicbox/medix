@@ -1,11 +1,10 @@
 import { Avatar, Grid } from "@mui/material";
 import FormHeading from "components/forms/element/FormHeading";
-import MuiMultiSelectField from "components/mui/MuiMultiSelect";
 import MuiSelectField from "components/mui/MuiSelectField";
 import MuiTextField from "components/mui/MuiTextField";
 import { PROJ_CATEGORY, STATUS_OPTIONS } from "list/optionsList";
 
-export default function WorkspaceEnrollForm(props) {
+export default function OrgEnrollForm(props) {
   const { errors, processObj, handleProcessObj, onChange, onBlur } = props;
 
   return (
@@ -26,9 +25,9 @@ export default function WorkspaceEnrollForm(props) {
             <div className="mb-4">
               <MuiTextField
                 label="Organization Name"
-                error={errors["orgName"]}
+                error={errors["name"]}
                 textProps={{
-                  name: "orgName",
+                  name: "name",
                   onChange,
                   onBlur,
                   slotProps: { htmlInput: { maxLength: 45 } },

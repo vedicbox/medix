@@ -1,17 +1,18 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { CLINIC_ENDPOINT } from "./config/endpoints";
+import { CLINIC_ENDPOINT } from "../config/endpoints";
 import {
   httpConfig,
   httpMiddlewareBoundary,
   onHttpSuccess,
-} from "./config/httpConfig";
+} from "../config/httpConfig";
 
 const CLINIC_API_PATH_KEY = "clinic-api";
 
 export const clinicService = createApi({
   reducerPath: CLINIC_API_PATH_KEY,
   baseQuery: httpConfig(),
-  tagTypes: ['Clinic'], // 1. Define a tag type
+  tagTypes: ['Clinic'],
+
   endpoints: (builder) => ({
     createClinic: builder.mutation({
       query: (packet) => ({
@@ -19,25 +20,34 @@ export const clinicService = createApi({
         method: "POST",
         body: packet,
       }),
-      transformResponse: (result, { dispatch }) =>
-        onHttpSuccess(result, dispatch),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        httpMiddlewareBoundary(dispatch, queryFulfilled, args);
-      },
-      invalidatesTags: ['clinic_modified'], // 2. Invalidate Staff tag on success
-    }),
-    editClinic: builder.query({
-      query: (packet) => ({
-        url: CLINIC_ENDPOINT.EDIT,
-        method: "GET",
-        params: packet,
-      }),
-      transformResponse: (result, { dispatch }) =>
-        onHttpSuccess(result, dispatch),
+      transformResponse: (result, { dispatch }) => onHttpSuccess(result, dispatch),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
-      invalidatesTags: ['clinic_modified'],
+      invalidatesTags: ['Clinic'],
+    }),
+    fetchAllClinics: builder.query({
+      query: () => ({
+        url: CLINIC_ENDPOINT.FIND_ALL,
+        method: "GET",
+      }),
+      transformResponse: (result, { dispatch }) => onHttpSuccess(result, dispatch),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+      },
+      providesTags: ['Clinic'],
+    }),
+    editClinic: builder.query({
+      query: (params) => ({
+        url: CLINIC_ENDPOINT.EDIT,
+        method: "GET",
+        params
+      }),
+      transformResponse: (result, { dispatch }) => onHttpSuccess(result, dispatch),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+      },
+      providesTags: ['Clinic'],
     }),
     updateClinic: builder.mutation({
       query: (packet) => ({
@@ -45,44 +55,31 @@ export const clinicService = createApi({
         method: "POST",
         body: packet,
       }),
-      transformResponse: (result, { dispatch }) =>
-        onHttpSuccess(result, dispatch),
+      transformResponse: (result, { dispatch }) => onHttpSuccess(result, dispatch),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+        await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
-      invalidatesTags: ['clinic_modified'],
+      invalidatesTags: ['Clinic'],
     }),
-    fetchTbClinic: builder.query({
-      query: () => ({
-        url: CLINIC_ENDPOINT.FETCH_TABLIST,
-        method: "GET",
-      }),
-      transformResponse: (result, { dispatch }) =>
-        onHttpSuccess(result, dispatch),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        httpMiddlewareBoundary(dispatch, queryFulfilled, args);
-      },
-      providesTags: ['clinic_modified'],
-    }),
-    fetchClinicNames: builder.query({
+    getClinicNames: builder.query({
       query: () => ({
         url: CLINIC_ENDPOINT.FETCH_CLINIC_LIST,
         method: "GET",
       }),
-      transformResponse: (result, { dispatch }) =>
-        onHttpSuccess(result, dispatch),
+      transformResponse: (result, { dispatch }) => onHttpSuccess(result, dispatch),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+        await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
       },
-      providesTags: ['clinic_modified'],
+      providesTags: ['Clinic'],
     }),
+
   }),
 });
 
 export const {
   useCreateClinicMutation,
+  useFetchAllClinicsQuery,
   useEditClinicQuery,
   useUpdateClinicMutation,
-  useFetchTbClinicQuery,
-  useFetchClinicNamesQuery
+  useGetClinicNamesQuery
 } = clinicService;

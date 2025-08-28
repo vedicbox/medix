@@ -1,17 +1,23 @@
-// routes/patientRoutes.js
+import StaffController from "@controller/StaffController.js";
+import { isAuthenticated } from "@middlewares/authMiddleware.js";
 import express from "express";
-import StaffController from "../controller/StaffController.js";
-import { isAuthenticated } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
-
 router.use(isAuthenticated);
 
+//  Get all staff
+router.get("/fetch-all", StaffController.fetchAllStaff);
 
-router.post("/profile/create", StaffController.createStaffProfile);
-router.get("/profile/edit", StaffController.editStaffProfile);
-router.post("/profile/update", StaffController.updateStaffProfile);
-router.get("/fetchAll", StaffController.fetchAllStaff);
-router.get("/list-via-role", StaffController.fetchStaffListByRole);
+// Create staff
+router.post("/create", StaffController.createStaffProfile);
+
+// Get staff by ID
+router.get("/edit", StaffController.getStaffById);
+
+// Update staff
+router.post("/update", StaffController.updateStaffProfile);
+
+//  Get staff by role
+router.get("/by-role", StaffController.fetchStaffListByRole);
 
 export default router;

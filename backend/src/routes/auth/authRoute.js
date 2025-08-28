@@ -1,16 +1,15 @@
+import AuthController from "@controller/auth/AuthController.js";
+import { isAuthenticated } from "@middlewares/authMiddleware.js";
 import express from "express";
-import AuthController from "../../controller/auth/AuthController.js";
-import { isAuthenticated } from "../../middlewares/authMiddleware.js";
 
-const authRouter = express.Router();
+const router = express.Router();
 
+// User login
+router.post("/login", AuthController.login);
 
-authRouter.route("/login")
-  .post(AuthController.login);
+router.use(isAuthenticated);
 
-// Protected routes
-authRouter.use(isAuthenticated)
-  .route("/validate")
-  .get(AuthController.authCheck);
+// // Validate authentication
+router.get("/validate", AuthController.authCheck);
 
-export default authRouter;
+export default router;

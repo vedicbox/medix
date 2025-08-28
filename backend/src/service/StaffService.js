@@ -1,13 +1,13 @@
-import AuthMapper from "../mapper/AuthMapper.js";
-import StaffMapper from "../mapper/StaffMapper.js";
-import AuthRepo from "../repo/auth/AuthRepo.js";
-import RoleRepo from "../repo/auth/RoleRepo.js";
-import ClinicRepo from '../repo/master/ClinicRepo.js';
-import { default as StaffProfileRepo, default as StaffRepo } from "../repo/StaffRepo.js";
-import MESSAGES from "../utils/message.js";
-import { formatMsg } from "../utils/parse.js";
-import { ServiceResponse } from "../utils/responseHandler.js";
-import STATUS_CODES from "../utils/statusCodes.js";
+import AuthMapper from "@mapper/AuthMapper.js";
+import StaffMapper from "@mapper/StaffMapper.js";
+import AuthRepo from "@repo/auth/AuthRepo.js";
+import RoleRepo from "@repo/auth/RoleRepo.js";
+import ClinicRepo from '@repo/master/ClinicRepo.js';
+import StaffProfileRepo from "@repo/StaffRepo.js";
+import MESSAGES from "@utils/message.js";
+import { formatMsg } from "@utils/parse.js";
+import { ServiceResponse } from "@utils/responseHandler.js";
+import STATUS_CODES from "@utils/statusCodes.js";
 
 /**
  * Service for staff management operations.
@@ -20,27 +20,27 @@ export default class StaffService {
    * @param {Object} authentication - Auth context containing orgCode
    * @returns {Promise<ServiceResponse>}
    */
-  static async createStaffProfile(profileData, authentication) {
+  static async createStaffProfile({ packet, authentication }) {
     const { orgRef } = authentication;
-    const role = await RoleRepo.findRoleById(profileData.roleRef);
+    const role = await RoleRepo.getById(packet.roleRef, orgRef);
 
     if (!role) {
-      return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.ROLE_NOT_FOUND);
+      return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Role" }));
     }
 
-    const clinic = await ClinicRepo.findClinicById(profileData.clinicRef, orgRef);
+    const clinic = await ClinicRepo.findClinicById(packet.clinicRef, orgRef);
 
     if (!clinic) {
-      return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.CLINIC_NOT_FOUND);
+      return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Clinic" }));
     }
 
-    const userEntity = AuthMapper.toUserEntity(profileData, orgRef);
+    const userEntity = AuthMapper.toUserEntity(packet, orgRef);
     const newUser = await AuthRepo.createUser(userEntity);
 
-    const staffProfileEntity = StaffMapper.toStaffProfileEntity(profileData, newUser._id);
-    const newProfile = await StaffProfileRepo.createProfile(staffProfileEntity);
+    const staffProfileEntity = StaffMapper.toStaffProfileEntity(packet, newUser._id);
+    await StaffProfileRepo.createProfile(staffProfileEntity);
 
-    return new ServiceResponse(STATUS_CODES.OK, MESSAGES.STAFF_PROFILE_CREATED, newProfile);
+    return new ServiceResponse(STATUS_CODES.OK, formatMsg(MESSAGES.CREATE, { label: "Staff profile" }), null);
   }
 
   /**
@@ -48,39 +48,39 @@ export default class StaffService {
    * @param {string} profileId - Staff profile ID
    * @returns {Promise<Object|null>} - The staff profile or null if not found
    */
-  static async editStaffProfile(profileId, authentication) {
+  static async editStaffProfile({ staffId, authentication }) {
     const { orgRef } = authentication;
-    const staffData = await StaffRepo.findProfileById(profileId, orgRef);
+    const staffData = await StaffProfileRepo.findProfileById(staffId, orgRef);
     return new ServiceResponse(STATUS_CODES.OK, null, staffData);
   }
 
   /**
    * Update an existing staff profile.
-   * @param {Object} profileData - Staff profile data
+   * @param {Object} packet - Staff profile data
    * @returns {Promise<ServiceResponse>}
    */
-  static async updateStaffProfile(profileData, authentication) {
+  static async updateStaffProfile({packet, authentication}) {
     const { orgRef } = authentication;
-    const role = await RoleRepo.findRoleById(profileData.roleRef, orgRef);
+    const role = await RoleRepo.getById(packet.roleRef, orgRef);
     if (!role) {
-      return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND_MSG, { label: "Role" }));
+      return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Role" }));
     }
 
-    const clinic = await ClinicRepo.findClinicById(profileData.clinicRef, orgRef);
+    const clinic = await ClinicRepo.findClinicById(packet.clinicRef, orgRef);
     if (!clinic) {
-      return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND_MSG, { label: "Clinic" }));
+      return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Clinic" }));
     }
 
-    const userUpdateEntity = AuthMapper.toUserUpdateEntity(profileData);
+    const userUpdateEntity = AuthMapper.toUserUpdateEntity(packet);
 
-    const updatedUser = await AuthRepo.updateUser(profileData.userId, userUpdateEntity);
+    const updatedUser = await AuthRepo.updateUser(packet.userId, userUpdateEntity);
     if (!updatedUser) {
       return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.USER_NOT_FOUND);
     }
 
-    const staffProfileUpdateEntity = StaffMapper.toStaffProfileUpdateEntity(profileData);
+    const staffProfileUpdateEntity = StaffMapper.toStaffProfileUpdateEntity(packet);
 
-    const updatedProfile = await StaffRepo.updateProfile(profileData.staffId, staffProfileUpdateEntity);
+    const updatedProfile = await StaffProfileRepo.updateProfile(packet.staffId, staffProfileUpdateEntity);
 
     if (!updatedProfile) {
       return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.STAFF_PROFILE_NOT_FOUND);
@@ -92,9 +92,10 @@ export default class StaffService {
    * Fetch all staff details for tabular view.
    * @returns {Promise<Array<Object>>}
    */
-  static async fetchAll(authentication) {
+  static async fetchAllStaff({ authentication }) {
     const { orgRef } = authentication;
-    const stafflist = await StaffRepo.fetchAllStaff(orgRef);
+
+    const stafflist = await StaffProfileRepo.fetchAllStaff(orgRef);
 
     return new ServiceResponse(STATUS_CODES.OK, null, { stafflist });
 
@@ -105,18 +106,10 @@ export default class StaffService {
    * @param {string} roleName - Role name
    * @returns {Promise<ServiceResponse>}
    */
-  static async fetchStaffListByRole(roleName) {
-    try {
-      if (!roleName) {
-        throw new Error(MESSAGES.ROLE_NAME_REQUIRED);
-      }
-      const staffList = await AuthRepo.fetchUsersByRoleName(roleName);
-      if (!staffList || staffList.length === 0) {
-        return new ServiceResponse(STATUS_CODES.NOT_FOUND, MESSAGES.NO_STAFF_FOR_ROLE);
-      }
-      return new ServiceResponse(STATUS_CODES.OK, null, staffList);
-    } catch (error) {
-      throw new Error(MESSAGES.UNABLE_TO_FETCH_STAFF + ": " + error.message);
-    }
+  static async fetchStaffListByRole({ roleName, authentication }) {
+    const { orgRef } = authentication;
+    const staffList = await AuthRepo.fetchUsersByRoleName(roleName, orgRef);
+    return new ServiceResponse(STATUS_CODES.OK, null, staffList);
+
   }
 }

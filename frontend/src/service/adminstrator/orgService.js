@@ -1,10 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { ORG_ENDPOINT } from "service/config/endpoints";
+import { ORG_ENDPOINT } from "config/endpoints";
 import {
     httpConfig,
     httpMiddlewareBoundary,
     onHttpSuccess,
-} from "service/config/httpConfig";
+} from "config/httpConfig";
 
 const ORG_API_PATH_KEY = "orgspace-api";
 
@@ -25,9 +25,9 @@ export const orgService = createApi({
             },
             invalidatesTags: ["org_modified"],
         }),
-        updateOrg: builder.mutation({
+        updateOrgDetails: builder.mutation({
             query: (packet) => ({
-                url: ORG_ENDPOINT.UPDATE,
+                url: ORG_ENDPOINT.UPDATE_ORG_DETAILS,
                 method: "POST",
                 body: packet,
             }),
@@ -37,6 +37,19 @@ export const orgService = createApi({
                 httpMiddlewareBoundary(dispatch, queryFulfilled, args);
             },
             invalidatesTags: ["org_modified"],
+        }),
+        updateAdminDetails: builder.mutation({
+            query: (packet) => ({
+                url: ORG_ENDPOINT.UPDATE_ADMIN_DETAILS,
+                method: "POST",
+                body: packet,
+            }),
+            transformResponse: (result, { dispatch }) =>
+                onHttpSuccess(result, dispatch),
+            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+                httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+            },
+            invalidatesTags: ["admin_modified"],
         }),
         findAllOrg: builder.query({
             query: () => {
@@ -52,11 +65,40 @@ export const orgService = createApi({
             },
             providesTags: ["org_modified"],
         }),
+        getOrgDetails: builder.query({
+            query: (packet) => ({
+                url: ORG_ENDPOINT.EDIT_ORG,
+                method: "GET",
+                params: packet,
+            }),
+            transformResponse: (result, { dispatch }) =>
+                onHttpSuccess(result, dispatch),
+            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+                await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+            },
+            providesTags: ["org_modified"],
+        }),
+        getAdminDetails: builder.query({
+            query: (packet) => ({
+                url: ORG_ENDPOINT.EDIT_ADMIN,
+                method: "GET",
+                params: packet,
+            }),
+            transformResponse: (result, { dispatch }) =>
+                onHttpSuccess(result, dispatch),
+            async onQueryStarted(args, { dispatch, queryFulfilled }) {
+                await httpMiddlewareBoundary(dispatch, queryFulfilled, args);
+            },
+            providesTags: ["admin_modified"],
+        }),
     }),
 });
 
 export const {
-   useCreateOrgMutation,
-   useUpdateOrgMutation,
-   useFindAllOrgQuery
+    useCreateOrgMutation,
+    useUpdateOrgDetailsMutation,
+    useUpdateAdminDetailsMutation,
+    useFindAllOrgQuery,
+    useGetOrgDetailsQuery,
+    useGetAdminDetailsQuery,
 } = orgService;

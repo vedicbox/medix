@@ -1,37 +1,38 @@
 import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
-import { ID_MAPPING } from "service/config/permissionlist";
+import { DASH_TAG, PT_TAG } from "config/module/tags";
+import { parseModuleTag } from "utils/parse";
 import { ICON_NAME } from "values/img-links";
 
 export const dashboard_navigation = () => {
   return [
     {
-      name: "Dashboard",
+      name: parseModuleTag(DASH_TAG.DASHBOARD).name,
+      uuid: parseModuleTag(DASH_TAG.DASHBOARD).uuid,
       index: true,
       path: DASHBOARD_ROUTE.INDEX,
       icon: ICON_NAME.DASHBOARD,
-      uuid: ID_MAPPING.dashboard.uuid,
     },
     {
-      name: "Patients",
+      name: parseModuleTag(DASH_TAG.PATIENT).name,
+      uuid: parseModuleTag(DASH_TAG.PATIENT).uuid,
       icon: ICON_NAME.HEART_OUTLINE,
-      uuid: ID_MAPPING.patient.uuid,
       children: [
         {
-          name: "Align",
-          uuid: ID_MAPPING.patient.align.uuid,
+          name: parseModuleTag(DASH_TAG.ALIGN_PT).name,
+          uuid: parseModuleTag(DASH_TAG.ALIGN_PT).uuid,
           icon: ICON_NAME.WAITLIST,
           path: DASHBOARD_ROUTE.PATIENT.ALIGN,
         },
       ],
     },
     {
-      name: "Staff",
+      name: parseModuleTag(DASH_TAG.STAFF).name,
+      uuid: parseModuleTag(DASH_TAG.STAFF).uuid,
       icon: ICON_NAME.TEAMS,
-      uuid: ID_MAPPING.staff.uuid,
       children: [
         {
-          uuid: ID_MAPPING.staff.management.uuid,
-          name: "Management",
+          uuid: parseModuleTag(DASH_TAG.STAFF_MANAGE).uuid,
+          name: parseModuleTag(DASH_TAG.STAFF_MANAGE).name,
           icon: ICON_NAME.MANAGEMENT,
           path: DASHBOARD_ROUTE.STAFF.MANAGE,
         },
@@ -50,17 +51,19 @@ export const dashboard_navigation = () => {
     //   ],
     // },
     {
-      uuid: ID_MAPPING.master.uuid,
-      name: "Master",
+      uuid: parseModuleTag(DASH_TAG.MASTER).uuid,
+      name: parseModuleTag(DASH_TAG.MASTER).name,
       icon: ICON_NAME.MASTER,
       children: [
         {
-          name: "Roles",
+          name: parseModuleTag(DASH_TAG.ROLE_MASTER).name,
+          uuid: parseModuleTag(DASH_TAG.ROLE_MASTER).uuid,
           icon: ICON_NAME.ROLE,
           path: DASHBOARD_ROUTE.MASTER.ROLES,
         },
         {
-          name: "Clinic",
+          name: parseModuleTag(DASH_TAG.CLINIC_MASTER).name,
+          uuid: parseModuleTag(DASH_TAG.CLINIC_MASTER).uuid,
           icon: ICON_NAME.CLINIC,
           path: DASHBOARD_ROUTE.MASTER.CLINIC,
         },
@@ -72,10 +75,10 @@ export const dashboard_navigation = () => {
 export const patientboard_navigation = () => {
   return [
     {
-      name: "Update Patient",
+      name: "Update",
+      uuid: parseModuleTag(PT_TAG.UPDATE).uuid,
       icon: ICON_NAME.UPDATE,
-      uuid: ID_MAPPING.patient.uuid,
-      path: `./${PARAMS_ROUTE.UPDATE}`,
+      path: `${PARAMS_ROUTE.UPDATE}`,
     },
   ];
 };
@@ -83,15 +86,15 @@ export const patientboard_navigation = () => {
 export const administrator_nav = () => {
   return [
     {
-      name: "Overview",
       index: true,
+      name: "Overview",
       path: ADMINISTRATOR_ROUTE.INDEX,
       icon: ICON_NAME.DASHBOARD,
     },
     {
-      name: "Workspace",
-      icon: ICON_NAME.WORKSPACE,
-      path: ADMINISTRATOR_ROUTE.WORKSPACE.PATH,
+      name: "Organization",
+      icon: ICON_NAME.ORG,
+      path: ADMINISTRATOR_ROUTE.ORG.PATH,
     },
     {
       name: "Module",

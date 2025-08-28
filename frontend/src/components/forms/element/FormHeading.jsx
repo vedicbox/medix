@@ -27,7 +27,7 @@ export default function FormHeading(props) {
         <DisplayContent valid1={!!action}>
           <IconButton
             size="small"
-            onClick={action?.onClick}
+            onClick={()=>action?.onClick()}
             className="ml-auto"
           >
             <Iconify icon={action?.icon} />

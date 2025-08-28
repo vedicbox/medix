@@ -1,11 +1,11 @@
-import { Checkbox, FormControlLabel, Grid, Paper } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import ConsultFeeForm from "components/forms/patients/ConsultFeeForm";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useInitiateConsultMutation } from "service/patientService";
-import { useStafflistViaRoleQuery } from "service/staffService";
+import { useFetchStaffListByRoleQuery } from "service/staffService";
 import { COLLECT_FEE_RULE } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
 import { HTTP_STATUS_CODES } from "values/enum";
@@ -28,7 +28,7 @@ export default function ConsultInitPage() {
   } = useFormValidation(COLLECT_FEE_RULE);
 
   const [initiateConsultMutation, { isLoading }] = useInitiateConsultMutation();
-  const { data: doclist } = useStafflistViaRoleQuery({
+  const { data: doclist } = useFetchStaffListByRoleQuery({
     roleName: "DOCTOR",
   });
 
@@ -78,7 +78,7 @@ export default function ConsultInitPage() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   checked={!!processObj.publishReceipt}
@@ -90,7 +90,7 @@ export default function ConsultInitPage() {
               }
               label="Do you want to publish receipt?"
               className="mt-3"
-            />
+            /> */}
             <div className="mt-4 text-center">
               <MuiSubmitBtn onSubmit={handleSubmit} isLoading={isLoading} />
             </div>

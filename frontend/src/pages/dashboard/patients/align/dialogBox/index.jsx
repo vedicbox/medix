@@ -5,8 +5,9 @@ import React, { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import ChildRoutes from "routes/childRoute";
 import { DASHBOARD_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
-import { ID_MAPPING } from "service/config/permissionlist";
+import { DASH_TAG } from "config/module/tags";
 import { useChangeAlignPtStatusMutation } from "service/patientService";
+import { parseModuleTag } from "utils/parse";
 import { HTTP_STATUS_CODES, PATENT_JOURNEY } from "values/enum";
 import { ICON_NAME } from "values/img-links";
 import MovePage from "./MovePage";
@@ -77,7 +78,7 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
     () => [
       {
         path: PARAMS_ROUTE.SEARCH,
-        uuid: ID_MAPPING.patient.uuid,
+        uuid: parseModuleTag(DASH_TAG.ALIGN_PT).uuid,
         baseProps: {
           element: (
             <WrapContainer
@@ -93,7 +94,7 @@ export default function DialogBox({ dialogObj, setDialogObj }) {
       },
       {
         path: PARAMS_ROUTE.MOVE,
-        uuid: ID_MAPPING.patient.uuid,
+        uuid: parseModuleTag(DASH_TAG.ALIGN_PT).uuid,
         baseProps: {
           element: (
             <WrapContainer

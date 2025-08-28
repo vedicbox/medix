@@ -11,10 +11,6 @@ import { ICON_NAME } from "values/img-links";
 function PatientDetailsForm(props) {
   const { errors, processObj, handleProcessObj, onChange, onBlur } = props;
 
-  const handleStateChange = (name, value) => {
-    handleProcessObj({ [name]: value });
-  };
-
   return (
     <>
       <FormHeading title="Personal Details" icon={ICON_NAME.INFORMATION}>

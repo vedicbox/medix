@@ -8,7 +8,8 @@ export const PARAMS_ROUTE = {
   PATIENT: "patient",
   MOVE: "move",
   ENROLL: "enroll",
-  UPDATE: "update"
+  UPDATE: "update",
+  PERMISSION: "permission"
 };
 
 export const AUTH_ROUTE = {
@@ -45,9 +46,9 @@ export const ADMINISTRATOR_ROUTE = {
     PATH: "/administrator/modules",
     PARAM: "modules"
   },
-  WORKSPACE: {
-    PATH: "/administrator/workspace",
-    PARAM: "workspace"
+  ORG: {
+    PATH: "/administrator/org",
+    PARAM: "org"
   }
 }
 

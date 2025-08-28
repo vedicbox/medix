@@ -1,7 +1,6 @@
 import moment from "moment";
 import mongoose from "mongoose";
 
-// Date formatter
 
 export function defaultDateFormatter(date) {
     return moment(date).format('D MMMM YYYY');
@@ -14,3 +13,5 @@ export function formatMsg(template, variables = {}) {
 export const parseToMongoId = (id) => {
     return new mongoose.Types.ObjectId(id);
 }
+
+export const isDataArray = (value) => (Array.isArray(value) ? value : []);

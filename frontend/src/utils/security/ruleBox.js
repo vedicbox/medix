@@ -239,7 +239,7 @@ export const PATIENT_FORM_RULES = {
             optional: true
         }
     },
-    feet: {
+    height: {
         required: true,
         props: {
             msgVariable: { label: "Height" },
@@ -317,6 +317,19 @@ export const MODULE_FORM_RULES = {
         alpha: true,
         props: {
             msgVariable: { label: "Name" },
+        }
+    },
+    tag: {
+        required: true,
+        props: {
+            msgVariable: { label: "Tag" },
+        }
+    },
+    category: {
+        required: true,
+
+        props: {
+            msgVariable: { label: "Category" },
         }
     },
 };
@@ -424,7 +437,7 @@ export const CLINIC_FORM_RULES = {
 }
 
 export const ORG_FORM_RULES = {
-    orgName: {
+    name: {
         required: true,
         props: {
             msgVariable: { label: "Organization Name" },

@@ -1,89 +1,97 @@
-import RoleService from "../../service/auth/RoleService.js";
-import MESSAGES from "../../utils/message.js";
-import { HttpHandler } from "../../utils/responseHandler.js";
+import RoleService from "@service/auth/RoleService.js";
+import MESSAGES from "@utils/message.js";
+import { formatMsg } from "@utils/parse.js";
+import { HttpHandler } from "@utils/responseHandler.js";
 
-/**
- * Controller for role management endpoints.
- * Handles fetching, creating, updating, and editing roles and their permissions.
- */
+const ROLE_OPERATIONS = {
+  GET_ALL: {
+    serviceMethod: 'getAll',
+    inputExtractor: (req) => ({ authentication: req.auth }),
+    operationName: 'Get all roles'
+  },
+  GET_NAMES: {
+    serviceMethod: 'getNames',
+    inputExtractor: (req) => ({ authentication: req.auth }),
+    operationName: 'Get role names'
+  },
+  GET_ADMIN_LIST: {
+    serviceMethod: 'getAdminList',
+    inputExtractor: (req) => ({ authentication: req.auth }),
+    operationName: 'Get admin list'
+  },
+  CREATE: {
+    serviceMethod: 'create',
+    inputExtractor: (req) => ({ packet: req.body, authentication: req.auth }),
+    operationName: 'Create role'
+  },
+  UPDATE: {
+    serviceMethod: 'update',
+    inputExtractor: (req) => ({ packet: req.body, authentication: req.auth }),
+    operationName: 'Role updation'
+  },
+  UPDATE_PERMISSIONS: {
+    serviceMethod: 'updatePermissions',
+    inputExtractor: (req) => ({ packet: req.body, authentication: req.auth }),
+    operationName: 'Update role permissions'
+  },
+};
+
 export default class RoleController {
   /**
-   * Fetch all role names.
-   * @param {import('express').Request} req - Express request object
-   * @param {import('express').Response} res - Express response object
-   * @returns {Promise<void>}
+   * Generic request handler with enhanced error handling and performance
+   * @private
    */
-  static async fetchRoleNames(req, res) {
+  static async #handleRequest(req, res, operationConfig) {
     try {
-      const authentication = req.auth;
-      const response = await RoleService.findActiveRoles(authentication);
-      return HttpHandler.send(res, response);
+      const input = operationConfig.inputExtractor(req);
+      const result = await RoleService[operationConfig.serviceMethod](input);
+
+      return HttpHandler.send(res, result);
     } catch (error) {
-      return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
+      console.error(`${operationConfig.operationName} Error:`, error);
+      return HttpHandler.error(res, error, formatMsg(MESSAGES.TRY_AGAIN, { label: operationConfig.operationName }));
     }
   }
 
   /**
-   * Create a new role.
-   * @param {import('express').Request} req - Express request object
-   * @param {import('express').Response} res - Express response object
-   * @returns {Promise<void>}
+   * Get all roles
    */
-  static async createRole(req, res) {
-    try {
-      const authentication = req.auth;
-      const response = await RoleService.createRole(req.body, authentication);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-    }
+  static async getAll(req, res) {
+    return RoleController.#handleRequest(req, res, ROLE_OPERATIONS.GET_ALL);
   }
 
   /**
-   * Update an existing role.
-   * @param {import('express').Request} req - Express request object
-   * @param {import('express').Response} res - Express response object
-   * @returns {Promise<void>}
+   * Get only role names (for dropdowns/selectors)
    */
-  static async updateRole(req, res) {
-    try {
-      const authentication = req.auth;
-      const response = await RoleService.updateRole(req.body, authentication);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-    }
+  static async getNames(req, res) {
+    return RoleController.#handleRequest(req, res, ROLE_OPERATIONS.GET_NAMES);
   }
 
   /**
-   * Fetch the list of available roles (active roles).
-   * @param {import('express').Request} req - Express request object
-   * @param {import('express').Response} res - Express response object
-   * @returns {Promise<void>}
+   * Get admin-specific role list
    */
-  static async fetchAll(req, res) {
-    try {
-      const authentication = req.auth;
-      const response = await RoleService.fetchAll(authentication);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-    }
+  static async getAdminList(req, res) {
+    return RoleController.#handleRequest(req, res, ROLE_OPERATIONS.GET_ADMIN_LIST);
   }
 
   /**
-   * Update permissions for a role.
-   * @param {import('express').Request} req - Express request object
-   * @param {import('express').Response} res - Express response object
-   * @returns {Promise<void>}
+   * Create a new role
    */
-  static async updateRolePermissions(req, res) {
-    try {
-      const authentication = req.auth;
-      const response = await RoleService.updateRolePermissions(req.body, authentication);
-      return HttpHandler.send(res, response);
-    } catch (error) {
-      return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-    }
+  static async create(req, res) {
+    return RoleController.#handleRequest(req, res, ROLE_OPERATIONS.CREATE);
+  }
+
+  /**
+   * Update an existing role
+   */
+  static async update(req, res) {
+    return RoleController.#handleRequest(req, res, ROLE_OPERATIONS.UPDATE);
+  }
+
+  /**
+   * Update permissions for a role
+   */
+  static async updatePermissions(req, res) {
+    return RoleController.#handleRequest(req, res, ROLE_OPERATIONS.UPDATE_PERMISSIONS);
   }
 }

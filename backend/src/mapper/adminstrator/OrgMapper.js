@@ -2,9 +2,9 @@
 class OrgMapper {
 
     static toOrgEntity(request) {
-        const { category, orgName, orgCode, status } = request;
+        const { category, name, orgCode, status } = request;
         return {
-            category, orgName, orgCode, status
+            category, name, orgCode, status
         };
     }
 
@@ -16,7 +16,7 @@ class OrgMapper {
         } = process.env;
 
         return {
-            category: 1, orgName: firstName + " " + lastName, orgCode
+            category: 1, name: firstName + " " + lastName, orgCode
         };
     }
 

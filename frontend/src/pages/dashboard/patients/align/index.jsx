@@ -8,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import { useGenerateConsultReceptMutation } from "service/filePublishService";
 import { useFetchAlignPatientQuery } from "service/patientService";
+import { formatMsg } from "utils/security/validation";
 import { ICON_NAME, PLACEHOLDER_IMG } from "values/img-links";
 import { PLACEHOLDER_MSG } from "values/messages";
 import DialogBox from "./dialogBox";
 
 const placeholderDetails = {
   src: PLACEHOLDER_IMG.NO_PATIENTS_ALIGN,
-  text: PLACEHOLDER_MSG.NO_PATIENTS_ALIGN,
+  text: formatMsg(PLACEHOLDER_MSG.EMPTY, { label: "patient align" }),
 };
 
 export default function ManagePatient() {

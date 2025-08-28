@@ -5,12 +5,11 @@ import OrgRepo from "../../src/repo/adminstrator/OrgRepo.js";
 import AuthRepo from "../../src/repo/auth/AuthRepo.js";
 import RoleRepo from "../../src/repo/auth/RoleRepo.js";
 
-
 class AdminFactory {
     static async init() {
         try {
             const orgCode = process.env.ADMINISTRATION_ORG;
-            let orgRes = await OrgRepo.findOrgByFields({ orgCode });
+            let orgRes = await OrgRepo.findByFields({ orgCode });
 
             if (!orgRes) {
                 orgRes = await this.createOrganization();   
@@ -34,7 +33,7 @@ class AdminFactory {
 
     static async createRole(orgRef) {
         const roleObj = RoleMapper.getAdminstratorRole(orgRef);
-        return await RoleRepo.createRole(roleObj);
+        return await RoleRepo.create(roleObj);
     }
 
     static async createUser(orgRef, roleRef) {

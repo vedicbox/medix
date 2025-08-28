@@ -74,7 +74,7 @@ const validLength = (obj) => {
     return null;
 
 
-  return value.trim().length !== key ? formatMessage(VALIDATION_MSG.length, msgVariable) : null;
+  return value.trim().length !== key ? formatMsg(VALIDATION_MSG.length, msgVariable) : null;
 
 };
 
@@ -84,7 +84,7 @@ const isMinLength = (obj) => {
   if (optional && !isContainValue(value))
     return null;
 
-  return value?.trim()?.length < key ? formatMessage(VALIDATION_MSG.minlength, msgVariable) : null;
+  return value?.trim()?.length < key ? formatMsg(VALIDATION_MSG.minlength, msgVariable) : null;
 };
 
 const isMaxLength = (obj) => {
@@ -92,7 +92,7 @@ const isMaxLength = (obj) => {
   const { msgVariable, optional } = props;
   if (optional && !isContainValue(value))
     return null;
-  return value?.trim()?.length > key ? formatMessage(VALIDATION_MSG.maxlength, msgVariable) : null;
+  return value?.trim()?.length > key ? formatMsg(VALIDATION_MSG.maxlength, msgVariable) : null;
 };
 
 const isMaxSize = (obj) => {
@@ -100,7 +100,7 @@ const isMaxSize = (obj) => {
   const { msgVariable, optional } = props;
   if (optional && !isContainValue(value))
     return null;
-  return parseJsonObj(value).length > key ? formatMessage(VALIDATION_MSG.maxSize, msgVariable) : null;
+  return parseJsonObj(value).length > key ? formatMsg(VALIDATION_MSG.maxSize, msgVariable) : null;
 };
 
 const isMinSize = (obj) => {
@@ -108,7 +108,7 @@ const isMinSize = (obj) => {
   const { msgVariable, optional } = props;
   if (optional && !isContainValue(value))
     return null;
-  return parseJsonObj(value).length < key ? formatMessage(VALIDATION_MSG.minSize, msgVariable) : null;
+  return parseJsonObj(value).length < key ? formatMsg(VALIDATION_MSG.minSize, msgVariable) : null;
 };
 
 export const isNumeric = (obj) => {
@@ -117,7 +117,7 @@ export const isNumeric = (obj) => {
   if (optional && !isContainValue(value))
     return null;
   const regex = /^[0-9]+$/;
-  return regex.test(value) ? null : formatMessage(VALIDATION_MSG.numeric, msgVariable);
+  return regex.test(value) ? null : formatMsg(VALIDATION_MSG.numeric, msgVariable);
 };
 
 export const validImg = (obj) => {
@@ -126,7 +126,7 @@ export const validImg = (obj) => {
   if (optional && !isContainValue(value))
     return null;
   const regex = /\.(jpg|svg|jpeg|png|bmp|gif|webp)$/i;
-  return regex.test(value) ? null : formatMessage(VALIDATION_MSG.img, msgVariable);
+  return regex.test(value) ? null : formatMsg(VALIDATION_MSG.img, msgVariable);
 };
 
 const isUrl = (obj) => {
@@ -137,7 +137,7 @@ const isUrl = (obj) => {
   const urlRegex = new RegExp(
     "^http(s?)://[0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*(:(0-9)*)*(/?)([a-zA-Z0-9-.?,'/\\+&amp;%$#_]*)?$"
   );
-  return urlRegex.test(value) ? null : formatMessage(VALIDATION_MSG.url, msgVariable);
+  return urlRegex.test(value) ? null : formatMsg(VALIDATION_MSG.url, msgVariable);
 };
 
 export const validNameId = (obj) => {
@@ -147,7 +147,7 @@ export const validNameId = (obj) => {
     return null;
 
   const regex = /^(?=.{4,20}$)(?![_.0-9])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
-  return regex.test(value) ? null : formatMessage(VALIDATION_MSG.nameId, msgVariable);
+  return regex.test(value) ? null : formatMsg(VALIDATION_MSG.nameId, msgVariable);
 };
 
 const isEmail = (obj) => {
@@ -156,7 +156,7 @@ const isEmail = (obj) => {
   if (optional && !isContainValue(value))
     return null;
   const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-  return regex.test(value) ? null : formatMessage(VALIDATION_MSG.email, msgVariable);
+  return regex.test(value) ? null : formatMsg(VALIDATION_MSG.email, msgVariable);
 };
 
 const isRequired = (obj) => {
@@ -167,11 +167,11 @@ const isRequired = (obj) => {
   if (optional && !isContainValue(value))
     return null;
 
-  return isContainValue(value) ? null : formatMessage(VALIDATION_MSG.required, msgVariable);
+  return isContainValue(value) ? null : formatMsg(VALIDATION_MSG.required, msgVariable);
 };
 
 
-export function formatMessage(template, variables = {}) {
+export function formatMsg(template, variables = {}) {
   return template.replace(/\{(\w+)\}/g, (_, key) => variables[key] || '');
 }
 
@@ -216,7 +216,7 @@ const isAlpha = (obj) => {
     return null;
 
   const regex = /^[A-Za-z\s]+$/;
-  return regex.test(value) ? null : formatMessage(VALIDATION_MSG.alpha, msgVariable);
+  return regex.test(value) ? null : formatMsg(VALIDATION_MSG.alpha, msgVariable);
 };
 
 const isAlphaNumeric = (obj) => {
@@ -226,7 +226,7 @@ const isAlphaNumeric = (obj) => {
     return null;
 
   const regex = /^[A-Za-z0-9\s]+$/;
-  return regex.test(value) ? null : formatMessage(VALIDATION_MSG.alphaNumeric, msgVariable);
+  return regex.test(value) ? null : formatMsg(VALIDATION_MSG.alphaNumeric, msgVariable);
 };
 
 const isContainValue = (value) => {
@@ -239,7 +239,7 @@ const isContainValue = (value) => {
 export const validateWhatsapp = (formData) => {
   if (formData.whatsappPref == 2 && !formData.phone2) {
     return {
-      whatsappPref: formatMessage(VALIDATION_MSG.required, {
+      whatsappPref: formatMsg(VALIDATION_MSG.required, {
         label: "Alternate No",
       })
     }

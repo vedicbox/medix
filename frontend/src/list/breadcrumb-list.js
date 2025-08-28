@@ -4,7 +4,7 @@ export const DASHBOARD_CRUMB = {
     ROLES: {
         MANAGE: [
             {
-                icon: "carbon:id-management",
+                icon: ICON_NAME.ROLE,
                 label: "Manage Roles",
             },
         ],
@@ -35,13 +35,13 @@ export const DASHBOARD_CRUMB = {
     STAFF: {
         MANAGE: [
             {
-                icon: "carbon:id-management",
+                icon: ICON_NAME.TEAMS,
                 label: "Manage Staff",
             },
         ],
         ADD: [
             {
-                icon: "fluent:people-team-20-regular",
+                icon: ICON_NAME.TEAMS,
                 label: "Staff",
             },
             {
@@ -50,7 +50,7 @@ export const DASHBOARD_CRUMB = {
         ],
         EDIT: [
             {
-                icon: "fluent:people-team-20-regular",
+                icon: ICON_NAME.TEAMS,
                 label: "Staff",
             },
             {
@@ -92,13 +92,13 @@ export const ADMINSTRATOR_CRUMB = {
     MODULE: {
         INDEX: [
             {
-                icon: "fluent:people-team-20-regular",
+                icon: ICON_NAME.NAV_MODULE,
                 label: "Manage Module",
             },
         ],
         CREATE: [
             {
-                icon: "fluent:people-team-20-regular",
+                icon: ICON_NAME.NAV_MODULE,
                 label: "Manage Module",
             },
             {
@@ -107,7 +107,7 @@ export const ADMINSTRATOR_CRUMB = {
         ],
         UPDATE: [
             {
-                icon: "fluent:people-team-20-regular",
+                icon: ICON_NAME.NAV_MODULE,
                 label: "Manage Module",
             },
             {
@@ -115,11 +115,20 @@ export const ADMINSTRATOR_CRUMB = {
             },
         ]
     },
-    WORKSPACE: {
+    ORG: {
         INDEX: [
             {
-                icon: "fluent:people-team-20-regular",
-                label: "Workspace",
+                icon: ICON_NAME.ORG,
+                label: "Org",
+            },
+        ],
+        PERMISSION: [
+            {
+                icon: ICON_NAME.ORG,
+                label: "Org",
+            },
+            {
+                label: "Permission",
             },
         ]
     }

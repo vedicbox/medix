@@ -1,3 +1,5 @@
+import { formatMsg } from "utils/security/validation";
+import { PLACEHOLDER_MSG } from "values/messages";
 import { Button, Grid } from "@mui/material";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import Iconify from "components/icons/Iconify";
@@ -9,11 +11,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import { useFindAllModuleQuery } from "service/adminstrator/moduleService";
 import { ICON_NAME, PLACEHOLDER_IMG } from "values/img-links";
-import { PLACEHOLDER_MSG } from "values/messages";
 
 const placeholderDetails = {
-  img: PLACEHOLDER_IMG.NO_PATIENTS_ALIGN,
-  heading: PLACEHOLDER_MSG.NO_PATIENTS_ALIGN,
+  src: PLACEHOLDER_IMG.NO_MOUDLE,
+  text: formatMsg(PLACEHOLDER_MSG.EMPTY, { label: "module" }),
 };
 
 export default function ModulePage() {
@@ -51,8 +52,9 @@ export default function ModulePage() {
         <Grid size={{ xs: 12 }}>
           <MuiClassicTable
             rows={modulePayload}
-            colObj={ADMINSTRATOR_TBCOL.MODULE}
+            colObj={ADMINSTRATOR_TBCOL.module()}
             actionList={(row) => crud_mnlst(listenerBox(row))}
+            placeholder={placeholderDetails}
           />
         </Grid>
       </Grid>

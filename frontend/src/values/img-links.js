@@ -8,6 +8,8 @@ export const PLACEHOLDER_IMG = {
   NO_ROLES: `${BASE_URL}/images/placeholder/no_rolls.png`,
   AUTH_WIDGETS: `${BASE_URL}/images/auth-widgets.png`,
   NO_CLINIC: `${BASE_URL}/images/placeholder/no_clinic.png`,
+  NO_ORG: `${BASE_URL}/images/placeholder/no_org.png`,
+  NO_MOUDLE: `${BASE_URL}/images/placeholder/no_module.png`,
 };
 
 export const AVATAR_IMG = {
@@ -57,5 +59,6 @@ export const ICON_NAME = {
   MODULE: "streamline-plump-color:module",
   NAV_MODULE: "streamline-sharp:module",
   SUB_MODULE: "streamline-color:module-three",
-  WORKSPACE: "tabler:spaces"
+  ORG: "tabler:spaces",
+  SECURITY: "ic:twotone-security"
 }

@@ -1,5 +1,6 @@
+import { DASH_TAG } from "config/module/tags";
 import { lazy } from "react";
-import { ID_MAPPING } from "service/config/permissionlist";
+import { parseModuleTag } from "utils/parse";
 import Loadable from "./Loadable";
 import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE, PATIENT_ROUTE } from "./routeurl";
 
@@ -18,17 +19,18 @@ const PatientProfileUpdate = Loadable(lazy(() => import("pages/patientBoard/prof
 const ClinicMasterPage = Loadable(lazy(() => import("pages/dashboard/master/clinic")));
 const ClinicAddPage = Loadable(lazy(() => import("pages/dashboard/master/clinic/crud/add")));
 const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clinic/crud/edit")));
-const ModuleCreatePage = Loadable(lazy(() => import("pages/administrator/modules/create")));
-const ModuleUpdatePage = Loadable(lazy(() => import("pages/administrator/modules/update")));
-const WorkspacePage = Loadable(lazy(() => import("pages/administrator/workspace")));
+const ModuleCreatePage = Loadable(lazy(() => import("pages/administrator/modules/crudForm/create")));
+const ModuleUpdatePage = Loadable(lazy(() => import("pages/administrator/modules/crudForm/update")));
+const OrgPage = Loadable(lazy(() => import("pages/administrator/organization")));
 const OwnerViewPage = Loadable(lazy(() => import("pages/administrator/overview")));
-const WorkspaceCreatePage = Loadable(lazy(() => import("pages/administrator/workspace/create")));
-const WorkspaceUpdatePage = Loadable(lazy(() => import("pages/administrator/workspace/edit")));
+const OrgCreatePage = Loadable(lazy(() => import("pages/administrator/organization/create")));
+const OrgModifyPage = Loadable(lazy(() => import("pages/administrator/organization/edit")));
+const OrgPermission = Loadable(lazy(() => import("pages/administrator/organization/permission")));
 const ManageStaffBoard = Loadable(lazy(() => import("pages/dashboard/staff/manage/board")));
 
 export const dashboard_crl = [
   {
-    uuid: ID_MAPPING.dashboard.uuid,
+    uuid: parseModuleTag(DASH_TAG.DASHBOARD).uuid,
     path: DASHBOARD_ROUTE.INDEX,
     baseProps: {
       element: <OverViewPage />,
@@ -36,7 +38,7 @@ export const dashboard_crl = [
     },
   },
   {
-    uuid: ID_MAPPING.staff.uuid,
+    uuid: parseModuleTag(DASH_TAG.STAFF).uuid,
     path: DASHBOARD_ROUTE.STAFF.MANAGE,
     baseProps: {
       element: <StaffManagePage />,
@@ -44,7 +46,7 @@ export const dashboard_crl = [
     },
   },
   {
-    uuid: ID_MAPPING.staff.uuid,
+    uuid: parseModuleTag(DASH_TAG.STAFF).uuid,
     path: DASHBOARD_ROUTE.STAFF.MANAGE + "/" + PARAMS_ROUTE.ENROLL,
     baseProps: {
       element: <AddStaff />,
@@ -52,7 +54,7 @@ export const dashboard_crl = [
     },
   },
   {
-    uuid: ID_MAPPING.staff.uuid,
+    uuid: parseModuleTag(DASH_TAG.STAFF).uuid,
     path: DASHBOARD_ROUTE.STAFF.MANAGE + "/" + PARAMS_ROUTE.EDIT,
     baseProps: {
       element: <EditStaff />,
@@ -60,6 +62,7 @@ export const dashboard_crl = [
     },
   },
   {
+    uuid: parseModuleTag(DASH_TAG.STAFF).uuid,
     path:
       DASHBOARD_ROUTE.STAFF.BOARD.PATH +
       "/" +
@@ -70,7 +73,7 @@ export const dashboard_crl = [
     }
   },
   {
-    uuid: ID_MAPPING.patient.uuid,
+    uuid: parseModuleTag(DASH_TAG.ALIGN_PT).uuid,
     path: DASHBOARD_ROUTE.PATIENT.ALIGN + "/" + PARAMS_ROUTE.WILD_CARD,
     baseProps: {
       element: <InitiatePatientConsultation />,
@@ -78,7 +81,7 @@ export const dashboard_crl = [
     },
   },
   {
-    uuid: ID_MAPPING.patient.uuid,
+    uuid: parseModuleTag(DASH_TAG.ALIGN_PT).uuid,
     path: DASHBOARD_ROUTE.PATIENT.ENROLL,
     baseProps: {
       element: <PatientsEnrollment />,
@@ -93,7 +96,7 @@ export const dashboard_crl = [
     },
   },
   {
-    uuid: ID_MAPPING.master.uuid,
+    uuid: parseModuleTag(DASH_TAG.ROLE_MASTER).uuid,
     path: DASHBOARD_ROUTE.MASTER.ROLES + "/" + PARAMS_ROUTE.WILD_CARD,
     baseProps: {
       element: <MasterRolePage />,
@@ -101,7 +104,7 @@ export const dashboard_crl = [
     },
   },
   {
-    uuid: ID_MAPPING.master.uuid,
+    uuid: parseModuleTag(DASH_TAG.CLINIC_MASTER).uuid,
     path: DASHBOARD_ROUTE.MASTER.CLINIC,
     baseProps: {
       element: <ClinicMasterPage />,
@@ -109,7 +112,7 @@ export const dashboard_crl = [
     },
   },
   {
-    uuid: ID_MAPPING.master.uuid,
+    uuid: parseModuleTag(DASH_TAG.CLINIC_MASTER).uuid,
     path: DASHBOARD_ROUTE.MASTER.CLINIC + "/" + PARAMS_ROUTE.CREATE,
     baseProps: {
       element: <ClinicAddPage />,
@@ -117,7 +120,7 @@ export const dashboard_crl = [
     },
   },
   {
-    uuid: ID_MAPPING.master.uuid,
+    uuid: parseModuleTag(DASH_TAG.CLINIC_MASTER).uuid,
     path: DASHBOARD_ROUTE.MASTER.CLINIC + "/" + PARAMS_ROUTE.UPDATE,
     baseProps: {
       element: <ClinicUpdatePage />,
@@ -135,6 +138,7 @@ export const dashboard_crl = [
 
 export const patientboard_crl = [
   {
+    uuid: parseModuleTag(DASH_TAG.PATIENT).uuid,
     path: PATIENT_ROUTE.CONSULT,
     baseProps: {
       element: <ConsultInitPage />,
@@ -142,7 +146,9 @@ export const patientboard_crl = [
     },
   },
   {
+    uuid: parseModuleTag(DASH_TAG.PATIENT).uuid,
     path: PARAMS_ROUTE.UPDATE,
+    index: true,
     baseProps: {
       element: <PatientProfileUpdate />,
       title: "Update Patient"
@@ -189,24 +195,31 @@ export const administrator_crl = [
     },
   },
   {
-    path: ADMINISTRATOR_ROUTE.WORKSPACE.PARAM,
+    path: ADMINISTRATOR_ROUTE.ORG.PARAM,
     baseProps: {
-      element: <WorkspacePage />,
-      title: "Workspace"
+      element: <OrgPage />,
+      title: "Org"
     },
   },
   {
-    path: ADMINISTRATOR_ROUTE.WORKSPACE.PARAM + "/" + PARAMS_ROUTE.CREATE,
+    path: ADMINISTRATOR_ROUTE.ORG.PARAM + "/" + PARAMS_ROUTE.CREATE,
     baseProps: {
-      element: <WorkspaceCreatePage />,
-      title: "Workspace"
+      element: <OrgCreatePage />,
+      title: "Org"
     },
   },
   {
-    path: ADMINISTRATOR_ROUTE.WORKSPACE.PARAM + "/" + PARAMS_ROUTE.EDIT,
+    path: ADMINISTRATOR_ROUTE.ORG.PARAM + "/" + PARAMS_ROUTE.EDIT,
     baseProps: {
-      element: <WorkspaceUpdatePage />,
-      title: "Workspace"
+      element: <OrgModifyPage />,
+      title: "Org"
+    },
+  },
+  {
+    path: ADMINISTRATOR_ROUTE.ORG.PARAM + "/" + PARAMS_ROUTE.PERMISSION,
+    baseProps: {
+      element: <OrgPermission />,
+      title: "Org"
     },
   },
   {

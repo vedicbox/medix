@@ -1,48 +1,95 @@
-import RoleDao from "../../models/auth/RoleDao.js";
+import RoleDao from "@models/auth/RoleDao.js";
 
 export default class RoleRepo {
-
-  static async findActiveRoles(orgRef) {
-    return await RoleDao.find({ status: 1, orgRef, type: 1 }, { name: 1, _id: 1 });
-  }
-
-  static async createRole(roleData) {
-    const role = new RoleDao(roleData);
-    return await role.save();
-  }
-
-  static async updateRole(roleId, roleData) {
-    return await RoleDao.findByIdAndUpdate(roleId, roleData, { new: true });
-  }
-
   /**
-   * Find a role by its ID
-   * @param {string} roleId
-   * @returns {Promise<Object|null>}
+   * Get all active roles for an organization
    */
-  static async findRoleById(roleId, orgCode) {
-    return await RoleDao.findById({ _id: roleId, orgCode });
+  static async getAll(orgRef) {
+    return RoleDao.find({ orgRef, type: 1 })
+      .select('-__v')
+      .lean();
   }
 
   /**
-  * Fetch all active roles
-  * @returns {Promise<Array<Object>>}
-  */
-  static async fetchAllRoles(orgRef) {
-    return await RoleDao.find({ orgRef, type: 1 });
-  }
-
-  /**
-   * Update permissions for a role
-   * @param {string} roleId
-   * @param {Array<string>} permissions
-   * @returns {Promise<Object|null>}
+   * Get specific role by ID and organization
    */
-  static async updateRolePermissions(roleId, permissions) {
-    return await RoleDao.findByIdAndUpdate(
-      roleId,
-      { $set: { permission: permissions } },
-      { new: true }
+  static async getById(id, orgRef) {
+    return RoleDao.findOne({ _id: id, orgRef, status: 1 }).lean();
+  }
+
+  /**
+   * Get only role names and IDs for dropdowns
+   */
+  static async getNames(orgRef) {
+    return RoleDao.find({ orgRef, status: 1 })
+      .select('name _id')
+      .lean();
+  }
+
+  /**
+   * Get admin-specific roles
+   */
+  static async getAdminList() {
+    return RoleDao.aggregate([
+      { $match: { type: 2 } },
+      {
+        $lookup: {
+          from: 'organizations',
+          localField: 'orgRef',
+          foreignField: '_id',
+          as: 'orgData'
+        }
+      },
+      { $unwind: '$orgData' },
+      {
+        $lookup: {
+          from: 'users',
+          localField: '_id',
+          foreignField: 'roleRef',
+          as: 'userData'
+        }
+      },
+      { $unwind: '$userData' },
+      {
+        $project: {
+          _id: 1,
+          roleName: '$name',
+          permission: '$permission',
+          name: '$orgData.name',
+          orgCode: '$orgData.orgCode',
+          email: '$userData.email',
+          fullName: {
+            $concat: ['$userData.firstName', ' ', '$userData.lastName']
+          },
+          userStatus: '$userData.isActive',
+        }
+      },
+    ]);
+  }
+
+  /**
+   * Check if a role exists with given criteria
+   */
+  static async isExists(query) {
+    const finalQuery = { ...query };
+    return RoleDao.exists(finalQuery);
+  }
+
+  /**
+   * Create a new role
+   */
+  static async create(roleData) {
+    return RoleDao.create(roleData);
+  }
+
+  /**
+   * Update a role with validation
+   */
+  static async update(id, updateData) {
+    return RoleDao.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true, runValidators: true }
     );
   }
 

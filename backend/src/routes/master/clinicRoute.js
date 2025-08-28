@@ -1,27 +1,22 @@
-// routes/patientRoutes.js
-import express from "express";
 import ClinicController from "@controller/master/ClinicController.js";
 import { isAuthenticated } from "@middlewares/authMiddleware.js";
+import express from "express";
 
 const router = express.Router();
-
-// Apply authentication middleware to all routes
 router.use(isAuthenticated);
 
-router.get("/list", ClinicController.getClinicList);
+//  Get all clinics
+router.get("/fetch-all", ClinicController.fetchAll);
 
-router.get("/fetchAll", ClinicController.fetchAll);
+// Get clinic by ID
+router.get("/edit", ClinicController.getClinicById);
 
-// GET /clinic/:clinicId - Get clinic by ID
-router.get("/:clinicId", ClinicController.fetchById);
-
-// POST /clinic - Create a new clinic
+//  Create a new clinic
 router.post("/create", ClinicController.create);
 
-// PUT /clinic/:clinicId - Update clinic by ID
+//  Update clinic by ID
 router.post("/update", ClinicController.update);
 
+router.get("/names", ClinicController.getNames);
 
 export default router;
-
-

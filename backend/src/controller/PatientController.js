@@ -1,144 +1,140 @@
-import patientService from "../service/PatientService.js";
-import MESSAGES from "../utils/message.js";
-import { HttpHandler } from "../utils/responseHandler.js";
-import STATUS_CODES from "../utils/statusCodes.js";
+import patientService from "@service/PatientService.js";
+import MESSAGES from "@utils/message.js";
+import { formatMsg } from "@utils/parse.js";
+import { HttpHandler } from "@utils/responseHandler.js";
 
-/**
- * Controller for patient management endpoints.
- * Handles patient creation, search, validation, assignment, and status updates.
- */
+const PATIENT_OPERATIONS = {
+    SEARCH: {
+        serviceMethod: 'searchPatientService',
+        inputExtractor: (req) => ({
+            searchVal: req.query.searchVal,
+            authentication: req.auth
+        }),
+        operationName: 'Patient search'
+    },
+    CREATE: {
+        serviceMethod: 'createPatientService',
+        inputExtractor: (req) => ({
+            packet: req.body,
+            authentication: req.auth
+        }),
+        operationName: 'Patient creation'
+    },
+    UPDATE: {
+        serviceMethod: 'updatePatientService',
+        inputExtractor: (req) => ({
+            packet: req.body,
+            authentication: req.auth
+        }),
+        operationName: 'Patient update'
+    },
+    EDIT: {
+        serviceMethod: 'editPatientService',
+        inputExtractor: (req) => ({
+            caseId: req.query.caseId,
+            authentication: req.auth
+        }),
+        operationName: 'Patient update'
+    },
+    VALIDATE: {
+        serviceMethod: 'validatePatientService',
+        inputExtractor: (req) => ({
+            caseId: req.query.caseId
+        }),
+        operationName: 'Patient validation'
+    },
+    INITIATE_CONSULTATION: {
+        serviceMethod: 'initiateConsultationService',
+        inputExtractor: (req) => ({
+            packet: req.body,
+            authentication: req.auth
+        }),
+        operationName: 'Consultation initiation'
+    },
+    GET_ALIGNMENT_LIST: {
+        serviceMethod: 'getAlignmentListService',
+        inputExtractor: (req) => ({
+            authentication: req.auth
+        }),
+        operationName: 'Alignment list retrieval'
+    },
+    UPDATE_STATUS: {
+        serviceMethod: 'updateStatusService',
+        inputExtractor: (req) => ({
+            alignPatientId: req.body.alignPatientId,
+            status: req.body.status
+        }),
+        operationName: 'Status update'
+    },
+};
+
 export default class PatientController {
     /**
-     * Create a new patient.
-     * @param {import('express').Request} req - Express request object
-     * @param {import('express').Response} res - Express response object
-     * @returns {Promise<void>}
+     * Generic request handler with enhanced error handling and performance
+     * @private
      */
-    static async createPatient(req, res) {
+    static async #handleRequest(req, res, operationConfig) {
         try {
-            const patientRequestDTO = req.body;
-            const authentication = req.auth;
-            const response = await patientService.createPatientService(
-                patientRequestDTO,
-                authentication
-            );
-            return HttpHandler.send(res, response);
+            const input = operationConfig.inputExtractor(req);
+            const result = await patientService[operationConfig.serviceMethod](input);
+
+            return HttpHandler.send(res, result);
         } catch (error) {
-            return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
+            console.error(`${operationConfig.operationName} Error:`, error);
+            return HttpHandler.error(res, error, formatMsg(MESSAGES.TRY_AGAIN, { label: operationConfig.operationName }));
         }
     }
 
     /**
-     * Update a patient.
-     * @param {import('express').Request} req - Express request object
-     * @param {import('express').Response} res - Express response object
-     * @returns {Promise<void>}
-     */
-    static async updatePatient(req, res) {
-        try {
-            const patientRequestDTO = req.body;
-            const authentication = req.auth;
-            const response = await patientService.updatePatientService(patientRequestDTO, authentication);
-            return HttpHandler.send(res, response);
-        } catch (error) {
-            return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-        }
-    }
-    /**
-     * Search patients by value (caseId or phone).
-     * @param {import('express').Request} req - Express request object
-     * @param {import('express').Response} res - Express response object
-     * @returns {Promise<void>}
+     * Search patients by value (caseId or phone)
      */
     static async searchPatient(req, res) {
-        const { searchVal } = req.query;
-        const authentication = req.auth;
-        if (!searchVal) {
-            return HttpHandler.error(
-                res,
-                MESSAGES.VALIDATION_FAILED,
-                STATUS_CODES.BAD_REQUEST
-            );
-        }
-        try {
-            const response = await patientService.searchPatientService(searchVal, authentication);
-            return HttpHandler.send(res, response);
-        } catch (error) {
-            return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-        }
+        return PatientController.#handleRequest(req, res, PATIENT_OPERATIONS.SEARCH);
     }
 
     /**
-     * Validate a patient by caseId.
-     * @param {import('express').Request} req - Express request object
-     * @param {import('express').Response} res - Express response object
-     * @returns {Promise<void>}
+     * Create a new patient
+     */
+    static async createPatient(req, res) {
+        return PatientController.#handleRequest(req, res, PATIENT_OPERATIONS.CREATE);
+    }
+
+    /**
+     * Update a patient
+     */
+    static async updatePatient(req, res) {
+        return PatientController.#handleRequest(req, res, PATIENT_OPERATIONS.UPDATE);
+    }
+
+    static async editPatient(req, res) {
+        return PatientController.#handleRequest(req, res, PATIENT_OPERATIONS.EDIT);
+    }
+
+    /**
+     * Validate a patient by caseId
      */
     static async validatePatient(req, res) {
-        const { caseId } = req.query;
-        if (!caseId) {
-            return HttpHandler.error(res, MESSAGES.CASE_ID_REQUIRED, STATUS_CODES.BAD_REQUEST);
-        }
-        try {
-            const response = await patientService.validatePatientService(caseId);
-            return HttpHandler.send(res, response);
-        } catch (error) {
-            return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-        }
+        return PatientController.#handleRequest(req, res, PATIENT_OPERATIONS.VALIDATE);
     }
 
     /**
-     * Assign a patient to a doctor.
-     * @param {import('express').Request} req - Express request object
-     * @param {import('express').Response} res - Express response object
-     * @returns {Promise<void>}
+     * Initiate a consultation for a patient
      */
-    static async initiateConsult(req, res) {
-        try {
-            const alignPatientDTO = req.body;
-            const authentication = req.auth;
-            const response = await patientService.initiateConsultService(
-                alignPatientDTO,
-                authentication
-            );
-            return HttpHandler.send(res, response);
-        } catch (error) {
-            return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-        }
+    static async initiateConsultation(req, res) {
+        return PatientController.#handleRequest(req, res, PATIENT_OPERATIONS.INITIATE_CONSULTATION);
     }
 
     /**
-     * Get list of align patients with status 0.
-     * @param {import('express').Request} req - Express request object
-     * @param {import('express').Response} res - Express response object
-     * @returns {Promise<void>}
+     * Get list of align patients
      */
-    static async alignPatientList(req, res) {
-        try {
-            const authentication = req.auth;
-            const response = await patientService.getAlignPatientListService(authentication);
-            return HttpHandler.send(res, response);
-        } catch (error) {
-            return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-        }
+    static async getAlignmentList(req, res) {
+        return PatientController.#handleRequest(req, res, PATIENT_OPERATIONS.GET_ALIGNMENT_LIST);
     }
 
     /**
-     * Change status of an align patient.
-     * @param {import('express').Request} req - Express request object
-     * @param {import('express').Response} res - Express response object
-     * @returns {Promise<void>}
+     * Update status of an align patient
      */
-    static async changeStatus(req, res) {
-        const { alignPatientId, status } = req.body;
-        if (!alignPatientId || typeof status === "undefined") {
-            return HttpHandler.error(res, MESSAGES.ALIGN_PATIENT_ID_STATUS_REQUIRED, STATUS_CODES.BAD_REQUEST);
-        }
-        try {
-            const response = await patientService.changeAlignPatientStatusService(alignPatientId, status);
-            return HttpHandler.send(res, response);
-        } catch (error) {
-            return HttpHandler.error(res, error, MESSAGES.GENERIC_ERROR);
-        }
+    static async updateStatus(req, res) {
+        return PatientController.#handleRequest(req, res, PATIENT_OPERATIONS.UPDATE_STATUS);
     }
 }

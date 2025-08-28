@@ -5,19 +5,20 @@ import { staff_mnlst } from "list/menulist";
 import { DASHBOARD_TBCOL } from "list/tableColist";
 import { useNavigate } from "react-router-dom";
 import { DASHBOARD_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
-import { useFetchTbStaffQuery } from "service/staffService";
+import { useFetchAllStaffQuery } from "service/staffService";
+import { formatMsg } from "utils/security/validation";
 import { PLACEHOLDER_IMG } from "values/img-links";
 import { PLACEHOLDER_MSG } from "values/messages";
 
 const placeholderDetails = {
   src: PLACEHOLDER_IMG.NO_STAFF,
-  text: PLACEHOLDER_MSG.NO_STAFF,
+  text: formatMsg(PLACEHOLDER_MSG.EMPTY, { label: "staff" }),
 };
 
 export default function StaffManagePage() {
   const navigate = useNavigate();
 
-  const { data: tbData } = useFetchTbStaffQuery();
+  const { data: tbData } = useFetchAllStaffQuery();
   let staffTbData = tbData?.payload?.stafflist || [];
 
   const handleEdit = (row) => {
