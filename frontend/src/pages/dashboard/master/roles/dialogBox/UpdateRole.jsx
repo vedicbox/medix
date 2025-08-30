@@ -8,8 +8,6 @@ const UpdateRole = forwardRef((props, ref) => {
   const formRef = useRef(null);
   const [processObj, setProcessObj] = useState({});
 
-  console.log(state)
-
   useImperativeHandle(ref, () => ({
     preparedData,
   }));

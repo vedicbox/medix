@@ -15,6 +15,8 @@ import { HTTP_STATUS_CODES } from "values/enum";
 import { ICON_NAME } from "values/img-links";
 import CreateRole from "./CreateRole";
 import UpdateRole from "./UpdateRole";
+import { parseModuleTag } from "utils/parse";
+import { DASH_TAG } from "config/module/tags";
 
 // Memoized Dialog Container to prevent unnecessary re-renders
 const DialogContainer = memo(
@@ -157,6 +159,7 @@ export default function RoleDialogBox({ dialogObj, setDialogObj }) {
   const routelist = [
     {
       path: PARAMS_ROUTE.CREATE,
+      uuid: parseModuleTag(DASH_TAG.ROLE_MASTER).uuid,
       baseProps: {
         element: createRouteElement,
         title: "Create Role",
@@ -164,6 +167,7 @@ export default function RoleDialogBox({ dialogObj, setDialogObj }) {
     },
     {
       path: PARAMS_ROUTE.EDIT,
+      uuid: parseModuleTag(DASH_TAG.ROLE_MASTER).uuid,
       baseProps: {
         element: updateRouteElement,
         title: "Update Role",

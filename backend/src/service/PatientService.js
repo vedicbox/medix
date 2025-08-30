@@ -94,7 +94,7 @@ export default class PatientService {
    * @returns {Promise<ServiceResponse>}
    */
   static async initiateConsultationService({ packet, authentication }) {
-    console.log(authentication, packet)
+
     const assignPatientDao = PatientMapper.initiateConsultMapper(packet, authentication);
     await PatientRepo.initiateConsult(assignPatientDao);
 

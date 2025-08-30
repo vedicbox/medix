@@ -39,7 +39,6 @@ const PatientDetailSchema = new mongoose.Schema(
                 validator: function (value) {
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
-                    console.log("DOB Validation:", value, "<", today, "=>", value < today);
                     return value < today;
                 },
                 message: "Date of birth must be in the past",

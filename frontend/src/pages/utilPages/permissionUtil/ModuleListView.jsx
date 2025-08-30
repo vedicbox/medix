@@ -22,8 +22,7 @@ const ModuleListView = (props) => {
 
     return modulePayload.filter((module) => {
       let isModuleExist = userPermission.indexOf(module._id) > -1;
-      console.log(module, isModuleExist);
-
+   
       return isModuleExist;
     });
   };

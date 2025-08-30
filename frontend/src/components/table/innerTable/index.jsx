@@ -57,11 +57,6 @@ const SubRow = React.memo(({ row }) => {
   );
 });
 
-const SubContainer = ({ headers, rows }) => {
-  return Object.values(headers).map((header) => {
-    console.log(header);
-  });
-};
 
 function Row(props) {
   const { row, headers, cellReturnContent } = props;

@@ -51,7 +51,7 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function ClassicMenu(props) {
-  const { menulist, topContent, children } = props;
+  const { menulist, topContent, children, sx } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
@@ -93,7 +93,7 @@ export default function ClassicMenu(props) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        sx={{ maxWidth: 360 }}
+        sx={{ maxWidth: 360, ...sx }}
       >
         {topContent}
         {menulist.map((itemObj, index) => {

@@ -11,7 +11,6 @@ export default class ModuleService {
      */
     static async create({ packet }) {
         const moduleEntity = ModuleMapper.toModuleEntity(packet);
-        console.log(moduleEntity)
         await ModuleRepo.create(moduleEntity);
         return new ServiceResponse(STATUS_CODES.OK, formatMsg(MESSAGES.CREATE, { label: "Module" }), null);
     }

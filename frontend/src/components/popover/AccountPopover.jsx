@@ -35,7 +35,7 @@ export default function HeaderProfilePopover() {
   };
 
   const isAdminstrator = authUser?.roleRef?.name === ROLE_ENUM.ADMINISTRATOR;
-  
+
   const topContent = (
     <ListItem
       component={isAdminstrator ? NavLink : undefined}
@@ -46,10 +46,21 @@ export default function HeaderProfilePopover() {
         <Avatar src={authUser.avatar} alt={authUser.firstName} />
       </ListItemAvatar>
       <ListItemText
-        primary={authUser.firstName + " " + authUser.lastName}
+        primary={
+          <Typography
+            noWrap
+            component="span"
+            variant="body1"
+            sx={{ color: "text.primary", display: "inline" }}
+          >
+            {authUser.firstName + " " + authUser.lastName}
+          </Typography>
+        }
+        className="text-overflow"
         secondary={
           <React.Fragment>
             <Typography
+              noWrap
               component="span"
               variant="body2"
               sx={{ color: "text.primary", display: "inline" }}
