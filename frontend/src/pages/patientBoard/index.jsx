@@ -17,7 +17,7 @@ export default function PatientDashboard() {
   }
 
   return (
-    <ResponsiveDrawer navlist={patientboard_navigation()}>
+    <ResponsiveDrawer navlist={patientboard_navigation(caseId)}>
       <ChildRoutes routelist={patientboard_crl} />
     </ResponsiveDrawer>
   );

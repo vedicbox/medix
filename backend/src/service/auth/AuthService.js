@@ -55,7 +55,8 @@ export default class AuthService {
       userRef: userData._id,
       orgRef: orgRes._id,
       clinicRef: userData.clinicRef,
-      role: userData.roleRef.name
+      role: userData.roleRef.name,
+      permission: userData.roleRef.permission
     });
 
     if (!token) {

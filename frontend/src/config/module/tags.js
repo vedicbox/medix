@@ -10,5 +10,5 @@ export const DASH_TAG = {
 }
 
 export const PT_TAG = {
-    UPDATE: ""
+   
 }

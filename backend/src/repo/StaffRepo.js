@@ -1,6 +1,6 @@
+import StaffProfileDao from "@models/staff/StaffProfileDao.js";
 import { parseToMongoId } from "@utils/parse.js";
 import { DATE_TIME_ENUM } from "../enum/parserEnum.js";
-import StaffProfileDao from "@models/staff/StaffProfileDao.js";
 
 export default class StaffProfileRepo {
   /**
@@ -100,7 +100,9 @@ export default class StaffProfileRepo {
                 from: "roles",
                 localField: "roleRef",
                 foreignField: "_id",
-                as: "roleRef"
+                as: "roleRef",
+                // Add match condition for role type
+                pipeline: [{ $match: { type: 1 } }]
               }
             },
             { $unwind: { path: "$roleRef", preserveNullAndEmptyArrays: true } }
@@ -108,7 +110,8 @@ export default class StaffProfileRepo {
           as: "userRef"
         }
       },
-      { $match: { "userRef.0": { $exists: true } } },
+      // Filter to include only documents with role type:1
+      { $match: { "userRef.roleRef.type": 1 } },
       { $unwind: "$userRef" },
       {
         $addFields: {
@@ -116,13 +119,19 @@ export default class StaffProfileRepo {
             $switch: {
               branches: [
                 { case: { $eq: ["$gender", "M"] }, then: "Male" },
-                { case: { $eq: ["$gender", "F"] }, then: "Female" },
-                { case: { $eq: ["$gender", "O"] }, then: "Other" }
+                { case: { $eq: ["$gender", "F"] }, then: "Female" }
               ],
-              default: "Not Specified"
+              default: "Other"
             }
           },
-          fullName: { $concat: ["$userRef.firstName", " ", "$userRef.lastName"] }
+          fullName: { $concat: ["$userRef.firstName", " ", "$userRef.lastName"] },
+          // Add formatted date here
+          formattedCreatedAt: {
+            $dateToString: {
+              format: DATE_TIME_ENUM.DEFAULT,
+              date: "$createdAt"
+            }
+          }
         }
       },
       {
@@ -130,7 +139,7 @@ export default class StaffProfileRepo {
           _id: 1,
           phone1: 1,
           gender: 1,
-          createdAt: { $dateToString: { format: DATE_TIME_ENUM.DEFAULT, date: "$createdAt" } },
+          createdAt: "$formattedCreatedAt", 
           fullName: 1,
           "userRef.email": 1,
           "userRef.orgCode": 1,
@@ -139,7 +148,6 @@ export default class StaffProfileRepo {
       }
     ]);
   }
-
 
   /**
    * Find staff profiles by user IDs (batch operation)

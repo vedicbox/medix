@@ -18,13 +18,16 @@ const ModuleListView = (props) => {
   let modulePayload = moduleData?.payload || [];
 
   const getFilterModule = () => {
-    if (userPermission[0] == "0") return modulePayload;
+    if (userPermission[0] === "0") return modulePayload;
 
-    return modulePayload.filter((module) => {
-      let isModuleExist = userPermission.indexOf(module._id) > -1;
-   
-      return isModuleExist;
-    });
+    return modulePayload
+      .filter((module) => userPermission.includes(module._id))
+      .map((module) => ({
+        ...module,
+        subModules: module.subModules.filter((subModule) =>
+          userPermission.includes(subModule.uuid)
+        ),
+      }));
   };
 
   useEffect(() => {
@@ -41,7 +44,6 @@ const ModuleListView = (props) => {
       <MuiClassicTable
         rows={filterModule}
         colObj={ADMINSTRATOR_TBCOL.modulePermission(colObj)}
-        
       />
     </Paper>
   );

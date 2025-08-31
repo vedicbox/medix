@@ -205,7 +205,7 @@ export const DASHBOARD_TBCOL = {
       columnHelper.accessor("fee", {
         header: "Fee",
       }),
-      columnHelper.accessor("payTag", {
+      columnHelper.accessor("createdAt", {
         header: "Appoint Dt",
       }),
     ],

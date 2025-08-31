@@ -3,6 +3,7 @@ import PatientAddressDao from "@models/patient/PatientAddressDao.js";
 import PatientContactDao from "@models/patient/PatientContactDao.js";
 import PatientDetailDao from "@models/patient/PatientDetailDao.js";
 import { parseToMongoId } from "@utils/parse.js";
+import { DATE_TIME_ENUM } from "../enum/parserEnum.js";
 
 export default class PatientRepo {
     /**
@@ -306,13 +307,11 @@ export default class PatientRepo {
             {
                 $project: {
                     _id: 1,
-                    caseId: "$caseId",
-                    docId: "$docId",
+                    caseId: 1,
+                    docId: 1,
                     fee: 1,
-                    payTag: 1,
                     status: 1,
-                    created_at: 1,
-                    updated_at: 1,
+                    createdAt: { $dateToString: { format: DATE_TIME_ENUM.DEFAULT, date: "$createdAt" } },
                     patientName: {
                         $concat: [
                             { $ifNull: ["$patient.firstName", ""] },

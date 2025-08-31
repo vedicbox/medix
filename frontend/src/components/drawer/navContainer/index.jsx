@@ -13,9 +13,15 @@ const NavContainer = ({ navlist }) => {
   const hasAdminPermission = permissions.includes(MASTER_PERMISSION.ADMIN);
 
   const filteredNavItems = useMemo(() => {
-    return hasAdminPermission
-      ? navlist
-      : navlist.filter((item) => permissions.includes(item.uuid));
+    if (hasAdminPermission) return navlist;
+    return navlist
+      .filter((item) => permissions.includes(item.uuid))
+      .map((item) => ({
+        ...item,
+        children: item.children?.filter((childItem) =>
+          permissions.includes(childItem.uuid)
+        ),
+      }));
   }, [navlist, permissions, hasAdminPermission]);
 
   if (!filteredNavItems.length) {

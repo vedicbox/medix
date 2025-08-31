@@ -16,9 +16,9 @@ class RoleMapper {
         };
     }
 
-    static updatePermissionMapper(data) {
+    static updatePermissionMapper(data, allowedPermissions, isAdminstrator) {
         return {
-            permission: data.permission,
+            permission: isAdminstrator ? data.permission : data.permission?.filter((permission) => allowedPermissions.includes(permission)),
         };
     }
 

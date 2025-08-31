@@ -81,7 +81,7 @@ export default class RoleService {
   }
 
   static async updatePermissions({ authentication, packet }) {
-    const { orgRef } = authentication;
+    const { orgRef, permission, role } = authentication;
 
     const exists = await RoleRepo.isExists({ _id: packet.roleId });
     if (!exists) {
@@ -91,7 +91,8 @@ export default class RoleService {
       );
     }
 
-    const updateObj = RoleMapper.updatePermissionMapper(packet);
+    const updateObj = RoleMapper.updatePermissionMapper(packet, permission, role == "ADMINISTRATION");
+
     await RoleRepo.update(packet.roleId, updateObj);
     return new ServiceResponse(
       STATUS_CODES.OK,

@@ -1,5 +1,5 @@
-import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
 import { DASH_TAG, PT_TAG } from "config/module/tags";
+import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
 import { parseModuleTag } from "utils/parse";
 import { ICON_NAME } from "values/img-links";
 
@@ -72,13 +72,13 @@ export const dashboard_navigation = () => {
   ];
 };
 
-export const patientboard_navigation = () => {
+export const patientboard_navigation = (patientId) => {
   return [
     {
-      name: "Update",
-      uuid: parseModuleTag(PT_TAG.UPDATE).uuid,
+      name: `Update Patient`,
+      uuid: parseModuleTag(DASH_TAG.ALIGN_PT).uuid,
       icon: ICON_NAME.UPDATE,
-      path: `${PARAMS_ROUTE.UPDATE}`,
+      path: `/${PARAMS_ROUTE.PATIENT}/${patientId}/${PARAMS_ROUTE.UPDATE}`,
     },
   ];
 };

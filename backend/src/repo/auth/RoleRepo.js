@@ -21,7 +21,7 @@ export default class RoleRepo {
    * Get only role names and IDs for dropdowns
    */
   static async getNames(orgRef) {
-    return RoleDao.find({ orgRef, status: 1 })
+    return RoleDao.find({ orgRef, status: 1, type: 1 })
       .select('name _id')
       .lean();
   }
