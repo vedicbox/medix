@@ -9,6 +9,22 @@ export const DASHBOARD_CRUMB = {
             },
         ],
     },
+    SPECIALIZATION: {
+        MANAGE: [
+            {
+                icon: ICON_NAME.SPECIALIZATION,
+                label: "Manage Specialization",
+            },
+        ],
+    },
+     DISEASE: {
+        MANAGE: [
+            {
+                icon: ICON_NAME.DISEASE,
+                label: "Manage Disease",
+            },
+        ],
+    },
     PATIENTS: {
         ALIGN: [
             {
@@ -79,6 +95,32 @@ export const DASHBOARD_CRUMB = {
                 {
                     icon: ICON_NAME.CLINIC,
                     label: "Clinic",
+                },
+                {
+                    label: "Update",
+                },
+            ]
+        },
+        DISEASE: {
+            INDEX: [
+                {
+                    icon: ICON_NAME.DISEASE,
+                    label: "Disease",
+                },
+            ],
+            CREATE: [
+                {
+                    icon: ICON_NAME.DISEASE,
+                    label: "Disease",
+                },
+                {
+                    label: "Create",
+                },
+            ],
+            UPDATE: [
+                {
+                    icon: ICON_NAME.DISEASE,
+                    label: "Disease",
                 },
                 {
                     label: "Update",

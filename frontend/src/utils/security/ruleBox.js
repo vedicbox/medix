@@ -310,7 +310,22 @@ export const ROLES_FORM_RULES = {
     },
 
 };
+export const SPECS_FORM_RULES = {
+    name: {
+        required: true,
+        alpha: true,
+        props: {
+            msgVariable: { label: "Specialization Name" },
+        }
+    },
+    status: {
+        required: true,
+        props: {
+            msgVariable: { label: "Status" },
+        }
+    },
 
+}
 export const MODULE_FORM_RULES = {
     name: {
         required: true,
@@ -334,7 +349,21 @@ export const MODULE_FORM_RULES = {
     },
 };
 
-
+export const DISEASE_FORM_RULES = {
+    name: {
+        required: true,
+        alpha: true,
+        props: {
+            msgVariable: { label: "Name" },
+        }
+    },
+    status: {
+        required: true,
+        props: {
+            msgVariable: { label: "Status" },
+        }
+    },
+};
 
 export const CLINIC_FORM_RULES = {
     name: {

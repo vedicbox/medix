@@ -1,3 +1,4 @@
+import { useGetSpecsNamesQuery } from "service/sepcsService";
 import EntityAssignForm from "components/forms/staff/EntityAssignForm";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useGetRoleNamesQuery } from "service/auth/roleService";
@@ -10,9 +11,12 @@ const EntityAssignUtil = forwardRef((props, ref) => {
 
   const { data: roleData } = useGetRoleNamesQuery();
   const { data: clinicData } = useGetClinicNamesQuery();
+  const { data : specsData}  = useGetSpecsNamesQuery(); 
+
 
   let roleslist = roleData?.payload || [];
   let cliniclist = clinicData?.payload || [];
+  let specslist = specsData?.payload || [];
 
   const {
     errors,
@@ -31,13 +35,16 @@ const EntityAssignUtil = forwardRef((props, ref) => {
   const initDefaultData = async () => {
     let roleObj = defaultData.userRef?.roleRef?._id;
     let clinicObj = defaultData.userRef?.clinicRef?._id;
+    let specsObj = defaultData.userRef?.specsRef?._id;
 
     let roleRef = roleslist.find((el) => el._id == roleObj);
     let clinicRef = cliniclist.find((el) => el._id == clinicObj);
+    let specsRef = specslist.find((el) => el._id == specsObj);
 
     handleProcessObj({
       roleRef,
       clinicRef,
+      specsRef,
     });
   };
 
@@ -45,6 +52,7 @@ const EntityAssignUtil = forwardRef((props, ref) => {
     const formData = {
       roleRef: processObj["roleRef"]?._id,
       clinicRef: processObj["clinicRef"]?._id,
+      specsRef: processObj["specsRef"]?._id,
     };
 
     const isValid = await validateAll(formData);
@@ -71,6 +79,7 @@ const EntityAssignUtil = forwardRef((props, ref) => {
         handleProcessObj={handleProcessObj}
         roleslist={roleslist}
         cliniclist={cliniclist}
+        specslist={specslist}
       />
     </>
   );

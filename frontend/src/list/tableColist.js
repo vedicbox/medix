@@ -153,6 +153,63 @@ export const DASHBOARD_TBCOL = {
       }),
     ]
   }),
+  disease: (props) => ({
+    key: "_id",
+    title: "Disease List",
+    isMenuAction: true,
+    defaultProps: {
+      ...getBasicTbProperty(),
+    },
+    COLUMNS: [
+      columnHelper.accessor("name", {
+        header: "name",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+        Cell: ({ cell }) => getStatusContent(cell)
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Dt",
+      })
+    ]
+  }),
+    subdisease: (props) => ({
+    key: "_id",
+    title: "Sub Disease List",
+    isMenuAction: true,
+    defaultProps: {
+      ...getBasicTbProperty(),
+    },
+    COLUMNS: [
+      columnHelper.accessor("name", {
+        header: "Sub Disease",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+        Cell: ({ cell }) => getStatusContent(cell)
+      })
+    ]
+  }),
+  specialization: (props) => ({
+    key: "_id",
+    title: "Specialization List",
+    isMenuAction: true,
+    defaultProps: {
+      ...getBasicTbProperty(),
+    },
+    COLUMNS: [
+      columnHelper.accessor("name", {
+        header: "Specialization",
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Dt",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+        Cell: ({ cell }) => getStatusContent(cell)
+      }),
+    ]
+  }),
   staff: (props) => ({
     key: "_id",
     title: "Staff List",

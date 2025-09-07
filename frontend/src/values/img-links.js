@@ -27,6 +27,9 @@ export const ICON_NAME = {
   MASTER: "hugeicons:master-card",
   ROLE: "eos-icons:role-binding-outlined",
   CLINIC: "material-symbols:help-clinic-outline-rounded",
+  SPECIALIZATION:"mdi:doctor",
+  DISEASE:"mdi:stethoscope",
+
   SEARCH_DUOTONE: "lets-icons:search-duotone",
   ADD_NEW: "basil:add-solid",
   ADD_CHAT: "fluent-color:chat-add-28",

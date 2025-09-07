@@ -36,7 +36,9 @@ export const DASHBOARD_ROUTE = {
   },
   MASTER: {
     ROLES: "/master/roles",
-    CLINIC: "/master/clinic"
+    CLINIC: "/master/clinic",
+    SPECIALIZATION: "/master/specialization",
+    DISEASE: "/master/disease",
   },
 };
 

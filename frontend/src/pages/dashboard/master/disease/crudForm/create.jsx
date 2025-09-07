@@ -1,22 +1,25 @@
 import { Grid } from "@mui/material";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
-import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
+import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCreateModuleMutation } from "service/adminstrator/moduleService";
 import { HTTP_STATUS_CODES } from "values/enum";
-import ModuleFormUtil from "./ModuleFormUtil";
+import { useCreateDiseaseMutation } from "service/diseaseService";
+import DiseaseFormUtil from "./DiseaseFormUtil";
 
-export default function ModuleCreatePage() {
+export default function DiseaseCreatePage() {
   const navigate = useNavigate();
   const formRef = useRef(null);
-  const [createModuleMutation, { isLoading }] = useCreateModuleMutation();
+  const [createDiseaseMutation, { isLoading }] = useCreateDiseaseMutation();
 
   const handleSubmit = async () => {
-    const formData = await formRef.current.preparedData();    
+    console.log('DiseaseCreatePage: formRef current ->', formRef.current);
+    const formData = await formRef.current.preparedData();
+     console.log('DiseaseCreatePage: preparedData ->', formData);
+    
     if (formData) {
-      let { data, error } = await createModuleMutation(formData);
+      let { data, error } = await createDiseaseMutation(formData);
       if (data?.status == HTTP_STATUS_CODES.OK) {
         navigate(-1);
       } else if (error?.status === HTTP_STATUS_CODES.BAD_REQUEST) {
@@ -31,11 +34,11 @@ export default function ModuleCreatePage() {
 
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={ADMINSTRATOR_CRUMB.MODULE.CREATE} />
+      <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.MASTER.DISEASE.CREATE} />
 
       <Grid container spacing={2} justifyContent="center">
         <Grid size={{ xs: 12, lg: 10 }}>
-          <ModuleFormUtil ref={formRef} />
+          <DiseaseFormUtil ref={formRef} />
 
           <div className="mt-4 text-center">
             <MuiSubmitBtn onSubmit={handleSubmit} isLoading={isLoading} />

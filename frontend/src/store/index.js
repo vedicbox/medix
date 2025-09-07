@@ -8,6 +8,8 @@ import { clinicService } from "service/clinicService";
 import { patientService } from "service/patientService";
 import { staffService } from "service/staffService";
 import rootReducer from "./root-reducer";
+import { specsService } from "service/sepcsService";
+import { diseaseService } from "service/diseaseService";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +24,8 @@ export const store = configureStore({
     [moduleService.reducerPath]: moduleService.reducer,
     [clinicService.reducerPath]: clinicService.reducer,
     [orgService.reducerPath]: orgService.reducer,
+    [specsService.reducerPath]:specsService.reducer,
+    [diseaseService.reducerPath]:diseaseService.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -36,6 +40,8 @@ export const store = configureStore({
       moduleService.middleware,
       clinicService.middleware,
       orgService.middleware,
+      specsService.middleware,
+      diseaseService.middleware
     ]),
 });
 

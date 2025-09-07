@@ -97,6 +97,7 @@ export default class AuthRepo {
       .select('-password')
       .populate('roleRef', 'name status permission')
       .populate('clinicRef', 'name')
+      .populate('specsRef', 'name')
       .lean();
   }
 

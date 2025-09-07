@@ -5,6 +5,8 @@ export const DASH_TAG = {
     MASTER: "master",
     ROLE_MASTER: "role_mst",
     CLINIC_MASTER: "clinic_mst",
+    SPECIALIZATION_MASTER:"specs_mst",
+    DISEASE_MASTER:"disease_mst",
     STAFF: "staff",
     STAFF_MANAGE: "staff_mng",
 }

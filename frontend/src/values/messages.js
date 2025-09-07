@@ -22,6 +22,7 @@ export const ALERT_MSG = {
   ACCEPT_TERM_AND_CONDITION: "Please accept our terms and conditions.",
   INVALID_SEARCH: `Please provide valid search parameters `,
   ROLE_SELECT: "Please select a role",
+  SPECS_SELECT: "Please select a specialization",
 };
 
 // Helper Text Messages

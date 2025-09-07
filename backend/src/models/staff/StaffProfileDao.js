@@ -72,7 +72,7 @@ const StaffProfileSchema = new mongoose.Schema(
       minlength: [5, "Address must be at least 5 characters long"],
       maxlength: [250, "Address cannot exceed 250 characters"],
       trim: true,
-    }
+    },
   },
   {
     timestamps: true,

@@ -8,6 +8,7 @@ import MESSAGES from "@utils/message.js";
 import { formatMsg } from "@utils/parse.js";
 import { ServiceResponse } from "@utils/responseHandler.js";
 import STATUS_CODES from "@utils/statusCodes.js";
+import SpecsRepo from "../repo/master/SpecsRepo.js";
 
 /**
  * Service for staff management operations.
@@ -34,6 +35,10 @@ export default class StaffService {
       return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Clinic" }));
     }
 
+    const specs  = await SpecsRepo.findSpecsById(packet.specsRef, orgRef);
+     if (!specs) {
+      return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Specialization" }));
+    }
     const userEntity = AuthMapper.toUserEntity(packet, orgRef);
     const newUser = await AuthRepo.createUser(userEntity);
 
@@ -50,7 +55,7 @@ export default class StaffService {
    */
   static async editStaffProfile({ staffId, authentication }) {
     const { orgRef } = authentication;
-    const staffData = await StaffProfileRepo.findProfileById(staffId, orgRef);
+    const staffData = await StaffProfileRepo.findProfileById(staffId, orgRef);    
     return new ServiceResponse(STATUS_CODES.OK, null, staffData);
   }
 
@@ -70,7 +75,10 @@ export default class StaffService {
     if (!clinic) {
       return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Clinic" }));
     }
-
+    const specs  = await SpecsRepo.findSpecsById(packet.specsRef, orgRef);
+     if (!specs) {
+      return new ServiceResponse(STATUS_CODES.NOT_FOUND, formatMsg(MESSAGES.NOT_FOUND, { label: "Specialization" }));
+    }
     const userUpdateEntity = AuthMapper.toUserUpdateEntity(packet);
 
     const updatedUser = await AuthRepo.updateUser(packet.userId, userUpdateEntity);

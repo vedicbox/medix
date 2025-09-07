@@ -41,7 +41,7 @@ export default class StaffProfileRepo {
     return await StaffProfileDao.findById(profileId)
       .populate({
         path: "userRef",
-        select: "firstName lastName email clinicRef status",
+        select: "firstName lastName email clinicRef specsRef status",
         match: {
           orgRef: parseToMongoId(orgRef),
         },
@@ -52,6 +52,10 @@ export default class StaffProfileRepo {
           },
           {
             path: "clinicRef",
+            select: "_id name code"
+          },
+          {
+            path: "specsRef",
             select: "_id name code"
           }
         ]

@@ -4,8 +4,8 @@ import MuiAutoComplete from "components/mui/MuiAutoComplete";
 import { ICON_NAME } from "values/img-links";
 
 export default function EntityAssignForm(props) {
-  const { errors, handleProcessObj, processObj, roleslist, cliniclist } = props;
-  const { roleRef, clinicRef } = processObj;
+  const { errors, handleProcessObj, processObj, roleslist, cliniclist , specslist } = props;
+  const { roleRef, clinicRef , specsRef } = processObj;
 
   return (
     <>
@@ -49,6 +49,20 @@ export default function EntityAssignForm(props) {
             handleProcessObj={handleProcessObj}
             value={clinicRef || ""}
             placeholder="Select Clinic"
+            autoProps={{
+              getOptionLabel: (option) => option.name || "",
+            }}
+          />
+        </div>
+        <div className="mb-4">
+          <MuiAutoComplete
+            name="specsRef"
+            label="Assign Specialization"
+            error={errors.specsRef}
+            options={specslist}
+            handleProcessObj={handleProcessObj}
+            value={specsRef || ""}
+            placeholder="Select Specialization"
             autoProps={{
               getOptionLabel: (option) => option.name || "",
             }}

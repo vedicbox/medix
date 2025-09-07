@@ -66,7 +66,19 @@ export const dashboard_navigation = () => {
           uuid: parseModuleTag(DASH_TAG.CLINIC_MASTER).uuid,
           icon: ICON_NAME.CLINIC,
           path: DASHBOARD_ROUTE.MASTER.CLINIC,
+        }, 
+        {
+          name: parseModuleTag(DASH_TAG.DISEASE_MASTER).name,
+          uuid: parseModuleTag(DASH_TAG.DISEASE_MASTER).uuid,
+          icon: ICON_NAME.DISEASE,
+          path: DASHBOARD_ROUTE.MASTER.DISEASE,
         },
+        {
+          name: parseModuleTag(DASH_TAG.SPECIALIZATION_MASTER).name,
+          uuid: parseModuleTag(DASH_TAG.SPECIALIZATION_MASTER).uuid,
+          icon: ICON_NAME.SPECIALIZATION,
+          path: DASHBOARD_ROUTE.MASTER.SPECIALIZATION,
+        }
       ],
     },
   ];

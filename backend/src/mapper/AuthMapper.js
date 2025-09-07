@@ -7,7 +7,7 @@ class AuthMapper {
    * @returns {Object} User entity with required fields
    */
   static toUserEntity(profileData, orgRef) {
-    const { email, firstName, lastName, roleRef, clinicRef } = profileData;
+    const { email, firstName, lastName, roleRef, clinicRef , specsRef } = profileData;
 
     return {
       email,
@@ -17,6 +17,7 @@ class AuthMapper {
       roleRef,
       clinicRef,
       orgRef,
+      specsRef
     };
   }
 
@@ -26,13 +27,14 @@ class AuthMapper {
    * @returns {Object} Partial user entity with only provided fields
    */
   static toUserUpdateEntity(profileData) {
-    const { email, firstName, lastName, roleRef, clinicRef } = profileData;
+    const { email, firstName, lastName, roleRef, clinicRef, specsRef } = profileData;
     return {
       email,
       firstName: firstName,
       lastName: lastName,
       roleRef,
-      clinicRef
+      clinicRef,
+      specsRef
     };
   }
 

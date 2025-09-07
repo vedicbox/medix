@@ -4,12 +4,14 @@ const BASE_URL = env.BACKEND_ENDPOINT;
 
 const LOC_POINT = {
   ROLES: "roles",
+  SPECS: "specs",
   STAFF: "staff",
   PATIENT: "patient",
   CLINIC: "clinic",
   PAYMENT: "api/payment",
   APPOINT: "appoint",
   MODULE: "module",
+  DISEASE: "disease",
   ORG: "org"
 };
 
@@ -43,6 +45,15 @@ export const ROLE_ENDPOINT = {
   UPDATE_PERMISSIONS: `${BASE_URL}/${LOC_POINT.ROLES}/update-permissions`,
 };
 
+export const SPECS_ENDPOINT = {
+  // GET endpoints
+  GET_ALL: `${BASE_URL}/${LOC_POINT.SPECS}/fetch-all`,
+  GET_NAMES: `${BASE_URL}/${LOC_POINT.SPECS}/names`,
+  
+  // POST endpoints
+  CREATE: `${BASE_URL}/${LOC_POINT.SPECS}/create`,
+  UPDATE: `${BASE_URL}/${LOC_POINT.SPECS}/update`,
+}
 
 export const PATIENT_ENDPOINT = {
   SEARCH: `${BASE_URL}/${LOC_POINT.PATIENT}/search`,
@@ -72,6 +83,12 @@ export const MODULE_ENDPOINT = {
   CREATE: `${BASE_URL}/${LOC_POINT.MODULE}/create`,
   UPDATE: `${BASE_URL}/${LOC_POINT.MODULE}/update`,
   FIND_ALL: `${BASE_URL}/${LOC_POINT.MODULE}/fetch-all`,
+}
+
+export const DISEASE_ENDPOINT = {
+  CREATE: `${BASE_URL}/${LOC_POINT.DISEASE}/create`,
+  UPDATE: `${BASE_URL}/${LOC_POINT.DISEASE}/update`,
+  FIND_ALL: `${BASE_URL}/${LOC_POINT.DISEASE}/fetch-all`,
 }
 
 export const ORG_ENDPOINT = {

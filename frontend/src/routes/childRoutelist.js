@@ -6,6 +6,8 @@ import { ADMINISTRATOR_ROUTE, DASHBOARD_ROUTE, PARAMS_ROUTE, PATIENT_ROUTE } fro
 
 const FinancePage = Loadable(lazy(() => import("pages/dashboard/finance")));
 const MasterRolePage = Loadable(lazy(() => import("pages/dashboard/master/roles")));
+const MasterSpecializationPage = Loadable(lazy(() => import("pages/dashboard/master/specialization")));
+const MasterDiseasePage = Loadable(lazy(() => import("pages/dashboard/master/disease")));
 const OverViewPage = Loadable(lazy(() => import("pages/dashboard/overview")));
 const InitiatePatientConsultation = Loadable(lazy(() => import("pages/dashboard/patients/align")));
 const PatientsEnrollment = Loadable(lazy(() => import("pages/dashboard/patients/enroll")));
@@ -19,6 +21,9 @@ const PatientProfileUpdate = Loadable(lazy(() => import("pages/patientBoard/prof
 const ClinicMasterPage = Loadable(lazy(() => import("pages/dashboard/master/clinic")));
 const ClinicAddPage = Loadable(lazy(() => import("pages/dashboard/master/clinic/crud/add")));
 const ClinicUpdatePage = Loadable(lazy(() => import("pages/dashboard/master/clinic/crud/edit")));
+const DiseaseAddPage = Loadable(lazy(() => import("pages/dashboard/master/disease/crudForm/create")));
+const DiseaseUpdatePage =  Loadable(lazy(() => import("pages/dashboard/master/disease/crudForm/update")));
+
 const ModuleCreatePage = Loadable(lazy(() => import("pages/administrator/modules/crudForm/create")));
 const ModuleUpdatePage = Loadable(lazy(() => import("pages/administrator/modules/crudForm/update")));
 const OrgPage = Loadable(lazy(() => import("pages/administrator/organization")));
@@ -101,6 +106,38 @@ export const dashboard_crl = [
     baseProps: {
       element: <MasterRolePage />,
       title: "Role Master"
+    },
+  },
+  {
+    uuid: parseModuleTag(DASH_TAG.SPECIALIZATION_MASTER).uuid,
+    path: DASHBOARD_ROUTE.MASTER.SPECIALIZATION + "/" + PARAMS_ROUTE.WILD_CARD,
+    baseProps: {
+      element: <MasterSpecializationPage />,
+      title: "Specialization Master"
+    },
+  },
+  {
+    uuid: parseModuleTag(DASH_TAG.DISEASE_MASTER).uuid,
+    path: DASHBOARD_ROUTE.MASTER.DISEASE,
+    baseProps: {
+      element: <MasterDiseasePage />,
+      title: "Disease Master"
+    },
+  },  
+  {
+    uuid: parseModuleTag(DASH_TAG.DISEASE_MASTER).uuid,
+    path: DASHBOARD_ROUTE.MASTER.DISEASE + "/" + PARAMS_ROUTE.CREATE,
+    baseProps: {
+      element: <DiseaseAddPage />,
+      title: "Add Disease"
+    },
+  },
+  {
+    uuid: parseModuleTag(DASH_TAG.DISEASE_MASTER).uuid,
+    path: DASHBOARD_ROUTE.MASTER.DISEASE + "/" + PARAMS_ROUTE.UPDATE,
+    baseProps: {
+      element: <DiseaseUpdatePage />,
+      title: "Update Disease"
     },
   },
   {

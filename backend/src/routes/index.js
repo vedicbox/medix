@@ -6,7 +6,8 @@ import clinicRoute from "./master/clinicRoute.js";
 import patientRoute from "./patientRoute.js";
 import publishFilesRoute from "./PublishFilesRoute.js";
 import staffRoute from "./staffRoute.js";
-
+import specsRoute from './master/specsRoute.js';
+import diseaseRoute from './master/diseaseRoute.js';
 // API routes
 const routelist = [
   { path: "/auth", route: authRoute },
@@ -17,6 +18,9 @@ const routelist = [
   { path: "/publish", route: publishFilesRoute },
   { path: "/module", route: moduleRoute },
   { path: "/org", route: orgRoute },
+  { path: "/specs", route: specsRoute },
+  { path: "/disease", route: diseaseRoute },
+
 ];
 
 export default routelist;
