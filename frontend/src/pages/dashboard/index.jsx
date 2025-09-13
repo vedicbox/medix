@@ -1,7 +1,7 @@
 import ResponsiveDrawer from "components/drawer/ResponsiveDrawer";
-import { dashboard_navigation } from "list/navlist";
-import ChildRoutes from "routes/childRoute";
-import { dashboard_crl } from "routes/childRoutelist";
+import { dashboard_navigation } from "list/navlist/childNavlist";
+import ChildRoutes from "routes/panel/ChildRoutePanel";
+import { dashboard_crl } from "routes/panel-list/childRoutelist";
 
 export default function DashboardPage() {
   return (

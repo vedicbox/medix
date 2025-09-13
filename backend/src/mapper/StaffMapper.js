@@ -54,6 +54,16 @@ class StaffMapper {
     };
   }
 
+  static toCreateStaffMeeting(packet, orgRef) {
+    return {
+      staffRef: packet.staffRef,
+      orgRef,
+      dtFrom: packet.dtFrom,
+      dtTo: packet.dtTo,
+      meetingFrom: packet.meetingFrom,
+      meetingTo: packet.meetingTo,
+    };
+  }
 
 }
 

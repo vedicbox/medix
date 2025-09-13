@@ -1,12 +1,15 @@
+import { clinicService } from "service/master/clinicService";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { moduleService } from "service/adminstrator/moduleService";
 import { orgService } from "service/adminstrator/orgService";
 import { authService } from "service/auth/authService";
 import { roleService } from "service/auth/roleService";
-import { clinicService } from "service/clinicService";
+import { diseaseService } from "service/master/diseaseService";
+import { specService } from "service/master/specService";
 import { patientService } from "service/patientService";
-import { staffService } from "service/staffService";
+import { staffMService } from "service/staff/staffMService";
+import { staffService } from "service/staff/staffService";
 import rootReducer from "./root-reducer";
 
 export const store = configureStore({
@@ -18,9 +21,12 @@ export const store = configureStore({
     [authService.reducerPath]: authService.reducer,
     [roleService.reducerPath]: roleService.reducer,
     [staffService.reducerPath]: staffService.reducer,
+    [staffMService.reducerPath]: staffMService.reducer,
     [patientService.reducerPath]: patientService.reducer,
     [moduleService.reducerPath]: moduleService.reducer,
     [clinicService.reducerPath]: clinicService.reducer,
+    [diseaseService.reducerPath]: diseaseService.reducer,
+    [specService.reducerPath]: specService.reducer,
     [orgService.reducerPath]: orgService.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
@@ -31,10 +37,13 @@ export const store = configureStore({
     }).concat([
       authService.middleware,
       staffService.middleware,
+      staffMService.middleware,
       roleService.middleware,
       patientService.middleware,
       moduleService.middleware,
       clinicService.middleware,
+      diseaseService.middleware,
+      specService.middleware,
       orgService.middleware,
     ]),
 });

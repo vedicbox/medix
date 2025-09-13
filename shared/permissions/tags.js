@@ -1,3 +1,9 @@
+export const ACCESS_TAG = {
+    ADMIN: "0",
+    PUBLIC: "1"
+}
+
+
 export const DASH_TAG = {
     DASHBOARD: "dash",
     PATIENT: "patient",

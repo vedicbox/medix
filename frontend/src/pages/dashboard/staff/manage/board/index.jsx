@@ -1,4 +1,9 @@
+import StaffMeeting from "./staff-meetings";
 
 export default function ManageStaffBoard() {
-  return <>Manage Staff Board</>;
+  return (
+    <>
+      <StaffMeeting />
+    </>
+  );
 }

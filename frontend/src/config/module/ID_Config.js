@@ -3,7 +3,8 @@
  */
 
 export const MASTER_PERMISSION = {
-    ADMIN: "0"
+    ADMIN: "0",
+    PUBLIC: "1"
 }
 
 export const ID_MAPPING = {

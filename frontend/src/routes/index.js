@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import AppMarkLoader from 'components/loader/AppMarkLoader';
-import { routelist } from 'routes/routelist';
+import { routelist } from 'routes/panel/ParentRoutePanel';
 
 export default function Router() {
 

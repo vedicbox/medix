@@ -1,8 +1,15 @@
 import { AppBar } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import { useLocation, useNavigate } from "react-router-dom";
 export default function ScrollableTabs(props) {
-  const { navlist, indexVal, handleChange } = props;
+  const { navlist } = props;
+  const navigation = useNavigate();
+  const indexVal = useLocation().state?.index || 0;
+
+  const handleClick = (obj) => {
+    navigation(obj.pathname, { state: obj.state });
+  };
 
   return (
     <AppBar
@@ -12,15 +19,18 @@ export default function ScrollableTabs(props) {
       elevation={0}
     >
       <Tabs
-        value={indexVal}
-        onChange={handleChange}
+        value={Number(indexVal)}
         variant="scrollable"
         scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
         textColor="inherit"
       >
         {navlist.map((navObj) => (
-          <Tab key={navObj.label} sx={{ minWidth: 150 }} label={navObj.label} />
+          <Tab
+            key={navObj.label}
+            sx={{ minWidth: 150 }}
+            label={navObj.label}
+            onClick={() => handleClick(navObj.segment)}
+          />
         ))}
       </Tabs>
     </AppBar>

@@ -1,10 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { ORG_ENDPOINT } from "config/endpoints";
+import { ORG_ENDPOINT } from "service/utils/endpoints";
 import {
     httpConfig,
     httpMiddlewareBoundary,
     onHttpSuccess,
-} from "config/httpConfig";
+} from "service/utils/httpConfig";
 
 const ORG_API_PATH_KEY = "orgspace-api";
 

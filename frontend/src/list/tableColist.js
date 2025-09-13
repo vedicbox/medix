@@ -126,7 +126,83 @@ export const ADMINSTRATOR_TBCOL = {
 }
 
 export const DASHBOARD_TBCOL = {
-
+  disease: (props) => ({
+    key: "_id",
+    title: "Disease List",
+    isMenuAction: true,
+    isSubCol: true,
+    defaultProps: {
+      ...getBasicTbProperty(),
+    },
+    COLUMNS: [
+      columnHelper.accessor("name", {
+        header: "name",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+        Cell: ({ cell }) => getStatusContent(cell)
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Dt",
+      })
+    ],
+    subColObj: () => ({
+      key: "uuid",
+      title: "Sub Disease",
+      picker: "subDiseases",
+      defaultProps: {
+        ...getBasicTbProperty(),
+      },
+      columns: [
+        columnHelper.accessor("uuid", {
+          header: "UUID",
+        }),
+        columnHelper.accessor("name", {
+          header: "Name",
+        }),
+        columnHelper.accessor("status", {
+          header: "Status",
+          Cell: ({ cell }) => getStatusContent(cell)
+        }),
+      ]
+    })
+  }),
+  subdisease: (props) => ({
+    key: "_id",
+    title: "Sub Disease List",
+    defaultProps: {
+      ...getBasicTbProperty(),
+    },
+    COLUMNS: [
+      columnHelper.accessor("name", {
+        header: "Sub Disease",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+        Cell: ({ cell }) => getStatusContent(cell)
+      })
+    ]
+  }),
+  specialization: (props) => ({
+    key: "_id",
+    title: "Specialization List",
+    isMenuAction: true,
+    defaultProps: {
+      ...getBasicTbProperty(),
+    },
+    COLUMNS: [
+      columnHelper.accessor("name", {
+        header: "Specialization",
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Dt",
+      }),
+      columnHelper.accessor("status", {
+        header: "Status",
+        Cell: ({ cell }) => getStatusContent(cell)
+      }),
+    ]
+  }),
   clinic: (props) => ({
     key: "_id",
     title: "Clinic List",
@@ -152,6 +228,29 @@ export const DASHBOARD_TBCOL = {
         Cell: ({ cell }) => getStatusContent(cell)
       }),
     ]
+  }),
+  staffMeeting: (props) => ({
+    key: "_id",
+    title: "Staff Meeting",
+    isMenuAction: true,
+    COLUMNS: [
+      columnHelper.accessor("meetingFrom", {
+        header: "Meeting From",
+      }),
+      columnHelper.accessor("meetingTo", {
+        header: "Meeting To",
+      }),
+      columnHelper.accessor("dtFrom", {
+        header: "Date From",
+      }),
+      columnHelper.accessor("dtTo", {
+        header: "Date To",
+      }),
+      columnHelper.accessor("createdAt", {
+        header: "Created Dt",
+      }),
+    ],
+
   }),
   staff: (props) => ({
     key: "_id",

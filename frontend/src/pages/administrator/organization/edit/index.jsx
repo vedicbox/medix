@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import DisplayContent from "components/placeholder/DisplayContent";
 import ScrollableTabs from "components/tabs/ScrollableTabs";
-import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
+import CRUMB_NAV, { ADMINSTRATOR_CRUMB } from "list/crumb-list/crumbNav";
 import { useState } from "react";
 import AdminEditPage from "./adminEditPage";
 import OrgEditPage from "./orgEditPage";
@@ -25,7 +25,7 @@ export default function OrgModifyPage() {
 
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={ADMINSTRATOR_CRUMB.MODULE.UPDATE} />
+      <CollapsedBreadcrumbs breadlist={CRUMB_NAV.module.update} />
 
       <ScrollableTabs
         navlist={stepperSteps}

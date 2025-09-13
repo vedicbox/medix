@@ -15,8 +15,8 @@ const serviceloading_actn = (state, actionObj) => {
   state.serviceloading = actionObj.payload;
 };
 
-const toggleNavDrawer_actn = (state) => {
-  state.navDrawerStat = !state.navDrawerStat;
+const toggleNavDrawer_actn = (state, { payload }) => {
+  state.navDrawerStat = payload;
 };
 
 function snackbar_actn(state, actionObj) {

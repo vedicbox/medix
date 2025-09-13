@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
-import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
+import CRUMB_NAV, { ADMINSTRATOR_CRUMB } from "list/crumb-list/crumbNav";
 import { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateModuleMutation } from "service/adminstrator/moduleService";
@@ -33,7 +33,7 @@ export default function ModuleUpdatePage() {
 
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={ADMINSTRATOR_CRUMB.MODULE.UPDATE} />
+      <CollapsedBreadcrumbs breadlist={CRUMB_NAV.module.update} />
 
       <Grid container spacing={2} justifyContent="center">
         <Grid size={{ xs: 12, lg: 10 }}>

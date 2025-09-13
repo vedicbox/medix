@@ -1,6 +1,6 @@
 import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
-import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
+import CRUMB_NAV from "list/crumb-list/crumbNav";
 import PermissionUtils from "pages/utilPages/permissionUtil";
 import { useRef } from "react";
 import {
@@ -25,7 +25,7 @@ export default function OrgPermission() {
 
   return (
     <>
-      <ButtonBreadCrumbs breadlist={ADMINSTRATOR_CRUMB.ORG.PERMISSION} />
+      <ButtonBreadCrumbs breadlist={CRUMB_NAV.adminstrator.org.permission} />
 
       <PermissionUtils
         roles={rolePayload}

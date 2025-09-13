@@ -86,4 +86,10 @@ export default class ClinicRepo {
             .lean();
     }
 
+    static async isExists(query) {
+        const finalQuery = { ...query };
+        return ClinicDao.exists(finalQuery);
+    }
+
+
 }

@@ -1,464 +1,130 @@
+import {
+    alphaRequired,
+    emailRequired,
+    numericRequired,
+    optionalNumeric,
+    required,
+    requiredWithLength
+} from './ruleGenerator';
+
+// ========== Login Form ==========
 export const LOGIN_RULES = {
-    email: {
-        required: true,
-        email: true,
-        props: {
-            msgVariable: { label: "Email" },
-        }
-    },
-    orgCode: {
-        required: true,
-        props: {
-            msgVariable: { label: "Org Code " },
-        }
-    },
-    password: {
-        required: true,
-        minlength: 6,
-        props: {
-            msgVariable: {
-                label: "Password", count: 6
-            },
-        }
-
-    },
+    email: emailRequired("Email"),
+    orgCode: required("Org Code"),
+    password: requiredWithLength("Password", 6),
 };
 
+// ========== Staff Form ==========
 export const STAFF_FORM_RULES = {
-    firstName: {
-        required: true,
-        alpha: true,
-        props: {
-            msgVariable: { label: "First Name" },
-        }
-    },
-    lastName: {
-        required: true,
-        alpha: true,
-        props: {
-            msgVariable: { label: "Last Name" },
-        }
-    },
-    phone1: {
-        required: true,
-        numeric: true,
-        length: 10,
-        props: {
-            msgVariable: { label: "Phone No", count: 10 },
-
-        }
-    },
-    phone2: {
-        numeric: true,
-        length: 10,
-        props: {
-            msgVariable: { label: "Alternate Number", count: 10 },
-            optional: true
-        }
-
-    },
-    whatsappPref: {
-        required: true,
-        numeric: true,
-        props: {
-            msgVariable: { label: "Whatsapp No" },
-        }
-
-    },
-    email: {
-        required: true,
-        email: true,
-        props: {
-            msgVariable: { label: "Email Address" },
-        }
-
-    },
-    gender: {
-        required: true,
-        props: {
-            msgVariable: { label: "Gender" },
-        }
-    },
-    dob: {
-        required: true,
-        props: {
-            msgVariable: { label: "DOB" },
-        }
-    },
-    country: {
-        required: true,
-        props: {
-            msgVariable: { label: "Country" },
-        }
-    },
-    state: {
-        required: true,
-        props: {
-            msgVariable: { label: "State" },
-        }
-
-    },
-    city: {
-        required: true,
-        props: {
-            msgVariable: { label: "City" },
-        }
-
-    },
-    pincode: {
-        required: true,
-        numeric: true,
-        props: {
-            msgVariable: { label: "Pincode" },
-        }
-
-    },
-    address: {
-        required: true,
-        props: {
-            msgVariable: { label: "Address" },
-        }
-    },
-}
-
-export const ASSIGN_ENTITY_RULES = {
-    roleRef: {
-        required: true,
-        props: {
-            msgVariable: { label: "Role" },
-        }
-    },
-    clinicRef: {
-        required: true,
-        props: {
-            msgVariable: { label: "Clinic" },
-        }
-    },
-}
-
-
-export const PATIENT_FORM_RULES = {
-    firstName: {
-        required: true,
-        alpha: true,
-        props: {
-            msgVariable: { label: "First Name" },
-        }
-    },
-    lastName: {
-        required: true,
-        alpha: true,
-        props: {
-            msgVariable: { label: "Last Name" },
-        }
-    },
-    whatsappPref: {
-        required: true,
-        numeric: true,
-        props: {
-            msgVariable: { label: "Whatsapp No" },
-        }
-    },
-    email: {
-        required: true,
-        email: true,
-        props: {
-            msgVariable: { label: "Email Address" },
-        }
-    },
-    gender: {
-        required: true,
-        props: {
-            msgVariable: { label: "Gender" },
-        }
-    },
-    dob: {
-        required: true,
-        props: {
-            msgVariable: { label: "DOB" },
-        }
-    },
-    country: {
-        required: true,
-        props: {
-            msgVariable: { label: "Country" },
-        }
-    },
-    state: {
-        required: true,
-        props: {
-            msgVariable: { label: "State" },
-        }
-    },
-    city: {
-        required: true,
-        props: {
-            msgVariable: { label: "City" },
-        }
-    },
-    pincode: {
-        required: true,
-        numeric: true,
-        props: {
-            msgVariable: { label: "Pincode" },
-        }
-    },
-    addr1: {
-        required: true,
-        props: {
-            msgVariable: { label: "Address-1" },
-        }
-    },
-    weight: {
-        required: true,
-        numeric: true,
-        props: {
-            msgVariable: { label: "Weight" },
-        }
-    },
-    age: {
-        required: true,
-        numeric: true,
-        props: {
-            msgVariable: { label: "Age" },
-        }
-    },
-    phone1: {
-        required: true,
-        numeric: true,
-        length: 10,
-        props: {
-            msgVariable: { label: "Phone No", count: 10 },
-        }
-    },
-    phone2: {
-        numeric: true,
-        length: 10,
-        props: {
-            msgVariable: { label: "Alternate Number", count: 10 },
-            optional: true
-        }
-    },
-    height: {
-        required: true,
-        props: {
-            msgVariable: { label: "Height" },
-        }
-    },
-    martial: {
-        required: true,
-        props: {
-            msgVariable: { label: "Marital" },
-        }
-    },
+    firstName: alphaRequired("First Name"),
+    lastName: alphaRequired("Last Name"),
+    phone1: numericRequired("Phone No", 10),
+    phone2: optionalNumeric("Alternate Number", 10),
+    whatsappPref: numericRequired("Whatsapp No"),
+    email: emailRequired("Email Address"),
+    gender: required("Gender"),
+    dob: required("DOB"),
+    country: required("Country"),
+    state: required("State"),
+    city: required("City"),
+    pincode: numericRequired("Pincode"),
+    address: required("Address"),
 };
 
+// ========== Assign Entity ==========
+export const ASSIGN_ENTITY_RULES = {
+    roleRef: required("Role"),
+    clinicRef: required("Clinic"),
+};
+
+// ========== Patient Form ==========
+export const PATIENT_FORM_RULES = {
+    firstName: alphaRequired("First Name"),
+    lastName: alphaRequired("Last Name"),
+    whatsappPref: numericRequired("Whatsapp No"),
+    email: emailRequired("Email Address"),
+    gender: required("Gender"),
+    dob: required("DOB"),
+    country: required("Country"),
+    state: required("State"),
+    city: required("City"),
+    pincode: numericRequired("Pincode"),
+    addr1: required("Address-1"),
+    weight: numericRequired("Weight"),
+    age: numericRequired("Age"),
+    phone1: numericRequired("Phone No", 10),
+    phone2: optionalNumeric("Alternate Number", 10),
+    height: required("Height"),
+    martial: required("Marital"),
+};
+
+// ========== Search Field ==========
 export const SEARCH_FIELD_RULE = {
-    phone: {
-        required: true,
-        numeric: true,
-        length: 10,
-        props: {
-            msgVariable: { label: "Phone No" },
-        }
+    phone: numericRequired("Phone No", 10),
+};
 
-    }
-}
-
+// ========== Collect Fee ==========
 export const COLLECT_FEE_RULE = {
-    assignDoc: {
-        required: true,
-        props: {
-            msgVariable: { label: "Assign Doctor" },
-        }
-    },
+    assignDoc: required("Assign Doctor"),
     transId: {
         required: true,
         props: {
             msgVariable: { label: "Transaction Id" },
-            optional: true
-        }
+            optional: true,
+        },
     },
-    payMode: {
-        required: true,
-        props: {
-            msgVariable: { label: "Payment Mode" },
-        }
-    },
-    fee: {
-        required: true,
-        numeric: true,
-        props: {
-            msgVariable: { label: "Consultation Fee" },
-        }
-    },
-}
+    payMode: required("Payment Mode"),
+    fee: numericRequired("Consultation Fee"),
+};
 
+// ========== Roles Form ==========
 export const ROLES_FORM_RULES = {
-    name: {
-        required: true,
-        alpha: true,
-        props: {
-            msgVariable: { label: "Role Name" },
-        }
-    },
-    status: {
-        required: true,
-        props: {
-            msgVariable: { label: "Status" },
-        }
-    },
-
+    name: alphaRequired("Role Name"),
+    status: required("Status"),
 };
 
+// ========== Module Form ==========
 export const MODULE_FORM_RULES = {
-    name: {
-        required: true,
-        alpha: true,
-        props: {
-            msgVariable: { label: "Name" },
-        }
-    },
-    tag: {
-        required: true,
-        props: {
-            msgVariable: { label: "Tag" },
-        }
-    },
-    category: {
-        required: true,
+    name: alphaRequired("Name"),
+    tag: required("Tag"),
+    category: required("Category"),
+};
 
-        props: {
-            msgVariable: { label: "Category" },
-        }
-    },
+// ========== Clinic Form ==========
+export const CLINIC_FORM_RULES = {
+    name: required("Clinic Name"),
+    gstNo: required("Gst No"),
+    shortDesc: alphaRequired("Short Description"),
+    phone1: numericRequired("Phone No", 10),
+    phone2: optionalNumeric("Alternate Number", 10),
+    email: emailRequired("Email Address"),
+    country: required("Country"),
+    state: required("State"),
+    city: required("City"),
+    pincode: numericRequired("Pincode"),
+    address: required("Address"),
+    shiftFrom: required("Shift From"),
+    shiftTo: required("Shift To"),
+    weekOff: required("Week Off"),
+};
+
+// ========== Organization Form ==========
+export const ORG_FORM_RULES = {
+    name: required("Organization Name"),
+    orgCode: required("OrgCode"),
+    category: required("Category"),
+    status: required("Status"),
+};
+
+// ========== Disease Form ==========
+export const DISEASE_FORM_RULES = {
+    name: alphaRequired("Name"),
+    status: required("Status"),
 };
 
 
-
-export const CLINIC_FORM_RULES = {
-    name: {
-        required: true,
-        props: {
-            msgVariable: { label: "Clinic Name" },
-        }
-    },
-    gstNo: {
-        required: true,
-        props: {
-            msgVariable: { label: "Gst No" },
-        }
-    },
-    shortDesc: {
-        required: true,
-        alpha: true,
-        props: {
-            msgVariable: { label: "Short Description" },
-        }
-    },
-    phone1: {
-        required: true,
-        numeric: true,
-        length: 10,
-        props: {
-            msgVariable: { label: "Phone No", count: 10 },
-
-        }
-    },
-    phone2: {
-        numeric: true,
-        length: 10,
-        props: {
-            msgVariable: { label: "Alternate Number", count: 10 },
-            optional: true
-        }
-
-    },
-    email: {
-        required: true,
-        email: true,
-        props: {
-            msgVariable: { label: "Email Address" },
-        }
-
-    },
-    country: {
-        required: true,
-        props: {
-            msgVariable: { label: "Country" },
-        }
-    },
-    state: {
-        required: true,
-        props: {
-            msgVariable: { label: "State" },
-        }
-
-    },
-    city: {
-        required: true,
-        props: {
-            msgVariable: { label: "City" },
-        }
-
-    },
-    pincode: {
-        required: true,
-        numeric: true,
-        props: {
-            msgVariable: { label: "Pincode" },
-        }
-
-    },
-    address: {
-        required: true,
-        props: {
-            msgVariable: { label: "Address" },
-        }
-    },
-    shiftFrom: {
-        required: true,
-        props: {
-            msgVariable: { label: "Shift From" },
-        }
-    },
-    shiftTo: {
-        required: true,
-        props: {
-            msgVariable: { label: "Shift To" },
-        }
-    },
-    weekOff: {
-        required: true,
-        props: {
-            msgVariable: { label: "Week Off" },
-        }
-    },
-}
-
-export const ORG_FORM_RULES = {
-    name: {
-        required: true,
-        props: {
-            msgVariable: { label: "Organization Name" },
-        }
-    },
-    orgCode: {
-        required: true,
-        props: {
-            msgVariable: { label: "OrgCode" },
-        }
-    },
-    category: {
-        required: true,
-        props: {
-            msgVariable: { label: "Category" },
-        }
-    },
-    status: {
-        required: true,
-        props: {
-            msgVariable: { label: "Status" },
-        }
-    },
-}
+// ========== Specs Form ==========
+export const SPECS_FORM_RULES = {
+    name: alphaRequired("Name"),
+    status: required("Status"),
+};

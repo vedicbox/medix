@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import PatientFormUtil from "components/forms/patients/enroll/PatientDetailUtil";
-import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
+import CRUMB_NAV, { PATIENT_CRUMB } from "list/crumb-list/crumbNav";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEnrollPatientMutation } from "service/patientService";
@@ -33,7 +33,7 @@ export default function PatientEnroll() {
 
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.PATIENTS.ENROLL} />
+      <CollapsedBreadcrumbs breadlist={CRUMB_NAV.patient.create} />
 
       <Grid container justifyContent="center">
         <Grid size={{ xs: 12, lg: 10 }}>

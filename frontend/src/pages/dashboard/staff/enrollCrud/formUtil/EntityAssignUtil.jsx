@@ -1,7 +1,7 @@
 import EntityAssignForm from "components/forms/staff/EntityAssignForm";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useGetRoleNamesQuery } from "service/auth/roleService";
-import { useGetClinicNamesQuery } from "service/clinicService";
+import { useGetClinicNamesQuery } from "service/master/clinicService";
 import { ASSIGN_ENTITY_RULES } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
 

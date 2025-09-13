@@ -1,14 +1,14 @@
+import CRUMB_NAV, { MASTER_CRUMB } from "list/crumb-list/crumbNav";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
-import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   useEditClinicQuery,
   useUpdateClinicMutation,
-} from "service/clinicService";
-import ClinicFormUtil from "../ClinicFormUtil";
+} from "service/master/clinicService";
 import { HTTP_STATUS_CODES } from "values/enum";
+import ClinicFormUtil from "../ClinicFormUtil";
 
 export default function ClinicUpdatePage() {
   const formRef = useRef(null);
@@ -41,7 +41,8 @@ export default function ClinicUpdatePage() {
 
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.MASTER.CLINIC.UPDATE} />
+      <CollapsedBreadcrumbs breadlist={CRUMB_NAV.master.clinic.update} />
+
       <ClinicFormUtil
         processObj={processObj}
         setProcessObj={setProcessObj}

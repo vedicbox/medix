@@ -65,7 +65,7 @@ export default function ClassicMenu(props) {
 
   const handleAction = (itemObj) => {
     if (itemObj.link) {
-      navigate(itemObj.link?.pathname, { state: itemObj.link?.stateDat });
+      navigate(itemObj.link?.pathname, { state: itemObj.link?.state });
     } else if (itemObj.handler) {
       itemObj.handler();
     }

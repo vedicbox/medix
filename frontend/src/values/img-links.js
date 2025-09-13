@@ -20,13 +20,16 @@ export const AVATAR_IMG = {
 
 export const ICON_NAME = {
   DASHBOARD: "akar-icons:dashboard",
-  HEART_OUTLINE: "material-symbols-light:ecg-heart-outline",
+  STAFF_MEETING:"tdesign:user-time",
+  PATIENT: "material-symbols:outpatient-med-outline-rounded",
   WAITLIST: "fluent-mdl2:waitlist-confirm",
   TEAMS: "fluent:people-team-20-regular",
   MANAGEMENT: "carbon:id-management",
   MASTER: "hugeicons:master-card",
   ROLE: "eos-icons:role-binding-outlined",
-  CLINIC: "material-symbols:help-clinic-outline-rounded",
+  CLINIC: "healthicons:ambulatory-clinic-outline-24px",
+  DISEASE:"fa7-solid:disease",
+  SPECS:"icon-park-twotone:category-management",
   SEARCH_DUOTONE: "lets-icons:search-duotone",
   ADD_NEW: "basil:add-solid",
   ADD_CHAT: "fluent-color:chat-add-28",

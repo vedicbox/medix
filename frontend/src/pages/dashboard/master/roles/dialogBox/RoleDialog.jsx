@@ -1,22 +1,22 @@
 import { Button } from "@mui/material";
 import ClassicDialog from "components/dialog/ClassicDialog";
 import Iconify from "components/icons/Iconify";
+import { DASH_TAG } from "config/module/tags";
 import { memo, useCallback, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import ChildRoutes from "routes/childRoute";
+import ChildRoutes from "routes/panel/ChildRoutePanel";
 import { PARAMS_ROUTE } from "routes/routeurl";
 import {
   useCreateRoleMutation,
   useUpdateRoleMutation,
 } from "service/auth/roleService";
+import { parseModuleTag } from "utils/parse";
 import { ROLES_FORM_RULES } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
 import { HTTP_STATUS_CODES } from "values/enum";
 import { ICON_NAME } from "values/img-links";
 import CreateRole from "./CreateRole";
 import UpdateRole from "./UpdateRole";
-import { parseModuleTag } from "utils/parse";
-import { DASH_TAG } from "config/module/tags";
 
 // Memoized Dialog Container to prevent unnecessary re-renders
 const DialogContainer = memo(
@@ -32,7 +32,7 @@ const DialogContainer = memo(
   )
 );
 
-export default function RoleDialogBox({ dialogObj, setDialogObj }) {
+export default function RoleDialogBox() {
   const navigate = useNavigate();
   const formRef = useRef(null);
   const [createRoleMutation] = useCreateRoleMutation();
@@ -82,7 +82,6 @@ export default function RoleDialogBox({ dialogObj, setDialogObj }) {
     handleMutationResponse(data, error);
   }, [updateRoleMutation, handleMutationResponse]);
 
-  // These don't need to be memoized as they're simple and stable
   const createBoxAction = (
     <Button
       variant="contained"
@@ -103,7 +102,6 @@ export default function RoleDialogBox({ dialogObj, setDialogObj }) {
     </Button>
   );
 
-  // Memoize the route elements to prevent re-renders when parent state changes
   const createRouteElement = useMemo(
     () => (
       <DialogContainer

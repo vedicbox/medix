@@ -1,5 +1,5 @@
 
-import ClinicMapper from "@mapper/ClinicMapper.js";
+import ClinicMapper from "@mapper/master/ClinicMapper.js";
 import ClinicRepo from "@repo/master/ClinicRepo.js";
 import MESSAGES from "@utils/message.js";
 import { formatMsg } from "@utils/parse.js";

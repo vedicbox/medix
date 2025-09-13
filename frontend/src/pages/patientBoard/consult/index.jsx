@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useInitiateConsultMutation } from "service/patientService";
-import { useFetchStaffListByRoleQuery } from "service/staffService";
+import { useFetchStaffListByRoleQuery } from "service/staff/staffService";
 import { COLLECT_FEE_RULE } from "utils/security/ruleBox";
 import { useFormValidation } from "utils/security/useFormValidation";
 import { HTTP_STATUS_CODES } from "values/enum";

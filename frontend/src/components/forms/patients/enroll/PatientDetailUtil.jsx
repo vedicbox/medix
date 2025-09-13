@@ -1,6 +1,9 @@
 import PatientAddressForm from "components/forms/patients/enroll/AddressDetails";
 import PatientContactForm from "components/forms/patients/enroll/ContactDetails";
 import PatientDetailsForm from "components/forms/patients/enroll/PatientDetails";
+import ValidPermission from "components/placeholder/ValidPermission";
+import { ID_MAPPING } from "config/module/ID_Config";
+import { DASH_TAG } from "config/module/tags";
 import {
   forwardRef,
   useEffect,
@@ -126,13 +129,15 @@ const PatientFormUtil = forwardRef((props, ref) => {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        <PatientContactForm
-          errors={errors}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          processObj={processObj}
-          handleProcessObj={handleProcessObj}
-        />
+        <ValidPermission uuid={ID_MAPPING[DASH_TAG.ALIGN_PT].uuid}>
+          <PatientContactForm
+            errors={errors}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            processObj={processObj}
+            handleProcessObj={handleProcessObj}
+          />
+        </ValidPermission>
         <PatientAddressForm
           errors={errors}
           onChange={handleChange}

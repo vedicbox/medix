@@ -3,8 +3,8 @@ import {
     httpConfig,
     httpMiddlewareBoundary,
     onHttpSuccess
-} from "../config/httpConfig";
-import { FILE_PUBLISH_ENDPOINT } from "../config/endpoints";
+} from "./utils/httpConfig";
+import { FILE_PUBLISH_ENDPOINT } from "./utils/endpoints";
 
 const FILE_PUBLISH_API_PATH_KEY = "file-publish-api";
 

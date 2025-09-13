@@ -1,13 +1,13 @@
+import CRUMB_NAV, { STAFF_CRUMB } from "list/crumb-list/crumbNav";
 import { Grid } from "@mui/material";
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
-import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   useGetStaffByIdQuery,
   useUpdateStaffProfileMutation,
-} from "service/staffService";
+} from "service/staff/staffService";
 import { HTTP_STATUS_CODES } from "values/enum";
 import EntityAssignUtil from "../formUtil/EntityAssignUtil";
 import StaffFormUtil from "../formUtil/StaffFormUtil";
@@ -55,7 +55,7 @@ export default function UpdateStaff() {
 
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.STAFF.EDIT} />
+      <CollapsedBreadcrumbs breadlist={CRUMB_NAV.staff.update} />
 
       <Grid container justifyContent="center">
         <Grid size={{ xs: 12, lg: 10 }}>

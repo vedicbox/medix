@@ -68,6 +68,10 @@ const UserSchema = new mongoose.Schema(
       ref: "clinic_masters",
       required: false,
     },
+    specsRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "specializations"
+    }
   },
   {
     timestamps: {

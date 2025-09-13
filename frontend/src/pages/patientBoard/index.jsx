@@ -1,9 +1,9 @@
 import ResponsiveDrawer from "components/drawer/ResponsiveDrawer";
-import { patientboard_navigation } from "list/navlist";
+import { patientboard_nav } from "list/navlist/childNavlist";
 import PageNotFound from "pages/other/PageNotFound";
 import { useParams } from "react-router-dom";
-import ChildRoutes from "routes/childRoute";
-import { patientboard_crl } from "routes/childRoutelist";
+import ChildRoutes from "routes/panel/ChildRoutePanel";
+import { patientboard_crl } from "routes/panel-list/childRoutelist";
 import { useValidatePatientQuery } from "service/patientService";
 
 export default function PatientDashboard() {
@@ -17,7 +17,7 @@ export default function PatientDashboard() {
   }
 
   return (
-    <ResponsiveDrawer navlist={patientboard_navigation(caseId)}>
+    <ResponsiveDrawer navlist={patientboard_nav(caseId)}>
       <ChildRoutes routelist={patientboard_crl} />
     </ResponsiveDrawer>
   );

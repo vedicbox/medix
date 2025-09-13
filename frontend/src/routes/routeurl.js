@@ -36,8 +36,13 @@ export const DASHBOARD_ROUTE = {
   },
   MASTER: {
     ROLES: "/master/roles",
-    CLINIC: "/master/clinic"
+    CLINIC: "/master/clinic",
+    DISEASE: {
+      INDEX: "/master/disease",
+      SPEC: "/master/disease/spec"
+    }
   },
+
 };
 
 export const ADMINISTRATOR_ROUTE = {

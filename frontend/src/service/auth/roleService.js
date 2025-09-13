@@ -1,10 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { ROLE_ENDPOINT } from "config/endpoints";
+import { ROLE_ENDPOINT } from "service/utils/endpoints";
 import {
   httpConfig,
   httpMiddlewareBoundary,
   onHttpSuccess,
-} from "config/httpConfig";
+} from "service/utils/httpConfig";
 
 const ROLE_API_PATH_KEY = "role-api";
 

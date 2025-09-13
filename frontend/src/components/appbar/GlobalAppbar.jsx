@@ -4,11 +4,11 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import BrandWrapper from "components/company/BrandWrapper";
 import Iconify from "components/icons/Iconify";
+import DisplayContent from "components/placeholder/DisplayContent";
 import HeaderProfilePopover from "components/popover/AccountPopover";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNavDrawer_slice } from "store/root-reducer/global";
 import { ICON_NAME } from "values/img-links";
-import DisplayContent from "components/placeholder/DisplayContent";
 
 export default function GlobalAppbar(props) {
   const { drawerStat = true } = props;
@@ -16,7 +16,7 @@ export default function GlobalAppbar(props) {
   const navDrawerStat = useSelector((state) => state.global.navDrawerStat);
 
   const toggleNavBar = () => {
-    dispatch(toggleNavDrawer_slice());
+    dispatch(toggleNavDrawer_slice(!navDrawerStat));
   };
 
   return (
@@ -29,12 +29,7 @@ export default function GlobalAppbar(props) {
       >
         <Toolbar>
           <DisplayContent valid1={drawerStat}>
-            <IconButton
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-              onClick={toggleNavBar}
-            >
+            <IconButton onClick={toggleNavBar}>
               <Iconify
                 icon={
                   navDrawerStat

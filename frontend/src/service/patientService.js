@@ -1,11 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { patientInit_slc } from "store/root-reducer/patient";
-import { PATIENT_ENDPOINT } from "../config/endpoints";
+import { PATIENT_ENDPOINT } from "./utils/endpoints";
 import {
     httpConfig,
     httpMiddlewareBoundary,
     onHttpSuccess,
-} from "../config/httpConfig";
+} from "./utils/httpConfig";
 
 const PATIENT_API_PATH_KEY = "patient-api";
 

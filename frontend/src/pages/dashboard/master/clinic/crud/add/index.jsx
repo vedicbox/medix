@@ -1,9 +1,9 @@
 import CollapsedBreadcrumbs from "components/breadcrumb/CollapsedBreadcrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
-import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
+import CRUMB_NAV, { MASTER_CRUMB } from "list/crumb-list/crumbNav";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCreateClinicMutation } from "service/clinicService";
+import { useCreateClinicMutation } from "service/master/clinicService";
 import { HTTP_STATUS_CODES } from "values/enum";
 import ClinicFormUtil from "../ClinicFormUtil";
 
@@ -32,7 +32,8 @@ export default function ClinicAddPage() {
 
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={DASHBOARD_CRUMB.MASTER.CLINIC.CREATE} />
+      <CollapsedBreadcrumbs breadlist={CRUMB_NAV.master.clinic.create} />
+
       <ClinicFormUtil
         processObj={processObj}
         setProcessObj={setProcessObj}

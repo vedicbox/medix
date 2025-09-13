@@ -1,10 +1,10 @@
+import { crumbChild } from "list/crumb-list/crumbChild";
 import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
 import MuiSubmitBtn from "components/button/MuiSubmitBtn";
-import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
+import CRUMB_NAV from "list/crumb-list/crumbNav";
 import PermissionUtils from "pages/utilPages/permissionUtil";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { PARAMS_ROUTE } from "routes/routeurl";
 import {
   useGetAllRolesQuery,
   useUpdateRolePermissionsMutation,
@@ -40,21 +40,11 @@ export default function MasterRolePage() {
     await updatePermissions(formData).unwrap();
   };
 
-  const topBar = [
-    {
-      label: "Create Role",
-      icon: "basil:add-solid",
-      link: {
-        pathname: PARAMS_ROUTE.CREATE,
-      },
-    },
-  ];
-
   return (
     <>
       <ButtonBreadCrumbs
-        breadlist={DASHBOARD_CRUMB.ROLES.MANAGE}
-        topBar={topBar}
+        breadlist={CRUMB_NAV.master.roles.manage}
+        topBar={crumbChild.create}
       />
 
       <PermissionUtils

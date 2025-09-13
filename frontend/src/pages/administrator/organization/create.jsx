@@ -4,7 +4,7 @@ import MuiSubmitBtn from "components/button/MuiSubmitBtn";
 import Iconify from "components/icons/Iconify";
 import DisplayContent from "components/placeholder/DisplayContent";
 import ClassicStepper from "components/stepper/ClassicStepper";
-import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
+import CRUMB_NAV from "list/crumb-list/crumbNav";
 import StaffFormUtil from "pages/dashboard/staff/enrollCrud/formUtil/StaffFormUtil";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +57,7 @@ export default function OrgCreatePage() {
 
   return (
     <>
-      <CollapsedBreadcrumbs breadlist={ADMINSTRATOR_CRUMB.MODULE.CREATE} />
+      <CollapsedBreadcrumbs breadlist={CRUMB_NAV.org.create} />
 
       <ClassicStepper steps={stepperSteps} activeStep={pageIndex} />
 

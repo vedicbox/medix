@@ -1,7 +1,8 @@
 import { Grid } from "@mui/material";
 import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
 import MuiClassicTable from "components/table/MuiClassicTable";
-import { ADMINSTRATOR_CRUMB } from "list/breadcrumb-list";
+import { crumbChild } from "list/crumb-list/crumbChild";
+import CRUMB_NAV from "list/crumb-list/crumbNav";
 import { org_mnlst } from "list/menulist";
 import { ADMINSTRATOR_TBCOL } from "list/tableColist";
 import { useNavigate } from "react-router-dom";
@@ -40,21 +41,11 @@ export default function OrgPage() {
     };
   };
 
-  const topBar = [
-    {
-      label: "Create",
-      icon: "basil:add-solid",
-      link: {
-        pathname: PARAMS_ROUTE.CREATE,
-      },
-    },
-  ];
-
   return (
     <>
       <ButtonBreadCrumbs
-        breadlist={ADMINSTRATOR_CRUMB.ORG.INDEX}
-        topBar={topBar}
+        breadlist={CRUMB_NAV.adminstrator.org.index}
+        topBar={crumbChild.create}
       />
 
       <Grid container spacing={2} justifyContent="center">

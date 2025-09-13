@@ -1,11 +1,13 @@
 import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
 import MuiClassicTable from "components/table/MuiClassicTable";
-import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
+import { crumbChild } from "list/crumb-list/crumbChild";
+import CRUMB_NAV from "list/crumb-list/crumbNav";
 import { staff_mnlst } from "list/menulist";
 import { DASHBOARD_TBCOL } from "list/tableColist";
 import { useNavigate } from "react-router-dom";
-import { DASHBOARD_ROUTE, PARAMS_ROUTE } from "routes/routeurl";
-import { useFetchAllStaffQuery } from "service/staffService";
+import { DASHBOARD_ROUTE } from "routes/routeurl";
+import { ROUTE_PARAMS } from "routes/segment/routeSegment";
+import { useFetchAllStaffQuery } from "service/staff/staffService";
 import { formatMsg } from "utils/security/validation";
 import { PLACEHOLDER_IMG } from "values/img-links";
 import { PLACEHOLDER_MSG } from "values/messages";
@@ -22,7 +24,7 @@ export default function StaffManagePage() {
   let staffTbData = tbData?.payload?.stafflist || [];
 
   const handleEdit = (row) => {
-    navigate(PARAMS_ROUTE.EDIT, {
+    navigate(ROUTE_PARAMS.update, {
       state: { userId: row.userRef._id, staffId: row._id },
     });
   };
@@ -40,21 +42,11 @@ export default function StaffManagePage() {
     };
   };
 
-  const topBar = [
-    {
-      label: "Enroll Staff",
-      icon: "basil:add-solid",
-      link: {
-        pathname: PARAMS_ROUTE.ENROLL,
-      },
-    },
-  ];
-
   return (
     <>
       <ButtonBreadCrumbs
-        breadlist={DASHBOARD_CRUMB.STAFF.MANAGE}
-        topBar={topBar}
+        breadlist={CRUMB_NAV.staff.manage}
+        topBar={crumbChild.create}
       />
 
       <MuiClassicTable

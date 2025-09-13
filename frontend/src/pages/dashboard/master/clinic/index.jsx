@@ -1,12 +1,13 @@
-import { formatMsg } from "utils/security/validation";
+import { ROUTE_PARAMS } from "routes/segment/routeSegment";
 import ButtonBreadCrumbs from "components/breadcrumb/ButtonBreadCrumbs";
 import MuiClassicTable from "components/table/MuiClassicTable";
-import { DASHBOARD_CRUMB } from "list/breadcrumb-list";
+import { crumbChild } from "list/crumb-list/crumbChild";
+import CRUMB_NAV from "list/crumb-list/crumbNav";
 import { crud_mnlst } from "list/menulist";
 import { DASHBOARD_TBCOL } from "list/tableColist";
 import { useNavigate } from "react-router-dom";
-import { PARAMS_ROUTE } from "routes/routeurl";
-import { useFetchAllClinicsQuery } from "service/clinicService";
+import { useFetchAllClinicsQuery } from "service/master/clinicService";
+import { formatMsg } from "utils/security/validation";
 import { PLACEHOLDER_IMG } from "values/img-links";
 import { PLACEHOLDER_MSG } from "values/messages";
 
@@ -22,7 +23,7 @@ export default function ClinicFormUtil() {
   let clinicTbData = tbData?.payload?.clinics || [];
 
   const handleEdit = (row) => {
-    navigate(PARAMS_ROUTE.UPDATE, {
+    navigate(ROUTE_PARAMS.update, {
       state: { clinicId: row._id },
     });
   };
@@ -33,21 +34,11 @@ export default function ClinicFormUtil() {
     };
   };
 
-  const topBar = [
-    {
-      label: "Add Clinic",
-      icon: "basil:add-solid",
-      link: {
-        pathname: PARAMS_ROUTE.CREATE,
-      },
-    },
-  ];
-
   return (
     <>
       <ButtonBreadCrumbs
-        breadlist={DASHBOARD_CRUMB.MASTER.CLINIC.INDEX}
-        topBar={topBar}
+        breadlist={CRUMB_NAV.master.clinic.index}
+        topBar={crumbChild.create}
       />
 
       <MuiClassicTable

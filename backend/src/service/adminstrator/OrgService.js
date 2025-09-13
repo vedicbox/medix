@@ -4,7 +4,7 @@ import StaffMapper from "@mapper/StaffMapper.js";
 import OrgRepo from "@repo/adminstrator/OrgRepo.js";
 import AuthRepo from "@repo/auth/AuthRepo.js";
 import RoleRepo from "@repo/auth/RoleRepo.js";
-import StaffProfileRepo from "@repo/StaffRepo.js";
+import StaffProfileRepo from "@repo/staff/StaffRepo.js";
 import MESSAGES from "@utils/message.js";
 import { formatMsg } from "@utils/parse.js";
 import { ServiceResponse } from "@utils/responseHandler.js";

@@ -1,5 +1,5 @@
 import { Alert, Snackbar } from "@mui/material";
-import BackMark from "components/icons/BackMark";
+import BottomNavigation from "components/appbar/BottomAppBar";
 import LinearIndeterminate from "components/loader/LinearIndeterminate";
 import { switchAppBar } from "components/other/SwitchComp";
 import DisplayContent from "components/placeholder/DisplayContent";
@@ -48,9 +48,7 @@ export default function BaseWrapper(props) {
       </DisplayContent>
 
       <WrappedComponent />
-      <DisplayContent valid1={backDirect}>
-        <BackMark />
-      </DisplayContent>
+      <BottomNavigation />
     </>
   );
 }
